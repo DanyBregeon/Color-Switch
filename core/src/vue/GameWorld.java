@@ -12,11 +12,11 @@ public class GameWorld {
 	private Personnage bille;
 
 	public GameWorld(float milieuX) {
-		bille = new Personnage(milieuX,102,30,60,5,10);
+		bille = new Personnage(milieuX,408,640,40,16);
 	}
 	
 	public void update(float delta) {
-        Gdx.app.log("GameWorld", "update");
+        //Gdx.app.log("GameWorld", "update");
         //test rectangle
         rect.x++;
         if (rect.x > 137) {

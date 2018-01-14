@@ -15,12 +15,12 @@ public class GameRenderer {
     public GameRenderer(GameWorld world) {
         myWorld = world;
         cam = new OrthographicCamera();
-        cam.setToOrtho(true, 136, 204); //width = 136, height = 204
+        cam.setToOrtho(true, 544, 816); //width = 136, height = 204
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
     }
 	public void render() {
-        Gdx.app.log("GameRenderer", "render");
+        //Gdx.app.log("GameRenderer", "render");
         //Dessine un fond noir
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

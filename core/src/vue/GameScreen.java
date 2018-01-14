@@ -15,7 +15,7 @@ public class GameScreen implements Screen{
         Gdx.app.log("GameScreen", "Attached");
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
-        float gameWidth = 136;
+        float gameWidth = 544;
         float gameHeight = screenHeight / (screenWidth / gameWidth);
 
         int milieuX = (int) (gameWidth / 2);
@@ -38,8 +38,10 @@ public class GameScreen implements Screen{
         //Gdx.gl.glClearColor(10/255.0f, 15/255.0f, 230/255.0f, 1f);
         // Rempli la fenetre avec la couleur
         //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		
         // Affiche les fps
-        Gdx.app.log("GameScreen FPS", (1/delta) + "");
+        //Gdx.app.log("GameScreen FPS", (1/delta) + "");
 	}
 
 	@Override
