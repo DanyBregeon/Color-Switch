@@ -15,9 +15,9 @@ public class GameWorld {
 		bille = new Personnage(milieuX,408,640,40,16);
 		//bille = new Personnage(milieuX,408,16,1,16);
 		obstacles = new Obstacle[3];
-		obstacles[0] = new BarreHorizontale(0, 200, 1,1,1);
-		obstacles[1] = new BarreHorizontale(0, -200, 1,1,1);
-		obstacles[2] = new BarreHorizontale(0, -600, 1,1,1);
+		obstacles[0] = new BarreHorizontale(0, 200, 1,2,1);
+		obstacles[1] = new BarreHorizontale(0, -200, 1,2,1);
+		obstacles[2] = new BarreHorizontale(0, -600, 1,2,1);
 	}
 	
 	public void update(float delta) {
@@ -25,15 +25,15 @@ public class GameWorld {
 		obstacles[0].Move(delta, hauteur);
 		obstacles[1].Move(delta, hauteur);
 		obstacles[2].Move(delta, hauteur);
-		Gdx.app.log("GameWorld", String.valueOf(obstacles[0].getPosition().y) + "   " + String.valueOf(obstacles[2].getPosition().y));
+		//Gdx.app.log("GameWorld", String.valueOf(obstacles[0].getPosition().y) + "   " + String.valueOf(obstacles[2].getPosition().y));
 		if(obstacles[0].getPosition().y>1200) {
-			obstacles[0] = new BarreHorizontale(0, obstacles[2].getPosition().y-400, 1,1,1);
+			obstacles[0] = new BarreHorizontale(0, obstacles[2].getPosition().y-400, 1,2,1);
 		}
 		else if(obstacles[1].getPosition().y>1200) {
-			obstacles[1] = new BarreHorizontale(0, obstacles[0].getPosition().y-400, 1,1,1);
+			obstacles[1] = new BarreHorizontale(0, obstacles[0].getPosition().y-400, 1,2,1);
 		}
 		else if(obstacles[2].getPosition().y>1200) {
-			obstacles[2] = new BarreHorizontale(0, obstacles[1].getPosition().y-400, 1,1,1);
+			obstacles[2] = new BarreHorizontale(0, obstacles[1].getPosition().y-400, 1,2,1);
 		}
         //Gdx.app.log("GameWorld", "update");
            

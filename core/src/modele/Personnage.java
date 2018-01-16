@@ -34,15 +34,15 @@ public class Personnage {
 		//hitBox.setPosition(position);
 		float diff=0;
 		//Gdx.app.log("Personnage",String.valueOf(position.y) + "   " + String.valueOf(acceleration) + "   " + String.valueOf(position.y + acceleration));
-		if(position.y + (acceleration/60)<408) {
-			position.y = 408;
-			diff = position.y + acceleration - 408;
+		if(position.y + (acceleration/60)<368) {
+			position.y = 368;
+			diff = position.y + acceleration - 368;
 		}else {
 			position.add(new Vector2(0, acceleration).scl(delta));
 			//position.y+=acceleration;
 		}
 		hitBox.setPosition(position);
-		Gdx.app.log("Personnage", String.valueOf(diff));
+		//Gdx.app.log("Personnage", String.valueOf(diff));
 		return diff;
 	}
 	
