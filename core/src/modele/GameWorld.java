@@ -1,10 +1,8 @@
-package vue;
+package modele;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
-
-import modele.Personnage;
 
 public class GameWorld {
 	
