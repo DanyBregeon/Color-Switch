@@ -2,6 +2,7 @@ package modele;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Personnage {
@@ -11,23 +12,36 @@ public class Personnage {
 	private float poids;
 	private float taille;
 	private float acceleration;
+	private Circle hitBox;
 	
 	public Personnage(float x, float y, float hauteurSaut, float poids, float taille) {
 		position = new Vector2(x,y);
 		this.hauteurSaut = hauteurSaut;
 		this.poids = poids;
 		this.taille = taille;
-		couleur = new Color(0 / 255.0f, 255 / 255.0f, 255 / 255.0f, 1);
+		couleur = new Color(0, 1, 1, 1);
 		acceleration = 0;
+		hitBox = new Circle(position, taille);
 	}
 	
-	public void update(float delta) {
-		Gdx.app.log("Personnage", String.valueOf(acceleration));
+	public float update(float delta) {
+		//Gdx.app.log("Personnage", String.valueOf(acceleration));
 		acceleration += poids;
 		if(acceleration>1200) {
 			acceleration = 1200;
 		}
-		position.add(new Vector2(0, acceleration).scl(delta));
+		//position.add(new Vector2(0, acceleration).scl(delta));
+		//hitBox.setPosition(position);
+		float diff=0;
+		Gdx.app.log("Personnage",String.valueOf(position.y) + "   " + String.valueOf(acceleration) + "   " + String.valueOf(position.y + acceleration));
+		if(position.y + (acceleration/60)<408) {
+			position.y = 408;
+			diff = position.y + acceleration - 408;
+		}else {
+			position.add(new Vector2(0, acceleration).scl(delta));
+		}
+		hitBox.setPosition(position);
+		return diff;
 	}
 	
 	public void onClick() {
@@ -52,6 +66,10 @@ public class Personnage {
 
 	public float getTaille() {
 		return taille;
+	}
+
+	public Circle getHitBox() {
+		return hitBox;
 	}
 
 }

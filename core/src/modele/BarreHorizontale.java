@@ -19,17 +19,18 @@ public class BarreHorizontale extends Obstacle{
 		couleursRectangles[2] = new Color(0,1,1,1);
 		couleursRectangles[3] = new Color(0.5f,0,1,1);
 		couleursRectangles[4] = new Color(1,1,0,1);
-		rectangles[0] = new Rectangle(this.position.x, this.position.y, 17,136);
-		rectangles[1] = new Rectangle(position.x+136, position.y, 17,136);
-		rectangles[2] = new Rectangle(position.x+272, position.y, 17,136);
-		rectangles[3] = new Rectangle(position.x+408, position.y, 17,136);
-		rectangles[4] = new Rectangle(position.x+544, position.y, 17,136);
+		rectangles[0] = new Rectangle(this.position.x, this.position.y, 136,17);
+		rectangles[1] = new Rectangle(position.x+136, position.y, 136,17);
+		rectangles[2] = new Rectangle(position.x+272, position.y, 136,17);
+		rectangles[3] = new Rectangle(position.x+408, position.y, 136,17);
+		rectangles[4] = new Rectangle(position.x+544, position.y, 136,17);
 	}
 	
 	@Override
-	public void Move(float delta) {
+	public void Move(float delta, float hauteur) {
 		for(int i=0; i<rectangles.length; i++) {
-			Gdx.app.log("BarreH", rectangles[i].toString() + "  " + i);
+			//Gdx.app.log("BarreH", rectangles[i].toString() + "  " + i);
+			rectangles[i].y -= hauteur/60;
 			rectangles[i].x += vitesse;
 			if(rectangles[i].x >= 544) {
 				rectangles[i].x = -136;

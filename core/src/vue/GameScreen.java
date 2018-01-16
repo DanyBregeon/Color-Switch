@@ -5,12 +5,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
+import controleur.Collision;
 import controleur.InputHandler;
 import modele.GameWorld;
 
 public class GameScreen implements Screen{
 	private GameWorld world;
 	private GameRenderer renderer;
+	private Collision col;
 	
 	public GameScreen() {
         Gdx.app.log("GameScreen", "Attached");
@@ -22,6 +24,7 @@ public class GameScreen implements Screen{
         int milieuX = (int) (gameWidth / 2);
         world = new GameWorld(milieuX); //initialise le monde
         renderer = new GameRenderer(world); //initialise le rendu
+        col = new Collision(world);
         
         Gdx.input.setInputProcessor(new InputHandler(world.getBille()));
     }
@@ -35,6 +38,7 @@ public class GameScreen implements Screen{
 	public void render(float delta) {
 		world.update(delta); // GameWorld updates 
 		renderer.render(); // GameRenderer renders
+		col.update(delta); // Collision updates
 		// Cree une couleur (RGB = 10, 15, 230)
         //Gdx.gl.glClearColor(10/255.0f, 15/255.0f, 230/255.0f, 1f);
         // Rempli la fenetre avec la couleur

@@ -31,5 +31,5 @@ public abstract class Obstacle {
 		return difficulte;
 	}
 
-	public abstract void Move(float delta);
+	public abstract void Move(float delta, float hauteur);
 }

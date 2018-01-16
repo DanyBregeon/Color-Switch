@@ -9,6 +9,7 @@ public class GameWorld {
 	private Rectangle rect = new Rectangle(0, 0, 17, 12);
 	private Personnage bille;
 	private Obstacle obs;
+	private float hauteur;
 
 	public Obstacle getObs() {
 		return obs;
@@ -20,8 +21,8 @@ public class GameWorld {
 	}
 	
 	public void update(float delta) {
-		obs.Move(delta);
-        bille.update(delta);    
+		hauteur = bille.update(delta);
+		obs.Move(delta, hauteur);
         //Gdx.app.log("GameWorld", "update");
            
     }
