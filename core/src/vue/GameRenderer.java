@@ -24,6 +24,34 @@ public class GameRenderer {
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
     }
+    
+    public void drawBarreHorizontale(int num) {
+    	shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(((BarreHorizontale) myWorld.getObstacles()[num]).getCouleursRectangles()[0]);
+        shapeRenderer.rect(((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[0].x, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[0].y, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[0].width, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[0].height);
+        shapeRenderer.end();
+        
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(((BarreHorizontale) myWorld.getObstacles()[num]).getCouleursRectangles()[1]);
+        shapeRenderer.rect(((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[1].x, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[1].y, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[1].width, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[1].height);
+        shapeRenderer.end();
+        
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(((BarreHorizontale) myWorld.getObstacles()[num]).getCouleursRectangles()[2]);
+        shapeRenderer.rect(((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[2].x, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[2].y, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[2].width, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[2].height);
+        shapeRenderer.end();
+        
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(((BarreHorizontale) myWorld.getObstacles()[num]).getCouleursRectangles()[3]);
+        shapeRenderer.rect(((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[3].x, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[3].y, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[3].width, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[3].height);
+        shapeRenderer.end();
+        
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(((BarreHorizontale) myWorld.getObstacles()[num]).getCouleursRectangles()[4]);
+        shapeRenderer.rect(((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[4].x, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[4].y, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[4].width, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[4].height);
+        shapeRenderer.end();
+    }
+    
 	public void render() {
         //Gdx.app.log("GameRenderer", "render");
         //Dessine un fond noir
@@ -44,31 +72,10 @@ public class GameRenderer {
         // Dit au shapeRenderer d'arreter d'afficher
         // On doit le faire à chaque fois.
         shapeRenderer.end();
+        drawBarreHorizontale(0);
+        drawBarreHorizontale(1);
+        drawBarreHorizontale(2);
         
-        shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(((BarreHorizontale) myWorld.getObs()).getCouleursRectangles()[0]);
-        shapeRenderer.rect(((BarreHorizontale) myWorld.getObs()).getRectangles()[0].x, ((BarreHorizontale) myWorld.getObs()).getRectangles()[0].y, ((BarreHorizontale) myWorld.getObs()).getRectangles()[0].width, ((BarreHorizontale) myWorld.getObs()).getRectangles()[0].height);
-        shapeRenderer.end();
-        
-        shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(((BarreHorizontale) myWorld.getObs()).getCouleursRectangles()[1]);
-        shapeRenderer.rect(((BarreHorizontale) myWorld.getObs()).getRectangles()[1].x, ((BarreHorizontale) myWorld.getObs()).getRectangles()[1].y, ((BarreHorizontale) myWorld.getObs()).getRectangles()[1].width, ((BarreHorizontale) myWorld.getObs()).getRectangles()[1].height);
-        shapeRenderer.end();
-        
-        shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(((BarreHorizontale) myWorld.getObs()).getCouleursRectangles()[2]);
-        shapeRenderer.rect(((BarreHorizontale) myWorld.getObs()).getRectangles()[2].x, ((BarreHorizontale) myWorld.getObs()).getRectangles()[2].y, ((BarreHorizontale) myWorld.getObs()).getRectangles()[2].width, ((BarreHorizontale) myWorld.getObs()).getRectangles()[2].height);
-        shapeRenderer.end();
-        
-        shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(((BarreHorizontale) myWorld.getObs()).getCouleursRectangles()[3]);
-        shapeRenderer.rect(((BarreHorizontale) myWorld.getObs()).getRectangles()[3].x, ((BarreHorizontale) myWorld.getObs()).getRectangles()[3].y, ((BarreHorizontale) myWorld.getObs()).getRectangles()[3].width, ((BarreHorizontale) myWorld.getObs()).getRectangles()[3].height);
-        shapeRenderer.end();
-        
-        shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(((BarreHorizontale) myWorld.getObs()).getCouleursRectangles()[4]);
-        shapeRenderer.rect(((BarreHorizontale) myWorld.getObs()).getRectangles()[4].x, ((BarreHorizontale) myWorld.getObs()).getRectangles()[4].y, ((BarreHorizontale) myWorld.getObs()).getRectangles()[4].width, ((BarreHorizontale) myWorld.getObs()).getRectangles()[4].height);
-        shapeRenderer.end();
         // Dit au shapeRenderer de dessiner le contour des formes
         //shapeRenderer.begin(ShapeType.Line);
         //shapeRenderer.setColor(255 / 255.0f, 109 / 255.0f, 120 / 255.0f, 1);

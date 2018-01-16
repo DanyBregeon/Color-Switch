@@ -25,7 +25,7 @@ public class Personnage {
 	}
 	
 	public float update(float delta) {
-		//Gdx.app.log("Personnage", String.valueOf(acceleration));
+		//Gdx.app.log("Personnage", String.valueOf(position.y));
 		acceleration += poids;
 		if(acceleration>1200) {
 			acceleration = 1200;
@@ -33,14 +33,16 @@ public class Personnage {
 		//position.add(new Vector2(0, acceleration).scl(delta));
 		//hitBox.setPosition(position);
 		float diff=0;
-		Gdx.app.log("Personnage",String.valueOf(position.y) + "   " + String.valueOf(acceleration) + "   " + String.valueOf(position.y + acceleration));
+		//Gdx.app.log("Personnage",String.valueOf(position.y) + "   " + String.valueOf(acceleration) + "   " + String.valueOf(position.y + acceleration));
 		if(position.y + (acceleration/60)<408) {
 			position.y = 408;
 			diff = position.y + acceleration - 408;
 		}else {
 			position.add(new Vector2(0, acceleration).scl(delta));
+			//position.y+=acceleration;
 		}
 		hitBox.setPosition(position);
+		Gdx.app.log("Personnage", String.valueOf(diff));
 		return diff;
 	}
 	
