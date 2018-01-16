@@ -8,20 +8,22 @@ public class GameWorld {
 	
 	private Rectangle rect = new Rectangle(0, 0, 17, 12);
 	private Personnage bille;
+	private Obstacle obs;
+
+	public Obstacle getObs() {
+		return obs;
+	}
 
 	public GameWorld(float milieuX) {
 		bille = new Personnage(milieuX,408,640,40,16);
+		obs = new BarreHorizontale(0, 200, 1,1,1);
 	}
 	
 	public void update(float delta) {
+		obs.Move(delta);
+        bille.update(delta);    
         //Gdx.app.log("GameWorld", "update");
-        //test rectangle
-        rect.x++;
-        if (rect.x > 137) {
-            rect.x = 0;
-        }
-        
-        bille.update(delta);        
+           
     }
 
 	public Personnage getBille() {
