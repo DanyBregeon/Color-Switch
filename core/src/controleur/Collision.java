@@ -21,10 +21,14 @@ public class Collision {
 		for(int i=0; i<myWorld.getIdObstacle().length; i++) {
 			collisionChangeColor(i);
     		switch (myWorld.getIdObstacle()[i]) {
-			case 1: collisionBarreHorizontale(i);
+			case 1: if(collisionBarreHorizontale(i)) {
+				Gdx.app.exit();
+			}
 					break;
 			
-			case 2: collisionCercle(i);
+			case 2: if(collisionCercle(i)) {
+				Gdx.app.exit();
+			}
 					break;
     		}
     	}

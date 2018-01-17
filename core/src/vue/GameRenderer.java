@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
@@ -17,6 +19,8 @@ public class GameRenderer {
     private OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
     private ShapeRenderer shapeRenderer2;
+    private SpriteBatch batch;
+    private BitmapFont font;
     
     public GameRenderer(GameWorld world) {
         myWorld = world;
@@ -24,6 +28,9 @@ public class GameRenderer {
         cam.setToOrtho(true, 544, 816); //width = 136, height = 204
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
+        batch = new SpriteBatch();    
+        font = new BitmapFont();
+        font.setColor(Color.WHITE);
     }
     
     public void drawBarreHorizontale(int num) {
@@ -121,6 +128,10 @@ public class GameRenderer {
         //Dessine un fond noir
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        batch.begin();
+        font.draw(batch, String.valueOf(myWorld.getScore()), 20, 750);
+        batch.end();
         
         
         drawObstacle();
