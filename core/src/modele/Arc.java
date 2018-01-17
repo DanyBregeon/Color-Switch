@@ -6,11 +6,11 @@ import com.badlogic.gdx.math.Vector2;
 public class Arc {
 	private Vector2 position;
 	private float rayon;
-	private int angleDepart;
-	private int angle;
+	private float angleDepart;
+	private float angle;
 	private Color couleur;
 	
-	public Arc(float x, float y, float rayon, int angleDepart, int angle, Color couleur) {
+	public Arc(float x, float y, float rayon, float angleDepart, float angle, Color couleur) {
 		position = new Vector2(x,y);
 		this.rayon = rayon;
 		this.angleDepart = angleDepart;
@@ -18,11 +18,11 @@ public class Arc {
 		this.couleur = couleur;
 	}
 
-	public int getAngleDepart() {
+	public float getAngleDepart() {
 		return angleDepart;
 	}
 
-	public void setAngleDepart(int angleDepart) {
+	public void setAngleDepart(float angleDepart) {
 		this.angleDepart = angleDepart;
 	}
 
@@ -38,7 +38,7 @@ public class Arc {
 		return rayon;
 	}
 
-	public int getAngle() {
+	public float getAngle() {
 		return angle;
 	}
 	

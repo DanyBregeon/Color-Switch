@@ -3,7 +3,6 @@ package modele;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Obstacle {
-	protected int id;
 	protected Vector2 position;
 	protected float taille;
 	protected float vitesse;

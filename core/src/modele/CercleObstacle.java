@@ -1,5 +1,6 @@
 package modele;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -9,7 +10,6 @@ public class CercleObstacle extends Obstacle{
 	
 	public CercleObstacle(float x, float y, float taille, float vitesse, int difficulte) {
 		super(x, y, taille, vitesse, difficulte);
-		id = 2;
 		arcs = new Arc[4];
 		arcs[0] = new Arc(x,y,taille*100,0,90, GameWorld.couleurs[0]);
 		arcs[1] = new Arc(x,y,taille*100,90,90, GameWorld.couleurs[1]);
@@ -24,7 +24,7 @@ public class CercleObstacle extends Obstacle{
 			v.add(new Vector2(0, -hauteur).scl(delta));
 			position.y = v.y;
 			arcs[i].getPosition().y = v.y;
-			arcs[i].setAngleDepart((int)(arcs[i].getAngleDepart()+1*vitesse));
+			arcs[i].setAngleDepart(((arcs[i].getAngleDepart()+1*vitesse))%360);
 		}
 	}
 

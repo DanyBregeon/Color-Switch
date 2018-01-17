@@ -12,7 +12,6 @@ public class BarreHorizontale extends Obstacle{
 
 	public BarreHorizontale(float x, float y, float taille, float vitesse, int difficulte) {
 		super(x,y, taille,vitesse, difficulte);
-		id = 1;
 		rectangles = new Rectangle[5];
 		couleursRectangles = new Color[5];
 		couleursRectangles[0] = GameWorld.couleurs[0];//new Color(1,1,0,1);

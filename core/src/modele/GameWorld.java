@@ -63,10 +63,10 @@ public class GameWorld {
 		int random = (int)(Math.random() * nbObstacle) + 1;
 		Gdx.app.log("GameWorld", String.valueOf(random));
 		switch (random) {
-			case 1: obstacles[num] = new BarreHorizontale(0, y, 1,2,1);
+			case 1: obstacles[num] = new BarreHorizontale(0, y, 1,4,1);
 					break;
 			
-			case 2: obstacles[num] = new CercleObstacle(largeurFenetre/2, y, 1,2,1);
+			case 2: obstacles[num] = new CercleObstacle(largeurFenetre/2, y, 1.2f,3,1);
 					break;
 		}
 		idObstacle[num] = random;

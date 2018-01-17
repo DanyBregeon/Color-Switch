@@ -54,6 +54,7 @@ public class GameRenderer {
     }
     
     public void drawArc(int num1, int num2) {
+		//Gdx.app.log("renderer", String.valueOf(((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getRayon()));
     	shapeRenderer.arc(((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getPosition().x,
         		((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getPosition().y,
         		((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getRayon(),
@@ -80,7 +81,7 @@ public class GameRenderer {
         shapeRenderer.end();     
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(new Color(0,0,0,1));
-        shapeRenderer.circle(((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getPosition().x, ((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getPosition().y, 80);
+        shapeRenderer.circle(((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getPosition().x, ((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getPosition().y, ((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getRayon()*0.83f);
         shapeRenderer.end();
     }
     
@@ -92,7 +93,7 @@ public class GameRenderer {
 			
 			case 2: drawCercle(i);
 					break;
-		}
+    		}
     	}
     }
     
