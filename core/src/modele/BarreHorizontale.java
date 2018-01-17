@@ -14,11 +14,11 @@ public class BarreHorizontale extends Obstacle{
 		super(x,y, taille,vitesse, difficulte);
 		rectangles = new Rectangle[5];
 		couleursRectangles = new Color[5];
-		couleursRectangles[0] = new Color(1,1,0,1);
-		couleursRectangles[1] = new Color(1,0,1,1);
-		couleursRectangles[2] = new Color(0,1,1,1);
-		couleursRectangles[3] = new Color(0.5f,0,1,1);
-		couleursRectangles[4] = new Color(1,1,0,1);
+		couleursRectangles[0] = GameWorld.couleurs[0];//new Color(1,1,0,1);
+		couleursRectangles[1] = GameWorld.couleurs[1];
+		couleursRectangles[2] = GameWorld.couleurs[2];
+		couleursRectangles[3] = GameWorld.couleurs[3];
+		couleursRectangles[4] = GameWorld.couleurs[0];
 		rectangles[0] = new Rectangle(this.position.x, this.position.y, 136,17);
 		rectangles[1] = new Rectangle(position.x+136, position.y, 136,17);
 		rectangles[2] = new Rectangle(position.x+272, position.y, 136,17);

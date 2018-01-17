@@ -1,6 +1,7 @@
 package modele;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -13,7 +14,8 @@ public class GameWorld {
 	private int distanceEntreObstacle;
 	private int hauteurFenetre;
 	private int largeurFenetre;
-
+	public static Color[] couleurs = {new Color(1,1,0,1), new Color(0,1,1,1),new Color(1,0,1,1),new Color(0.5f,0,1,1)};
+	
 	public GameWorld(int largeurFenetre, int hauteurFenetre) {
 		this.largeurFenetre = largeurFenetre;
 		this.hauteurFenetre = hauteurFenetre;
@@ -21,7 +23,8 @@ public class GameWorld {
 		//bille = new Personnage(milieuX,408,16,1,16);
 		obstacles = new Obstacle[3];
 		distanceEntreObstacle = 400;
-		obstacles[0] = new BarreHorizontale(0, hauteurFenetre/4, 1,2,1);
+		//obstacles[0] = new BarreHorizontale(0, hauteurFenetre/4, 1,2,1);
+		obstacles[0] = new CercleObstacle(largeurFenetre/2, hauteurFenetre/4, 1,2,1);
 		obstacles[1] = new BarreHorizontale(0, hauteurFenetre/4-distanceEntreObstacle, 1,2,1);
 		obstacles[2] = new BarreHorizontale(0, hauteurFenetre/4-2*distanceEntreObstacle, 1,2,1);
 	}

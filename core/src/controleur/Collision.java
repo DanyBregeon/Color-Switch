@@ -16,7 +16,7 @@ public class Collision {
 	public void update(float delta) {
 		//Gdx.app.log("Collision", String.valueOf(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[0]).getRectangles()[0])));
 
-		if(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[0]).getRectangles()[0])){
+		/*if(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[0]).getRectangles()[0])){
 			if(!myWorld.getBille().getCouleur().equals(((BarreHorizontale)myWorld.getObstacles()[0]).getCouleursRectangles()[0])) {
 				Gdx.app.log("Collision", "boom");
 			}
@@ -40,6 +40,6 @@ public class Collision {
 			if(!myWorld.getBille().getCouleur().equals(((BarreHorizontale)myWorld.getObstacles()[0]).getCouleursRectangles()[4])) {
 				Gdx.app.log("Collision", "boom");
 			}
-		}
+		}*/
 	}
 }

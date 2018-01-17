@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import modele.BarreHorizontale;
+import modele.CercleObstacle;
 import modele.GameWorld;
 
 public class GameRenderer {
@@ -52,27 +53,35 @@ public class GameRenderer {
         shapeRenderer.end();
     }
     
-    public void drawCercle() {
+    public void drawArc(int num1, int num2) {
+    	shapeRenderer.arc(((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getPosition().x,
+        		((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getPosition().y,
+        		((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getRayon(),
+        		((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getAngleDepart(),
+        		((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getAngle());
+    }
+    
+    public void drawCercle(int num) {
         shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(new Color(1,1,0,1));
-        shapeRenderer.arc(277, 300, 100, 0, 90);
+        shapeRenderer.setColor(((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getCouleur());
+        drawArc(num, 0);
         shapeRenderer.end();
         shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(new Color(1,0,1,1));
-        shapeRenderer.arc(277, 300, 100, 90, 90);
+        shapeRenderer.setColor(((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[1].getCouleur());
+        drawArc(num, 1);
         shapeRenderer.end();
         shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(new Color(0,1,1,1));
-        shapeRenderer.arc(277, 300, 100, 180, 90);
+        shapeRenderer.setColor(((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[2].getCouleur());
+        drawArc(num, 2);
         shapeRenderer.end();
         shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(new Color(0.5f,0,1,1));
-        shapeRenderer.arc(277, 300, 100, 270, 90);
-        shapeRenderer.end();
-        /*shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[3].getCouleur());
+        drawArc(num, 3);
+        shapeRenderer.end();     
+        shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(new Color(0,0,0,1));
-        shapeRenderer.circle(277, 300, 80);
-        shapeRenderer.end();	*/
+        shapeRenderer.circle(((CercleObstacle) myWorld.getObstacles()[0]).getArcs()[0].getPosition().x, ((CercleObstacle) myWorld.getObstacles()[0]).getArcs()[0].getPosition().y, 80);
+        shapeRenderer.end();
     }
     
 	public void render() {
@@ -81,7 +90,7 @@ public class GameRenderer {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
-        drawCercle();
+        drawCercle(0);
         
         // Dessine les formes pleines
         shapeRenderer.begin(ShapeType.Filled);
@@ -97,7 +106,7 @@ public class GameRenderer {
         // Dit au shapeRenderer d'arreter d'afficher
         // On doit le faire à chaque fois.
         shapeRenderer.end();
-        drawBarreHorizontale(0);
+        //drawBarreHorizontale(0);
         drawBarreHorizontale(1);
         drawBarreHorizontale(2);
         
