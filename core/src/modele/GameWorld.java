@@ -10,14 +10,20 @@ public class GameWorld {
 	private Personnage bille;
 	private float hauteur;
 	private Obstacle[] obstacles;
+	private int distanceEntreObstacle;
+	private int hauteurFenetre;
+	private int largeurFenetre;
 
-	public GameWorld(float milieuX) {
-		bille = new Personnage(milieuX,408,640,40,16);
+	public GameWorld(int largeurFenetre, int hauteurFenetre) {
+		this.largeurFenetre = largeurFenetre;
+		this.hauteurFenetre = hauteurFenetre;
+		bille = new Personnage(largeurFenetre/2,hauteurFenetre/2,640,40,16);
 		//bille = new Personnage(milieuX,408,16,1,16);
 		obstacles = new Obstacle[3];
-		obstacles[0] = new BarreHorizontale(0, 200, 1,2,1);
-		obstacles[1] = new BarreHorizontale(0, -200, 1,2,1);
-		obstacles[2] = new BarreHorizontale(0, -600, 1,2,1);
+		distanceEntreObstacle = 400;
+		obstacles[0] = new BarreHorizontale(0, hauteurFenetre/4, 1,2,1);
+		obstacles[1] = new BarreHorizontale(0, hauteurFenetre/4-distanceEntreObstacle, 1,2,1);
+		obstacles[2] = new BarreHorizontale(0, hauteurFenetre/4-2*distanceEntreObstacle, 1,2,1);
 	}
 	
 	public void update(float delta) {
@@ -26,14 +32,14 @@ public class GameWorld {
 		obstacles[1].Move(delta, hauteur);
 		obstacles[2].Move(delta, hauteur);
 		//Gdx.app.log("GameWorld", String.valueOf(obstacles[0].getPosition().y) + "   " + String.valueOf(obstacles[2].getPosition().y));
-		if(obstacles[0].getPosition().y>1200) {
-			obstacles[0] = new BarreHorizontale(0, obstacles[2].getPosition().y-400, 1,2,1);
+		if(obstacles[0].getPosition().y>hauteurFenetre*1.4) {
+			obstacles[0] = new BarreHorizontale(0, obstacles[2].getPosition().y-distanceEntreObstacle, 1,2,1);
 		}
-		else if(obstacles[1].getPosition().y>1200) {
-			obstacles[1] = new BarreHorizontale(0, obstacles[0].getPosition().y-400, 1,2,1);
+		else if(obstacles[1].getPosition().y>hauteurFenetre*1.4) {
+			obstacles[1] = new BarreHorizontale(0, obstacles[0].getPosition().y-distanceEntreObstacle, 1,2,1);
 		}
-		else if(obstacles[2].getPosition().y>1200) {
-			obstacles[2] = new BarreHorizontale(0, obstacles[1].getPosition().y-400, 1,2,1);
+		else if(obstacles[2].getPosition().y>hauteurFenetre*1.4) {
+			obstacles[2] = new BarreHorizontale(0, obstacles[1].getPosition().y-distanceEntreObstacle, 1,2,1);
 		}
         //Gdx.app.log("GameWorld", "update");
            

@@ -34,9 +34,10 @@ public class Personnage {
 		//hitBox.setPosition(position);
 		float diff=0;
 		//Gdx.app.log("Personnage",String.valueOf(position.y) + "   " + String.valueOf(acceleration) + "   " + String.valueOf(position.y + acceleration));
-		if(position.y + (acceleration/60)<368) {
-			position.y = 368;
-			diff = position.y + acceleration - 368;
+		int hauteurMaxSaut = (int) (Gdx.graphics.getHeight()*0.45);
+		if(position.y + (acceleration/60)<hauteurMaxSaut) {
+			position.y = hauteurMaxSaut;
+			diff = position.y + acceleration - hauteurMaxSaut;
 		}else {
 			position.add(new Vector2(0, acceleration).scl(delta));
 			//position.y+=acceleration;

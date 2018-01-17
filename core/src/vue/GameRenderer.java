@@ -52,11 +52,36 @@ public class GameRenderer {
         shapeRenderer.end();
     }
     
+    public void drawCercle() {
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(new Color(1,1,0,1));
+        shapeRenderer.arc(277, 300, 100, 0, 90);
+        shapeRenderer.end();
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(new Color(1,0,1,1));
+        shapeRenderer.arc(277, 300, 100, 90, 90);
+        shapeRenderer.end();
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(new Color(0,1,1,1));
+        shapeRenderer.arc(277, 300, 100, 180, 90);
+        shapeRenderer.end();
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(new Color(0.5f,0,1,1));
+        shapeRenderer.arc(277, 300, 100, 270, 90);
+        shapeRenderer.end();
+        /*shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(new Color(0,0,0,1));
+        shapeRenderer.circle(277, 300, 80);
+        shapeRenderer.end();	*/
+    }
+    
 	public void render() {
         //Gdx.app.log("GameRenderer", "render");
         //Dessine un fond noir
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+        drawCercle();
         
         // Dessine les formes pleines
         shapeRenderer.begin(ShapeType.Filled);
