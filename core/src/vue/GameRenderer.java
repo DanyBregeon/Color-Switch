@@ -80,8 +80,20 @@ public class GameRenderer {
         shapeRenderer.end();     
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(new Color(0,0,0,1));
-        shapeRenderer.circle(((CercleObstacle) myWorld.getObstacles()[0]).getArcs()[0].getPosition().x, ((CercleObstacle) myWorld.getObstacles()[0]).getArcs()[0].getPosition().y, 80);
+        shapeRenderer.circle(((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getPosition().x, ((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getPosition().y, 80);
         shapeRenderer.end();
+    }
+    
+    public void drawObstacle() {
+    	for(int i=0; i<myWorld.getIdObstacle().length; i++) {
+    		switch (myWorld.getIdObstacle()[i]) {
+			case 1: drawBarreHorizontale(i);
+					break;
+			
+			case 2: drawCercle(i);
+					break;
+		}
+    	}
     }
     
 	public void render() {
@@ -90,7 +102,11 @@ public class GameRenderer {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
-        drawCercle(0);
+        
+        drawObstacle();
+        /*drawCercle(0);
+        drawBarreHorizontale(1);
+        drawBarreHorizontale(2);*/
         
         // Dessine les formes pleines
         shapeRenderer.begin(ShapeType.Filled);
@@ -107,8 +123,6 @@ public class GameRenderer {
         // On doit le faire à chaque fois.
         shapeRenderer.end();
         //drawBarreHorizontale(0);
-        drawBarreHorizontale(1);
-        drawBarreHorizontale(2);
         
         // Dit au shapeRenderer de dessiner le contour des formes
         //shapeRenderer.begin(ShapeType.Line);
