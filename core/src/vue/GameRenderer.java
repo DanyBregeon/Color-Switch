@@ -62,6 +62,25 @@ public class GameRenderer {
         		((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getAngle());
     }
     
+    public void drawChangeColor(int num) {
+    	shapeRenderer.begin(ShapeType.Filled);
+    	shapeRenderer.setColor(GameWorld.couleurs[0]);
+    	shapeRenderer.arc(myWorld.getChangementCouleurs()[num].getPosition().x, myWorld.getChangementCouleurs()[num].getPosition().y, myWorld.getChangementCouleurs()[num].getRayon(),0,90);
+    	shapeRenderer.end();
+    	shapeRenderer.begin(ShapeType.Filled);
+    	shapeRenderer.setColor(GameWorld.couleurs[1]);
+    	shapeRenderer.arc(myWorld.getChangementCouleurs()[num].getPosition().x, myWorld.getChangementCouleurs()[num].getPosition().y, myWorld.getChangementCouleurs()[num].getRayon(),90,90);
+    	shapeRenderer.end();
+    	shapeRenderer.begin(ShapeType.Filled);
+    	shapeRenderer.setColor(GameWorld.couleurs[2]);
+    	shapeRenderer.arc(myWorld.getChangementCouleurs()[num].getPosition().x, myWorld.getChangementCouleurs()[num].getPosition().y, myWorld.getChangementCouleurs()[num].getRayon(),180,90);
+    	shapeRenderer.end();
+    	shapeRenderer.begin(ShapeType.Filled);
+    	shapeRenderer.setColor(GameWorld.couleurs[3]);
+    	shapeRenderer.arc(myWorld.getChangementCouleurs()[num].getPosition().x, myWorld.getChangementCouleurs()[num].getPosition().y, myWorld.getChangementCouleurs()[num].getRayon(),270,90);
+    	shapeRenderer.end();
+    }
+    
     public void drawCercle(int num) {
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getCouleur());
@@ -105,6 +124,9 @@ public class GameRenderer {
         
         
         drawObstacle();
+        drawChangeColor(0);
+        drawChangeColor(1);
+        drawChangeColor(2);
         /*drawCercle(0);
         drawBarreHorizontale(1);
         drawBarreHorizontale(2);*/

@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Intersector;
 
 import modele.BarreHorizontale;
 import modele.CercleObstacle;
+import modele.ChangeColor;
 import modele.GameWorld;
 
 public class Collision {
@@ -18,6 +19,7 @@ public class Collision {
 		//Gdx.app.log("Collision", String.valueOf(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[0]).getRectangles()[0])));
 
 		for(int i=0; i<myWorld.getIdObstacle().length; i++) {
+			collisionChangeColor(i);
     		switch (myWorld.getIdObstacle()[i]) {
 			case 1: collisionBarreHorizontale(i);
 					break;
@@ -26,6 +28,30 @@ public class Collision {
 					break;
     		}
     	}
+	}
+	
+	public boolean collisionChangeColor(int num) {
+		if(Intersector.overlaps(myWorld.getBille().getHitBox(), myWorld.getChangementCouleurs()[num].getCercle())){
+			int random = (int)(Math.random() * GameWorld.couleurs.length);
+			if(GameWorld.couleurs[random].equals(myWorld.getBille().getCouleur())) {
+				if(random == GameWorld.couleurs.length-1) {
+					myWorld.getBille().setCouleur(GameWorld.couleurs[0]);
+				}else {
+					myWorld.getBille().setCouleur(GameWorld.couleurs[random+1]);
+				}
+			}else {
+				myWorld.getBille().setCouleur(GameWorld.couleurs[random]);
+			}
+			if(num != 0) {
+				myWorld.getChangementCouleurs()[num].setPosition(myWorld.getChangementCouleurs()[num-1].getPosition().y-myWorld.getDistanceEntreObstacle());
+			}else {
+				myWorld.getChangementCouleurs()[num].setPosition(myWorld.getChangementCouleurs()[myWorld.getChangementCouleurs().length-1].getPosition().y-myWorld.getDistanceEntreObstacle());
+			}
+			
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public boolean collisionCercle(int num) {
