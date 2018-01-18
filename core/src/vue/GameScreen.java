@@ -37,7 +37,15 @@ public class GameScreen implements Screen{
 	public void render(float delta) {
 		world.update(delta); // GameWorld updates 
 		renderer.render(); // GameRenderer renders
-		col.update(delta); // Collision updates
+		try {
+			col.update(delta); // Collision updates
+		} catch(Exception e) {
+			world = new GameWorld(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			renderer = new GameRenderer(world);
+			col = new Collision(world);
+			Gdx.input.setInputProcessor(new InputHandler(world.getBille()));
+		}
+		
 		// Cree une couleur (RGB = 10, 15, 230)
         //Gdx.gl.glClearColor(10/255.0f, 15/255.0f, 230/255.0f, 1f);
         // Rempli la fenetre avec la couleur

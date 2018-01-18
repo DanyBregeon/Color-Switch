@@ -40,7 +40,7 @@ public class GameWorld {
 		changementCouleurs[0] = new ChangeColor(largeurFenetre/2, hauteurFenetre/4 -0.5f*distanceEntreObstacle);
 		changementCouleurs[1] = new ChangeColor(largeurFenetre/2, hauteurFenetre/4 -1.5f*distanceEntreObstacle);
 		changementCouleurs[2] = new ChangeColor(largeurFenetre/2, hauteurFenetre/4 -2.5f*distanceEntreObstacle);
-		Gdx.app.log("world", String.valueOf(changementCouleurs[0].getPosition().y));
+		//Gdx.app.log("world", String.valueOf(changementCouleurs[0].getPosition().y));
 	}
 	
 	public void update(float delta) {
@@ -69,7 +69,7 @@ public class GameWorld {
 	public void creerObstacle(int num, float y) {
 		score++;
 		int random = (int)(Math.random() * nbObstacle) + 1;
-		Gdx.app.log("GameWorld", String.valueOf(random));
+		//Gdx.app.log("GameWorld", String.valueOf(random));
 		switch (random) {
 			case 1: obstacles[num] = new BarreHorizontale(0, y, 1,4+score/3,1);
 					break;

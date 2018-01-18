@@ -15,19 +15,23 @@ public class Collision {
 		myWorld = gw;
 	}
 	
-	public void update(float delta) {
+	public void update(float delta) throws Exception {
 		//Gdx.app.log("Collision", String.valueOf(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[0]).getRectangles()[0])));
 
 		for(int i=0; i<myWorld.getIdObstacle().length; i++) {
 			collisionChangeColor(i);
     		switch (myWorld.getIdObstacle()[i]) {
 			case 1: if(collisionBarreHorizontale(i)) {
-				Gdx.app.exit();
+				//Gdx.app.exit();
+				Gdx.app.log("Collision", "Perdu");
+				throw new Exception();
 			}
 					break;
 			
 			case 2: if(collisionCercle(i)) {
-				Gdx.app.exit();
+				//Gdx.app.exit();
+				Gdx.app.log("Collision", "Perdu");
+				throw new Exception();
 			}
 					break;
     		}
