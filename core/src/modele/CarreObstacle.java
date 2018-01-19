@@ -26,19 +26,22 @@ public class CarreObstacle extends Obstacle{
 	}
 
 	public void Move(float delta, float hauteur) {
+		Vector2 v = new Vector2(position.x,position.y);
+		Vector2 v2 = new Vector2(0, -hauteur).scl(delta);
+		v.add(v2);
+		position.y = v.y;
 		for(int i=0; i<rectangles.length; i++) {
-			Vector2 v = new Vector2(position.x,position.y);
-			//rectangles[i].y -= hauteur;
-			v.add(new Vector2(0, -hauteur).scl(delta));
-			position.y = v.y;
-			//rectangles[i].y = v.y;
-			/*rectangles[i].getSommets()[1] = v.y;
-			rectangles[i].getSommets()[3] = v.y;
-			rectangles[i].getSommets()[5] = v.y;
-			rectangles[i].getSommets()[7] = v.y;*/
-			rectangles[i].rotate(position.x, position.y, 1);
-			//rectangles[i].x = v.x+position.x;
-			//rectangles[i].y = v.y+position.y;
+			
+			rectangles[i].y += v2.y;
+			rectangles[i].getSommets()[1] += v2.y;
+			rectangles[i].getSommets()[3] += v2.y;
+			rectangles[i].getSommets()[5] += v2.y;
+			rectangles[i].getSommets()[7] += v2.y;
+			
+		}
+		for(int i=0; i<rectangles.length; i++) {
+			rectangles[i].rotate(position.x, position.y, 1*vitesse);
+			rectangles[i].setAngleTotal(rectangles[i].getAngleTotal()+1*vitesse);
 		}
 		
 	}

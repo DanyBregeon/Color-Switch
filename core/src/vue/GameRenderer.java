@@ -131,6 +131,11 @@ public class GameRenderer {
         shapeRenderer.polygon(((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[3].getSommets());     
         shapeRenderer.end();
         
+        /*shapeRenderer.begin(ShapeType.Line);
+        shapeRenderer.setColor(((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[0]);
+        shapeRenderer.rect(myWorld.getObstacles()[num].getPosition().x, myWorld.getObstacles()[num].getPosition().y, 3,3);     
+        shapeRenderer.end();*/
+        
     	shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[0]);
         shapeRenderer.rect(((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[0].x,

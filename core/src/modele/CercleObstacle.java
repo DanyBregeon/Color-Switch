@@ -18,11 +18,13 @@ public class CercleObstacle extends Obstacle{
 	}
 
 	public void Move(float delta, float hauteur) {
+		Vector2 v = new Vector2(position.x,position.y);
+		v.add(new Vector2(0, -hauteur).scl(delta));
+		position.y = v.y;
 		for(int i=0; i<arcs.length; i++) {
-			Vector2 v = new Vector2(arcs[i].getPosition().x,arcs[i].getPosition().y);
-			//rectangles[i].y -= hauteur;
+			/*Vector2 v = new Vector2(arcs[i].getPosition().x,arcs[i].getPosition().y);
 			v.add(new Vector2(0, -hauteur).scl(delta));
-			position.y = v.y;
+			position.y = v.y;*/
 			arcs[i].getPosition().y = v.y;
 			arcs[i].setAngleDepart(((arcs[i].getAngleDepart()+1*vitesse))%360);
 		}

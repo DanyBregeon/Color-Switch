@@ -28,18 +28,17 @@ public class BarreHorizontale extends Obstacle{
 	
 	@Override
 	public void Move(float delta, float hauteur) {
+		Vector2 v = new Vector2(position.x,position.y);
+		v.add(new Vector2(0, -hauteur).scl(delta));
+		position.y = v.y;
 		for(int i=0; i<rectangles.length; i++) {
-			//Gdx.app.log("BarreH", rectangles[i].toString() + "  " + i);
-			//position.y -= hauteur;
-			//position.add(new Vector2(0, -hauteur).scl(delta));
-			Vector2 v = new Vector2(rectangles[i].x,rectangles[i].y);
-			//rectangles[i].y -= hauteur;
+			/*Vector2 v = new Vector2(rectangles[i].x,rectangles[i].y);
 			v.add(new Vector2(0, -hauteur).scl(delta));
-			position.y = v.y;
+			position.y = v.y;*/
 			rectangles[i].y = v.y;
 			rectangles[i].x += vitesse;
-			if(rectangles[i].x >= 544) {
-				rectangles[i].x = -136;
+			if(rectangles[i].x >= Gdx.graphics.getWidth()) {
+				rectangles[i].x = -(Gdx.graphics.getWidth()/4)+1;
 				if(i==0) {
 					couleursRectangles[i] = couleursRectangles[couleursRectangles.length-1];
 				}else {

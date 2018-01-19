@@ -69,15 +69,16 @@ public class GameWorld {
 	public void creerObstacle(int num, float y) {
 		score++;
 		int random = (int)(Math.random() * nbObstacle) + 1;
+		//random = 3;
 		//Gdx.app.log("GameWorld", String.valueOf(random));
 		switch (random) {
-			case 1: obstacles[num] = new BarreHorizontale(0, y, 1,4+score/3,1);
+			case 1: obstacles[num] = new BarreHorizontale(0, y, 1,2+score/3,1);
 					break;
 			
-			case 2: obstacles[num] = new CercleObstacle(largeurFenetre/2, y, 1.2f,3+score/5,1);
+			case 2: obstacles[num] = new CercleObstacle(largeurFenetre/2, y, 1.2f,1+score/5,1);
 					break;
 					
-			case 3: obstacles[num] = new CarreObstacle(largeurFenetre/2, y, 1.2f,3+score/5,1);
+			case 3: obstacles[num] = new CarreObstacle(largeurFenetre/2, y, 1.2f,1+score/5,1);
 					break;
 		}
 		idObstacle[num] = random;

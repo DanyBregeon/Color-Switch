@@ -65,8 +65,6 @@ public class RectanglePlus extends Rectangle{
 
 		//sommets[6] = sommets[0] + (sommets[4] - sommets[2]);
 		//sommets[7] = sommets[5] - (sommets[3] - sommets[1]);
-		
-		angleTotal++;
 	}
 
 	public float[] getSommets() {
