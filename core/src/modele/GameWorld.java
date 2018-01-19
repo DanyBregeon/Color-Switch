@@ -17,7 +17,7 @@ public class GameWorld {
 	private int score;
 	private int[] idObstacle;
 	private ChangeColor[] changementCouleurs;
-	public static int nbObstacle = 2;
+	public static int nbObstacle = 3;
 	public static Color[] couleurs = {new Color(1,1,0,1), new Color(0,1,1,1),new Color(1,0,1,1),new Color(0.5f,0,1,1)};
 	
 	public GameWorld(int largeurFenetre, int hauteurFenetre) {
@@ -75,6 +75,9 @@ public class GameWorld {
 					break;
 			
 			case 2: obstacles[num] = new CercleObstacle(largeurFenetre/2, y, 1.2f,3+score/5,1);
+					break;
+					
+			case 3: obstacles[num] = new CarreObstacle(largeurFenetre/2, y, 1.2f,3+score/5,1);
 					break;
 		}
 		idObstacle[num] = random;

@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import modele.BarreHorizontale;
 import modele.CercleObstacle;
+import modele.CarreObstacle;
 import modele.GameWorld;
 
 public class GameRenderer {
@@ -111,6 +112,75 @@ public class GameRenderer {
         shapeRenderer.end();
     }
     
+    public void drawCarre(int num) {
+    	
+    	shapeRenderer.begin(ShapeType.Line);
+        shapeRenderer.setColor(((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[0]);
+        shapeRenderer.polygon(((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[0].getSommets());     
+        shapeRenderer.end();
+        shapeRenderer.begin(ShapeType.Line);
+        shapeRenderer.setColor(((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[1]);
+        shapeRenderer.polygon(((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[1].getSommets());     
+        shapeRenderer.end();
+        shapeRenderer.begin(ShapeType.Line);
+        shapeRenderer.setColor(((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[2]);
+        shapeRenderer.polygon(((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[2].getSommets());     
+        shapeRenderer.end();
+        shapeRenderer.begin(ShapeType.Line);
+        shapeRenderer.setColor(((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[3]);
+        shapeRenderer.polygon(((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[3].getSommets());     
+        shapeRenderer.end();
+        
+    	shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[0]);
+        shapeRenderer.rect(((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[0].x,
+        		((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[0].y,
+        		0,
+        		0,
+        		((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[0].width,
+        		((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[0].height,
+        		1,1,((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[0].getAngleTotal());
+        
+        shapeRenderer.end();
+        
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[1]);
+        shapeRenderer.rect(((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[1].x,
+        		((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[1].y,
+        		0,
+        		0,
+        		((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[1].width,
+        		((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[1].height,
+        		1,1,((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[1].getAngleTotal());
+        
+        shapeRenderer.end();
+        
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[2]);
+        shapeRenderer.rect(((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[2].x,
+        		((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[2].y,
+        		0,
+        		0,
+        		((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[2].width,
+        		((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[2].height,
+        		1,1,((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[2].getAngleTotal());
+        
+        shapeRenderer.end();
+        
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[3]);
+        shapeRenderer.rect(((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[3].x,
+        		((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[3].y,
+        		0,
+        		0,
+        		((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[3].width,
+        		((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[3].height,
+        		1,1,((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[3].getAngleTotal());
+        
+        shapeRenderer.end();
+        
+    }
+    
     public void drawObstacle() {
     	for(int i=0; i<myWorld.getIdObstacle().length; i++) {
     		switch (myWorld.getIdObstacle()[i]) {
@@ -119,6 +189,9 @@ public class GameRenderer {
 			
 			case 2: drawCercle(i);
 					break;
+					
+    		case 3: drawCarre(i);
+    				break;
     		}
     	}
     }
