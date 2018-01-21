@@ -36,8 +36,13 @@ public class RectanglePlus extends Rectangle{
 		//Gdx.app.log("test", String.valueOf(cos * fx) + "   " +  String.valueOf(sin * fy + worldOriginX));
 		
 		
-		sommets[0] = cos * fx - sin * fy + worldOriginX;
-		sommets[1] = sin * fx + cos * fy + worldOriginY;
+		//sommets[0] = cos * fx - sin * fy + worldOriginX;
+		//sommets[1] = sin * fx + cos * fy + worldOriginY;
+		
+		Vector2 v0= new Vector2(sommets[0] - originX, sommets[1] - originY);
+		v0.rotate(angle);
+		sommets[0] = v0.x+originX;
+		sommets[1] = v0.y+originY;
 			
 		x=sommets[0];
 		y=sommets[1];
@@ -45,10 +50,10 @@ public class RectanglePlus extends Rectangle{
 		//sommets[2] = cos * fx2 - sin * fy + worldOriginX;
 		//sommets[3] = sin * fx2 + cos * fy + worldOriginY;
 		
-		Vector2 v= new Vector2(sommets[2] - originX, sommets[3] - originY);
-		v.rotate(angle);
-		sommets[2] = v.x+originX;
-		sommets[3] = v.y+originY;
+		Vector2 v1= new Vector2(sommets[2] - originX, sommets[3] - originY);
+		v1.rotate(angle);
+		sommets[2] = v1.x+originX;
+		sommets[3] = v1.y+originY;
 		
 		Vector2 v2= new Vector2(sommets[4] - originX, sommets[5] - originY);
 		v2.rotate(angle);

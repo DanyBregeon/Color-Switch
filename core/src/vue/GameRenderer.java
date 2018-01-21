@@ -4,10 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.PolygonRegion;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.EarClippingTriangulator;
+import com.badlogic.gdx.utils.ShortArray;
 
 import modele.BarreHorizontale;
 import modele.CercleObstacle;
@@ -22,6 +30,10 @@ public class GameRenderer {
     private ShapeRenderer shapeRenderer2;
     private SpriteBatch batch;
     private BitmapFont font;
+    //pour dessiner un polygone rempli
+    private Texture texture;
+    private PolygonSprite polySprite;
+    private PolygonSpriteBatch polyBatch;
     
     public GameRenderer(GameWorld world) {
         myWorld = world;
@@ -32,6 +44,8 @@ public class GameRenderer {
         batch = new SpriteBatch();    
         font = new BitmapFont();
         font.setColor(Color.WHITE);
+
+    	polyBatch = new PolygonSpriteBatch();
     }
     
     public void drawBarreHorizontale(int num) {
@@ -112,8 +126,41 @@ public class GameRenderer {
         shapeRenderer.end();
     }
     
+    public void drawPolygonFilled(int num, Color couleur, float[] vertices) {
+    	   	
+    	Pixmap pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+    	pix.setColor(couleur);
+    	pix.fill();
+    	
+    	texture = new Texture(pix);
+    	TextureRegion textureRegion = new TextureRegion(texture);
+    	//on triangularise le polygone
+    	EarClippingTriangulator triangulator = new EarClippingTriangulator();
+    	float[] f = new float[] { vertices[0], myWorld.getHauteurFenetre()-vertices[1], vertices[2], myWorld.getHauteurFenetre()-vertices[3],
+    			vertices[4], myWorld.getHauteurFenetre()-vertices[5], vertices[6], myWorld.getHauteurFenetre()-vertices[7]};
+    	ShortArray triangleIndices = triangulator.computeTriangles(f);
+    	PolygonRegion polyReg = new PolygonRegion(textureRegion, f, triangleIndices.toArray());
+    	polySprite = new PolygonSprite(polyReg);
+    }
+    
     public void drawCarre(int num) {
     	
+    	drawPolygonFilled(num, ((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[0], ((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[0].getSommets());
+    	polyBatch.begin();
+    	polySprite.draw(polyBatch);
+    	polyBatch.end();
+    	drawPolygonFilled(num, ((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[1], ((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[1].getSommets());
+    	polyBatch.begin();
+    	polySprite.draw(polyBatch);
+    	polyBatch.end();
+    	drawPolygonFilled(num, ((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[2], ((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[2].getSommets());
+    	polyBatch.begin();
+    	polySprite.draw(polyBatch);
+    	polyBatch.end();
+    	drawPolygonFilled(num, ((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[3], ((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[3].getSommets());
+    	polyBatch.begin();
+    	polySprite.draw(polyBatch);
+    	polyBatch.end();
     	shapeRenderer.begin(ShapeType.Line);
         shapeRenderer.setColor(((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[0]);
         shapeRenderer.polygon(((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[0].getSommets());     
@@ -136,7 +183,7 @@ public class GameRenderer {
         shapeRenderer.rect(myWorld.getObstacles()[num].getPosition().x, myWorld.getObstacles()[num].getPosition().y, 3,3);     
         shapeRenderer.end();*/
         
-    	shapeRenderer.begin(ShapeType.Filled);
+    	/*shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[0]);
         shapeRenderer.rect(((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[0].x,
         		((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[0].y,
@@ -182,7 +229,7 @@ public class GameRenderer {
         		((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[3].height,
         		1,1,((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[3].getAngleTotal());
         
-        shapeRenderer.end();
+        shapeRenderer.end();*/
         
     }
     
