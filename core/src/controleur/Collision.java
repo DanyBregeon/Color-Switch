@@ -2,9 +2,11 @@ package controleur;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Vector2;
 
 import modele.BarreHorizontale;
 import modele.CercleObstacle;
+import modele.CarreObstacle;
 import modele.ChangeColor;
 import modele.GameWorld;
 
@@ -26,15 +28,21 @@ public class Collision {
 				Gdx.app.log("Collision", "Perdu");
 				throw new Exception();
 			}
-					break;
+			break;
 			
 			case 2: if(collisionCercle(i)) {
 				//Gdx.app.exit();
 				Gdx.app.log("Collision", "Perdu");
 				throw new Exception();
 			}
-					break;
-    		}
+			break;
+				
+			case 3: if(collisionCarre(i)) {
+				Gdx.app.log("Collision", "PerduCARRE");
+				throw new Exception();
+			}
+			break;
+    		}    		
     	}
 	}
 	
@@ -59,6 +67,35 @@ public class Collision {
 			return true;
 		}
 		
+		return false;
+	}
+	
+	public boolean collisionCarre(int num) {
+		return (intersectionRectangleCercle(num,0)
+				|| intersectionRectangleCercle(num,1)
+				|| intersectionRectangleCercle(num,2)
+				|| intersectionRectangleCercle(num,3));
+	}
+	
+	private boolean intersectionRectangleCercle(int num, int num2) {
+		float[] posSommetsRect = ((CarreObstacle)myWorld.getObstacles()[num]).getRectangles()[num2].getSommets();
+		Vector2 posCercle = myWorld.getBille().getPosition();
+		float rayonCercle = myWorld.getBille().getTaille();
+		if(((CarreObstacle)myWorld.getObstacles()[num]).getCouleursRectangles()[num2] != myWorld.getBille().getCouleur()) {
+			for (int i = 0; i < posSommetsRect.length; i += 2) {
+				if (i == 0) {
+		            if (Intersector.intersectSegmentCircle(new Vector2(posSommetsRect[posSommetsRect.length - 2], posSommetsRect[posSommetsRect.length - 1]),
+		            		new Vector2(posSommetsRect[i], posSommetsRect[i + 1]), posCercle, rayonCercle*rayonCercle)) {
+		                return true;
+		            }
+		        } else {
+		            if (Intersector.intersectSegmentCircle(new Vector2(posSommetsRect[i - 2], posSommetsRect[i - 1]),
+		            		new Vector2(posSommetsRect[i], posSommetsRect[i + 1]), posCercle, rayonCercle*rayonCercle)) {
+		                return true;
+		            }
+		        }
+			}
+		}	
 		return false;
 	}
 	

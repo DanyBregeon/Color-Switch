@@ -25,7 +25,7 @@ public class RectanglePlus extends Rectangle{
 	public void rotate(float originX, float originY,float angle) {
 		float cos = MathUtils.cosDeg(angle);
 		float sin = MathUtils.sinDeg(angle);
-		Gdx.app.log("rect", String.valueOf(x) + "   " +  String.valueOf(y));
+		//Gdx.app.log("rect", String.valueOf(x) + "   " +  String.valueOf(y));
 		float fx = -(originX-x);
 		float fy = -(originY-y);
 		float fx2 = width - (originX-x);
