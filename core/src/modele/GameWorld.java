@@ -17,6 +17,7 @@ public class GameWorld {
 	private int score;
 	private int[] idObstacle;
 	private ChangeColor[] changementCouleurs;
+	private Sol sol;
 	public static int nbObstacle = 3;
 	public static Color[] couleurs = {new Color(1,1,0,1), new Color(0,1,1,1),new Color(1,0,1,1),new Color(0.5f,0,1,1)};
 	
@@ -30,6 +31,7 @@ public class GameWorld {
 		idObstacle = new int[3];
 		changementCouleurs = new ChangeColor[3];
 		distanceEntreObstacle = 500;
+		sol = new Sol(largeurFenetre/2-largeurFenetre/10,bille.getPosition().y+bille.getTaille());
 		//obstacles[0] = new BarreHorizontale(0, hauteurFenetre/4, 1,2,1);
 		//obstacles[0] = new CercleObstacle(largeurFenetre/2, hauteurFenetre/4, 1,2,1);
 		//obstacles[1] = new BarreHorizontale(0, hauteurFenetre/4-distanceEntreObstacle, 1,2,1);
@@ -48,6 +50,12 @@ public class GameWorld {
 		for(int i=0; i<obstacles.length; i++) {
 			obstacles[i].Move(delta, hauteur);
 			changementCouleurs[i].Move(delta, hauteur);
+		}
+		if(sol != null) {
+			sol.Move(delta, hauteur);
+			if(sol.getRectangle().y > hauteurFenetre+3) {
+				sol = null;
+			}
 		}
 		//Gdx.app.log("GameWorld", String.valueOf(obstacles[0].getPosition().y) + "   " + String.valueOf(obstacles[2].getPosition().y));
 		if(obstacles[0].getPosition().y>hauteurFenetre*1.4) {
@@ -69,15 +77,15 @@ public class GameWorld {
 	public void creerObstacle(int num, float y) {
 		int random = (int)(Math.random() * nbObstacle) + 1;
 		//random = 3;
-		Gdx.app.log("GameWorld", String.valueOf(Math.log10(10+score*3)));
+		Gdx.app.log("GameWorld", String.valueOf((float)Math.pow(1+score, 1/3f)));
 		switch (random) {
-			case 1: obstacles[num] = new BarreHorizontale(largeurFenetre/2, y, 1,2+(float)Math.log10(20+score*3),1);
+			case 1: obstacles[num] = new BarreHorizontale(largeurFenetre/2, y, 1,2+(float)Math.pow(2+score, 1/3f),1);
 					break;
 			
-			case 2: obstacles[num] = new CercleObstacle(largeurFenetre/2, y, 1.2f,(float)Math.log10(10+score*3),1);
+			case 2: obstacles[num] = new CercleObstacle(largeurFenetre/2, y, 1.2f,(float)Math.pow(1+score, 1/3f),1);
 					break;
 					
-			case 3: obstacles[num] = new CarreObstacle(largeurFenetre/2, y, 1.2f,(float)Math.log10(10+score*3),1);
+			case 3: obstacles[num] = new CarreObstacle(largeurFenetre/2, y, 1.2f,(float)Math.pow(0.5+score, 1/3f),1);
 					break;
 		}
 		idObstacle[num] = random;
@@ -121,6 +129,10 @@ public class GameWorld {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	public Sol getSol() {
+		return sol;
 	}
 	
 }

@@ -319,7 +319,13 @@ public class GameRenderer {
         /*drawCercle(0);
         drawBarreHorizontale(1);
         drawBarreHorizontale(2);*/
-        
+        if(myWorld.getSol() != null) {
+            shapeRenderer.begin(ShapeType.Filled);
+            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.rect(myWorld.getSol().getRectangle().x, myWorld.getSol().getRectangle().y, myWorld.getLargeurFenetre()/5, 5);
+            shapeRenderer.end();
+        }
+    
         // Dessine les formes pleines
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(myWorld.getBille().getCouleur());
@@ -327,24 +333,11 @@ public class GameRenderer {
         
         //Dessine le rectangle de myWorld (Using ShapeType.Filled)
         shapeRenderer.circle(myWorld.getBille().getPosition().x, myWorld.getBille().getPosition().y, myWorld.getBille().getTaille());
-        
-        //shapeRenderer.rect(myWorld.getRect().x, myWorld.getRect().y, 
-        		//myWorld.getRect().width, myWorld.getRect().height);
 
         // Dit au shapeRenderer d'arreter d'afficher
         // On doit le faire à chaque fois.
         shapeRenderer.end();
-        //drawBarreHorizontale(0);
         
-        // Dit au shapeRenderer de dessiner le contour des formes
-        //shapeRenderer.begin(ShapeType.Line);
-        //shapeRenderer.setColor(255 / 255.0f, 109 / 255.0f, 120 / 255.0f, 1);
-
-        // Dessine le rectangle de myWorld (Using ShapeType.Line)
-        //shapeRenderer.circle(myWorld.getBille().getPosition().x, myWorld.getBille().getPosition().y, myWorld.getBille().getTaille());
-        //shapeRenderer.rect(myWorld.getRect().x, myWorld.getRect().y,
-                //myWorld.getRect().width, myWorld.getRect().height);
-
-        //shapeRenderer.end();
+        
     }
 }

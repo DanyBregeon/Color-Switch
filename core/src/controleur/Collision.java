@@ -21,9 +21,12 @@ public class Collision {
 		//Gdx.app.log("Collision", String.valueOf(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[0]).getRectangles()[0])));
 
 		for(int i=0; i<myWorld.getIdObstacle().length; i++) {
+			if(myWorld.getSol() != null) {
+				collisionSol();
+			}
 			collisionChangeColor(i);
 			collisionEtoileScore(i);
-    		switch (myWorld.getIdObstacle()[i]) {
+			switch (myWorld.getIdObstacle()[i]) {
 			case 1: if(collisionBarreHorizontale(i)) {
 				//Gdx.app.exit();
 				Gdx.app.log("Collision", "Perdu");
@@ -43,8 +46,18 @@ public class Collision {
 				throw new Exception();
 			}
 			break;
-    		}    		
+    		}	
     	}
+	}
+	
+	private boolean collisionSol() {
+		if(Intersector.overlaps(myWorld.getBille().getHitBox(), myWorld.getSol().getRectangle())){
+			myWorld.getBille().setStart(true);
+			myWorld.getBille().setPosition(new Vector2(myWorld.getBille().getPosition().x, myWorld.getSol().getRectangle().y - myWorld.getBille().getTaille()));
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public boolean collisionChangeColor(int num) {

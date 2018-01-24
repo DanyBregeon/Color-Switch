@@ -90,4 +90,12 @@ public class Personnage {
 		this.couleur = couleur;
 	}
 
+	public void setStart(boolean start) {
+		this.start = start;
+	}
+
+	public void setPosition(Vector2 position) {
+		this.position = position;
+	}
+	
 }
