@@ -18,9 +18,8 @@ public class CercleObstacle extends Obstacle{
 	}
 
 	public void Move(float delta, float hauteur) {
+		super.Move(delta, hauteur);
 		Vector2 v = new Vector2(position.x,position.y);
-		v.add(new Vector2(0, -hauteur).scl(delta));
-		position.y = v.y;
 		for(int i=0; i<arcs.length; i++) {
 			/*Vector2 v = new Vector2(arcs[i].getPosition().x,arcs[i].getPosition().y);
 			v.add(new Vector2(0, -hauteur).scl(delta));

@@ -7,12 +7,14 @@ public abstract class Obstacle {
 	protected float taille;
 	protected float vitesse;
 	protected int difficulte;
+	protected EtoileScore etoile;
 	
 	public Obstacle(float x, float y, float taille, float vitesse, int difficulte) {
 		this.position = new Vector2(x,y);
 		this.taille = taille;
 		this.vitesse = vitesse;
 		this.difficulte = difficulte;
+		etoile = new EtoileScore(x,y);
 	}
 	
 	public Vector2 getPosition() {
@@ -30,6 +32,16 @@ public abstract class Obstacle {
 	public int getDifficulte() {
 		return difficulte;
 	}
+	
+	public EtoileScore getEtoile() {
+		return etoile;
+	}
 
-	public abstract void Move(float delta, float hauteur);
+	public void Move(float delta, float hauteur) {
+		Vector2 v = new Vector2(position.x,position.y);
+		Vector2 v2 = new Vector2(0, -hauteur).scl(delta);
+		v.add(v2);
+		position.y = v.y;
+		etoile.Move(delta, hauteur);
+	}
 }

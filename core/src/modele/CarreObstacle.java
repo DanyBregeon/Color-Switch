@@ -26,10 +26,8 @@ public class CarreObstacle extends Obstacle{
 	}
 
 	public void Move(float delta, float hauteur) {
-		Vector2 v = new Vector2(position.x,position.y);
+		super.Move(delta, hauteur);
 		Vector2 v2 = new Vector2(0, -hauteur).scl(delta);
-		v.add(v2);
-		position.y = v.y;
 		for(int i=0; i<rectangles.length; i++) {
 			
 			rectangles[i].y += v2.y;

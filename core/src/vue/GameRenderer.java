@@ -15,10 +15,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.EarClippingTriangulator;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ShortArray;
 
 import modele.BarreHorizontale;
 import modele.CercleObstacle;
+import modele.EtoileScore;
 import modele.CarreObstacle;
 import modele.GameWorld;
 
@@ -35,6 +37,9 @@ public class GameRenderer {
     private PolygonSprite polySprite;
     private PolygonSpriteBatch polyBatch;
     
+    private float tailleEtoile;
+    private boolean sensAnimEtoile;
+    
     public GameRenderer(GameWorld world) {
         myWorld = world;
         cam = new OrthographicCamera();
@@ -46,10 +51,22 @@ public class GameRenderer {
         font.setColor(Color.WHITE);
 
     	polyBatch = new PolygonSpriteBatch();
+    	tailleEtoile = 1;
+    	sensAnimEtoile = true;
+    }
+    
+    private void drawRectangle(int num, int num2) {
+    	shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(((BarreHorizontale) myWorld.getObstacles()[num]).getCouleursRectangles()[num2]);
+        shapeRenderer.rect(((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[num2].x, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[num2].y, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[num2].width, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[num2].height);
+        shapeRenderer.end();
     }
     
     public void drawBarreHorizontale(int num) {
-    	shapeRenderer.begin(ShapeType.Filled);
+    	for(int i=0; i<((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles().length; i++) {
+    		drawRectangle(num, i);
+    	}
+    	/*shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(((BarreHorizontale) myWorld.getObstacles()[num]).getCouleursRectangles()[0]);
         shapeRenderer.rect(((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[0].x, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[0].y, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[0].width, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[0].height);
         shapeRenderer.end();
@@ -72,17 +89,10 @@ public class GameRenderer {
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(((BarreHorizontale) myWorld.getObstacles()[num]).getCouleursRectangles()[4]);
         shapeRenderer.rect(((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[4].x, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[4].y, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[4].width, ((BarreHorizontale) myWorld.getObstacles()[num]).getRectangles()[4].height);
-        shapeRenderer.end();
+        shapeRenderer.end();*/
     }
     
-    public void drawArc(int num1, int num2) {
-		//Gdx.app.log("renderer", String.valueOf(((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getRayon()));
-    	shapeRenderer.arc(((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getPosition().x,
-        		((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getPosition().y,
-        		((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getRayon(),
-        		((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getAngleDepart(),
-        		((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getAngle());
-    }
+    
     
     public void drawChangeColor(int num) {
     	shapeRenderer.begin(ShapeType.Filled);
@@ -103,6 +113,15 @@ public class GameRenderer {
     	shapeRenderer.end();
     }
     
+    public void drawArc(int num1, int num2) {
+		//Gdx.app.log("renderer", String.valueOf(((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getRayon()));
+    	shapeRenderer.arc(((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getPosition().x,
+        		((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getPosition().y,
+        		((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getRayon(),
+        		((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getAngleDepart(),
+        		((CercleObstacle) myWorld.getObstacles()[num1]).getArcs()[num2].getAngle());
+    }
+    
     public void drawCercle(int num) {
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getCouleur());
@@ -121,7 +140,7 @@ public class GameRenderer {
         drawArc(num, 3);
         shapeRenderer.end();     
         shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(new Color(0,0,0,1));
+        shapeRenderer.setColor(new Color(0.1f,0.1f,0.1f,1));
         shapeRenderer.circle(((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getPosition().x, ((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getPosition().y, ((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getRayon()*0.83f);
         shapeRenderer.end();
     }
@@ -161,7 +180,7 @@ public class GameRenderer {
     	polyBatch.begin();
     	polySprite.draw(polyBatch);
     	polyBatch.end();
-    	shapeRenderer.begin(ShapeType.Line);
+    	/*shapeRenderer.begin(ShapeType.Line);
         shapeRenderer.setColor(((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[0]);
         shapeRenderer.polygon(((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[0].getSommets());     
         shapeRenderer.end();
@@ -176,7 +195,7 @@ public class GameRenderer {
         shapeRenderer.begin(ShapeType.Line);
         shapeRenderer.setColor(((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[3]);
         shapeRenderer.polygon(((CarreObstacle) myWorld.getObstacles()[num]).getRectangles()[3].getSommets());     
-        shapeRenderer.end();
+        shapeRenderer.end();*/
         
         /*shapeRenderer.begin(ShapeType.Line);
         shapeRenderer.setColor(((CarreObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[0]);
@@ -233,6 +252,39 @@ public class GameRenderer {
         
     }
     
+    private void drawetoileScore(EtoileScore etoile){
+    	if(tailleEtoile>1.15) {
+    		sensAnimEtoile = false;
+    	}
+    	if(tailleEtoile<1) {
+    		sensAnimEtoile = true;
+    	}
+    	if(sensAnimEtoile) {
+    		tailleEtoile += 0.0025;
+    	}else {
+    		tailleEtoile -= 0.0025;
+    	}
+    	if(etoile.isVivant()) {
+        	shapeRenderer.begin(ShapeType.Filled);
+            shapeRenderer.setColor(Color.WHITE);
+            //shapeRenderer.circle(etoile.getPosition().x, etoile.getPosition().y, etoile.getRayon());
+            Vector2 v1 = new Vector2(-13*tailleEtoile, 0);
+            Vector2 v2 = new Vector2(13*tailleEtoile, 0);
+            Vector2 v3 = new Vector2(0, -26*tailleEtoile);
+            shapeRenderer.triangle(etoile.getPosition().x+v1.x,etoile.getPosition().y+v1.y,etoile.getPosition().x+v2.x,etoile.getPosition().y+v2.y,etoile.getPosition().x+v3.x,etoile.getPosition().y+v3.y);
+            shapeRenderer.end();
+            for(int i=0; i<4; i++) {
+                shapeRenderer.begin(ShapeType.Filled);
+                shapeRenderer.setColor(Color.WHITE);
+                v1 = v1.rotate(72);
+                v2 = v2.rotate(72);
+                v3 = v3.rotate(72);
+                shapeRenderer.triangle(etoile.getPosition().x+v1.x,etoile.getPosition().y+v1.y,etoile.getPosition().x+v2.x,etoile.getPosition().y+v2.y,etoile.getPosition().x+v3.x,etoile.getPosition().y+v3.y);
+                shapeRenderer.end();
+            }
+    	}
+    }
+    
     public void drawObstacle() {
     	for(int i=0; i<myWorld.getIdObstacle().length; i++) {
     		switch (myWorld.getIdObstacle()[i]) {
@@ -245,13 +297,14 @@ public class GameRenderer {
     		case 3: drawCarre(i);
     				break;
     		}
+    		drawetoileScore(myWorld.getObstacles()[i].getEtoile());
     	}
     }
     
 	public void render() {
         //Gdx.app.log("GameRenderer", "render");
         //Dessine un fond noir
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         batch.begin();

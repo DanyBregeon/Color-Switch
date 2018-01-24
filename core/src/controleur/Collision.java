@@ -22,6 +22,7 @@ public class Collision {
 
 		for(int i=0; i<myWorld.getIdObstacle().length; i++) {
 			collisionChangeColor(i);
+			collisionEtoileScore(i);
     		switch (myWorld.getIdObstacle()[i]) {
 			case 1: if(collisionBarreHorizontale(i)) {
 				//Gdx.app.exit();
@@ -64,6 +65,17 @@ public class Collision {
 				myWorld.getChangementCouleurs()[num].setPosition(myWorld.getChangementCouleurs()[myWorld.getChangementCouleurs().length-1].getPosition().y-myWorld.getDistanceEntreObstacle());
 			}
 			
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean collisionEtoileScore(int num) {
+		boolean b =Intersector.overlaps(myWorld.getBille().getHitBox(), myWorld.getObstacles()[num].getEtoile().getCercle());
+		if(myWorld.getObstacles()[num].getEtoile().isVivant() && Intersector.overlaps(myWorld.getBille().getHitBox(), myWorld.getObstacles()[num].getEtoile().getCercle())){
+			myWorld.setScore(myWorld.getScore()+1);
+			myWorld.getObstacles()[num].getEtoile().setVivant(false);
 			return true;
 		}
 		
@@ -138,8 +150,24 @@ public class Collision {
 		return false;
 	}
 	
+	private boolean collisionRectangle(int num, int num2) {
+		if(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[num]).getRectangles()[num2])){
+			if(!myWorld.getBille().getCouleur().equals(((BarreHorizontale)myWorld.getObstacles()[num]).getCouleursRectangles()[num2])) {
+				Gdx.app.log("Collision", "boom");
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean collisionBarreHorizontale(int num) {
-		if(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[num]).getRectangles()[0])){
+		for(int i=0; i<((BarreHorizontale)myWorld.getObstacles()[num]).getRectangles().length;i++) {
+			if(collisionRectangle(num, i)) {
+				return true;
+			}
+		}
+		return false;
+		/*if(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[num]).getRectangles()[0])){
 			if(!myWorld.getBille().getCouleur().equals(((BarreHorizontale)myWorld.getObstacles()[num]).getCouleursRectangles()[0])) {
 				Gdx.app.log("Collision", "boom");
 				return true;
@@ -169,6 +197,6 @@ public class Collision {
 				return true;
 			}
 		}
-		return false;
+		return false;*/
 	}
 }
