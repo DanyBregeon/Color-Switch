@@ -1,6 +1,5 @@
 package controleur;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 
 import modele.Personnage;
@@ -27,9 +26,6 @@ public class InputHandler implements InputProcessor{
 
 	@Override
 	public boolean keyTyped(char character) {
-		if(character=='q') {
-			Gdx.app.exit();
-		}
 		// TODO Auto-generated method stub
 		return false;
 	}

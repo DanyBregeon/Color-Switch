@@ -40,12 +40,8 @@ public class GameScreen implements Screen{
 		try {
 			col.update(delta); // Collision updates
 		} catch(Exception e) {
-			//e.printStackTrace(); //change
-			//renderer.getPolyBatch().dispose();
-			//Gdx.app.log("cache", String.valueOf(renderer.getPolyBatch().maxTrianglesInBatch));
 			world = new GameWorld(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			renderer = new GameRenderer(world);
-			//renderer.getBatch().maxSpritesInBatch=0;
 			col = new Collision(world);
 			Gdx.input.setInputProcessor(new InputHandler(world.getBille()));
 		}
@@ -68,8 +64,6 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void pause() {
-		//renderer.getBatch().dispose(); //change
-		//Gdx.app.exit();
 		Gdx.app.log("GameScreen", "pause called");
 		
 	}
@@ -82,16 +76,12 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void hide() {
-		
 		Gdx.app.log("GameScreen", "hide called");    
 		
 	}
 
 	@Override
 	public void dispose() {
-		renderer.getBatch().dispose();
-		renderer.getPolyBatch().dispose();
-		//renderer.getBatch().dispose(); //change
 		// TODO Auto-generated method stub
 		
 	}
