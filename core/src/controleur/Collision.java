@@ -1,6 +1,7 @@
 package controleur;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
@@ -9,6 +10,7 @@ import modele.CercleSynchroObstacle;
 import modele.BarreHorizontale;
 import modele.CercleObstacle;
 import modele.CarreObstacle;
+import modele.TriangleObstacle;
 import modele.ChangeColor;
 import modele.GameWorld;
 
@@ -28,11 +30,16 @@ public class Collision {
 			}
 			collisionChangeColor(i);
 			collisionEtoileScore(i);
+<<<<<<< HEAD
 			switch (myWorld.getIdObstacle()[i]) {
+=======
+			switch (myWorld.getIdObstacle()[i]) { 
+>>>>>>> Loïs
 				case 1: if(collisionBarreHorizontale(i)) {
 					//Gdx.app.exit();
 					Gdx.app.log("Collision", "Perdu");
 					throw new Exception();
+<<<<<<< HEAD
 					}
 					break;
 			
@@ -65,6 +72,31 @@ public class Collision {
 					break;
     		}	
     	}
+=======
+				}
+				break;
+				
+				case 2: if(collisionCercle(i)) {
+					//Gdx.app.exit();
+					Gdx.app.log("Collision", "Perdu");
+					throw new Exception();
+				}
+				break;
+					
+				case 3: if(collisionCarre(i)) {
+					Gdx.app.log("Collision", "PerduCARRE");
+					throw new Exception();
+				}
+				break;
+				
+				case 4: if(collisionTriangle(i)) {
+					Gdx.app.log("Collision", "PerduTriangle");
+					throw new Exception();
+				}
+				break;
+    			}
+    		}
+>>>>>>> Loïs
 	}
 	
 	private boolean collisionSol() {
@@ -100,11 +132,14 @@ public class Collision {
 				//Gdx.app.log("Collision", String.valueOf(num) + " : " + String.valueOf(myWorld.getObstacles()[myWorld.getObstacles().length-1].getPosition().y));
 			}
 			
+			myWorld.colorTriInBille(num); //change
+			
 			return true;
 		}
 		
 		return false;
 	}
+	
 	
 	public boolean collisionEtoileScore(int num) {
 		boolean b =Intersector.overlaps(myWorld.getBille().getHitBox(), myWorld.getObstacles()[num].getEtoile().getCercle());
@@ -124,11 +159,40 @@ public class Collision {
 				|| intersectionRectangleCercle(num,3));
 	}
 	
+	public boolean collisionTriangle(int num) { //change
+		
+		return (intersectionRectangleCercleTri(num,0)
+				|| intersectionRectangleCercleTri(num,1)
+				|| intersectionRectangleCercleTri(num,2));
+	}
+	
 	private boolean intersectionRectangleCercle(int num, int num2) {
 		float[] posSommetsRect = ((CarreObstacle)myWorld.getObstacles()[num]).getRectangles()[num2].getSommets();
 		Vector2 posCercle = myWorld.getBille().getPosition();
 		float rayonCercle = myWorld.getBille().getTaille();
 		if(((CarreObstacle)myWorld.getObstacles()[num]).getCouleursRectangles()[num2] != myWorld.getBille().getCouleur()) {
+			for (int i = 0; i < posSommetsRect.length; i += 2) {
+				if (i == 0) {
+		            if (Intersector.intersectSegmentCircle(new Vector2(posSommetsRect[posSommetsRect.length - 2], posSommetsRect[posSommetsRect.length - 1]),
+		            		new Vector2(posSommetsRect[i], posSommetsRect[i + 1]), posCercle, rayonCercle*rayonCercle)) {
+		                return true;
+		            }
+		        } else {
+		            if (Intersector.intersectSegmentCircle(new Vector2(posSommetsRect[i - 2], posSommetsRect[i - 1]),
+		            		new Vector2(posSommetsRect[i], posSommetsRect[i + 1]), posCercle, rayonCercle*rayonCercle)) {
+		                return true;
+		            }
+		        }
+			}
+		}	
+		return false;
+	}
+	
+	private boolean intersectionRectangleCercleTri(int num, int num2) {  //change
+		float[] posSommetsRect = ((TriangleObstacle)myWorld.getObstacles()[num]).getRectangles()[num2].getSommets();
+		Vector2 posCercle = myWorld.getBille().getPosition();
+		float rayonCercle = myWorld.getBille().getTaille();
+		if(((TriangleObstacle)myWorld.getObstacles()[num]).getCouleursRectangles()[num2] != myWorld.getBille().getCouleur()) {
 			for (int i = 0; i < posSommetsRect.length; i += 2) {
 				if (i == 0) {
 		            if (Intersector.intersectSegmentCircle(new Vector2(posSommetsRect[posSommetsRect.length - 2], posSommetsRect[posSommetsRect.length - 1]),

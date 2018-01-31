@@ -17,6 +17,7 @@ public abstract class Obstacle {
 		this.difficulte = difficulte;
 		this.hauteurPlusDistance = 0;
 		etoile = new EtoileScore(x,y);
+
 	}
 	
 	public Vector2 getPosition() {
