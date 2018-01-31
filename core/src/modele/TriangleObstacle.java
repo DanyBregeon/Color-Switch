@@ -6,23 +6,25 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class CarreObstacle extends Obstacle{
+public class TriangleObstacle extends Obstacle{
 
-	private RectanglePlus[] rectangles;
+	private TrianglePlus[] rectangles;
 	private Color[] couleursRectangles;
 	
-	public CarreObstacle(float x, float y, float taille, float vitesse, int difficulte) {
+	public TriangleObstacle(float x, float y, float taille, float vitesse, int difficulte) {
 		super(x, y, taille, vitesse, difficulte);
-		rectangles = new RectanglePlus[4];
-		couleursRectangles = new Color[4];
+		
+		rectangles = new TrianglePlus[3];
+		couleursRectangles = new Color[3];
 		couleursRectangles[0] = GameWorld.couleurs[0];//new Color(1,1,0,1);
 		couleursRectangles[1] = GameWorld.couleurs[1];
 		couleursRectangles[2] = GameWorld.couleurs[2];
-		couleursRectangles[3] = GameWorld.couleurs[3];
-		rectangles[0] = new RectanglePlus(position.x-100*taille, position.y-100*taille, 183*taille,17*taille);
-		rectangles[1] = new RectanglePlus(position.x+100*taille, position.y-100*taille, -17*taille,183*taille);
-		rectangles[2] = new RectanglePlus(position.x+100*taille, position.y+100*taille, -183*taille,-17*taille);
-		rectangles[3] = new RectanglePlus(position.x-100*taille, position.y+100*taille, 17*taille,-183*taille);
+		
+		for(int i=0; i<rectangles.length; i++) {
+			rectangles[i] = new TrianglePlus(position.x-201*taille, position.y-125*taille, 373*taille,25*taille);
+
+			rectangles[i].rotate(position.x, position.y, 120*i);
+		}
 	}
 
 	public void Move(float delta, float hauteur) {
@@ -44,12 +46,16 @@ public class CarreObstacle extends Obstacle{
 		
 	}
 
-	public RectanglePlus[] getRectangles() {
+	public TrianglePlus[] getRectangles() {
 		return rectangles;
 	}
 
 	public Color[] getCouleursRectangles() {
 		return couleursRectangles;
+	}
+
+	public void setCouleursRectangles(int i,Color couleursRectangles) {
+		this.couleursRectangles[i] = couleursRectangles;
 	}
 
 }
