@@ -8,12 +8,14 @@ public abstract class Obstacle {
 	protected float vitesse;
 	protected int difficulte;
 	protected EtoileScore etoile;
+	protected float hauteurPlusDistance;
 	
 	public Obstacle(float x, float y, float taille, float vitesse, int difficulte) {
 		this.position = new Vector2(x,y);
 		this.taille = taille;
 		this.vitesse = vitesse;
 		this.difficulte = difficulte;
+		this.hauteurPlusDistance = 0;
 		etoile = new EtoileScore(x,y);
 	}
 	
@@ -35,6 +37,10 @@ public abstract class Obstacle {
 	
 	public EtoileScore getEtoile() {
 		return etoile;
+	}
+
+	public float getHauteurPlusDistance() {
+		return hauteurPlusDistance;
 	}
 
 	public void Move(float delta, float hauteur) {

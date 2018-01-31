@@ -18,6 +18,8 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ShortArray;
 
+import modele.TripleCercleObstacle;
+import modele.CercleSynchroObstacle;
 import modele.BarreHorizontale;
 import modele.CercleObstacle;
 import modele.EtoileScore;
@@ -143,6 +145,64 @@ public class GameRenderer {
         shapeRenderer.setColor(new Color(0.1f,0.1f,0.1f,1));
         shapeRenderer.circle(((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getPosition().x, ((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getPosition().y, ((CercleObstacle) myWorld.getObstacles()[num]).getArcs()[0].getRayon()*0.83f);
         shapeRenderer.end();
+    }
+    
+    public void drawArcSynchro(int num1, int num2, int num3) {
+    	shapeRenderer.begin(ShapeType.Filled);
+    	shapeRenderer.setColor(((CercleSynchroObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getArcs()[num3].getCouleur());
+    	shapeRenderer.arc(((CercleSynchroObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getArcs()[num3].getPosition().x,
+    					  ((CercleSynchroObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getArcs()[num3].getPosition().y,
+    					  ((CercleSynchroObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getArcs()[num3].getRayon(),
+    					  ((CercleSynchroObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getArcs()[num3].getAngleDepart(),
+    					  ((CercleSynchroObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getArcs()[num3].getAngle());
+    	shapeRenderer.end();
+    }
+    
+    public void drawCercleSynchro(int num1, int num2) {
+    	for(int i=0; i<((CercleSynchroObstacle) myWorld.getObstacles()[num1]).getCercles()[0].getArcs().length;i++) {
+        	drawArcSynchro(num1, num2, i);    
+    	}
+    	shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(new Color(0.1f,0.1f,0.1f,1));
+        shapeRenderer.circle(((CercleSynchroObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getPosition().x,
+        					 ((CercleSynchroObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getPosition().y,
+        					 ((CercleSynchroObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getArcs()[0].getRayon()*0.83f);
+        shapeRenderer.end();
+    }
+    
+    public void drawCerclesSynchro(int num) {
+    	for(int i=0; i<((CercleSynchroObstacle) myWorld.getObstacles()[num]).getCercles().length;i++) {
+    		drawCercleSynchro(num, i);
+    	}
+    }
+    
+    public void drawArcTriple(int num1, int num2, int num3) {
+    	shapeRenderer.begin(ShapeType.Filled);
+    	shapeRenderer.setColor(((TripleCercleObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getArcs()[num3].getCouleur());
+    	shapeRenderer.arc(((TripleCercleObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getArcs()[num3].getPosition().x,
+    					  ((TripleCercleObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getArcs()[num3].getPosition().y,
+    					  ((TripleCercleObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getArcs()[num3].getRayon(),
+    					  ((TripleCercleObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getArcs()[num3].getAngleDepart(),
+    					  ((TripleCercleObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getArcs()[num3].getAngle());
+    	shapeRenderer.end();
+    }
+    
+    public void drawTripleCercles(int num1, int num2) {
+    	for(int i=0; i<((TripleCercleObstacle) myWorld.getObstacles()[num1]).getCercles()[0].getArcs().length;i++) {
+        	drawArcTriple(num1, num2, i);    
+    	}
+    	shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(new Color(0.1f,0.1f,0.1f,1));
+        shapeRenderer.circle(((TripleCercleObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getPosition().x,
+        					 ((TripleCercleObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getPosition().y,
+        					 ((TripleCercleObstacle) myWorld.getObstacles()[num1]).getCercles()[num2].getArcs()[0].getRayon()*0.83f);
+        shapeRenderer.end();
+    }
+    
+    public void drawTripleCercles(int num) {
+    	for(int i=0; i<((TripleCercleObstacle) myWorld.getObstacles()[num]).getCercles().length;i++) {
+    		drawTripleCercles(num, i);
+    	}
     }
     
     public void drawPolygonFilled(int num, Color couleur, float[] vertices) {
@@ -288,14 +348,20 @@ public class GameRenderer {
     public void drawObstacle() {
     	for(int i=0; i<myWorld.getIdObstacle().length; i++) {
     		switch (myWorld.getIdObstacle()[i]) {
-			case 1: drawBarreHorizontale(i);
-					break;
+				case 1: drawBarreHorizontale(i);
+				break;
 			
-			case 2: drawCercle(i);
-					break;
+				case 2: drawCercle(i);
+				break;
 					
-    		case 3: drawCarre(i);
-    				break;
+				case 3: drawCarre(i);
+				break;
+    				
+				case 4: drawCerclesSynchro(i);
+				break;
+				
+				case 5: drawTripleCercles(i);
+				break;
     		}
     		drawetoileScore(myWorld.getObstacles()[i].getEtoile());
     	}

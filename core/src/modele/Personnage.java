@@ -23,7 +23,7 @@ public class Personnage {
 		int random = (int)(Math.random() * GameWorld.couleurs.length);
 		couleur = GameWorld.couleurs[random];
 		acceleration = 0;
-		hitBox = new Circle(position, taille);
+		hitBox = new Circle(position, taille*0.98f);
 		start = true;
 	}
 	

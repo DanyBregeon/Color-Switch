@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
+import modele.TripleCercleObstacle;
+import modele.CercleSynchroObstacle;
 import modele.BarreHorizontale;
 import modele.CercleObstacle;
 import modele.CarreObstacle;
@@ -27,25 +29,40 @@ public class Collision {
 			collisionChangeColor(i);
 			collisionEtoileScore(i);
 			switch (myWorld.getIdObstacle()[i]) {
-			case 1: if(collisionBarreHorizontale(i)) {
-				//Gdx.app.exit();
-				Gdx.app.log("Collision", "Perdu");
-				throw new Exception();
-			}
-			break;
+				case 1: if(collisionBarreHorizontale(i)) {
+					//Gdx.app.exit();
+					Gdx.app.log("Collision", "Perdu");
+					throw new Exception();
+					}
+					break;
 			
-			case 2: if(collisionCercle(i)) {
-				//Gdx.app.exit();
-				Gdx.app.log("Collision", "Perdu");
-				throw new Exception();
-			}
-			break;
+				case 2: if(collisionCercle(((CercleObstacle)myWorld.getObstacles()[i])/*i*/)) {
+					//Gdx.app.exit();
+					Gdx.app.log("Collision", "Perdu");
+					throw new Exception();
+					}
+					break;
 				
-			case 3: if(collisionCarre(i)) {
-				Gdx.app.log("Collision", "PerduCARRE");
-				throw new Exception();
-			}
-			break;
+				case 3: if(collisionCarre(i)) {
+					Gdx.app.log("Collision", "PerduCARRE");
+					throw new Exception();
+					}
+					break;
+				
+				case 4: if(collisionCercle(((CercleSynchroObstacle)myWorld.getObstacles()[i]).getCercles()[1])
+						 ||collisionCercle(((CercleSynchroObstacle)myWorld.getObstacles()[i]).getCercles()[3])) {
+					Gdx.app.log("Collision", "Perdu");
+					throw new Exception();
+					}
+					break;
+					
+				case 5: if(collisionCercle(((TripleCercleObstacle)myWorld.getObstacles()[i]).getCercles()[0])
+						 ||collisionCercle(((TripleCercleObstacle)myWorld.getObstacles()[i]).getCercles()[1])
+						 ||collisionCercle(((TripleCercleObstacle)myWorld.getObstacles()[i]).getCercles()[2])) {
+					Gdx.app.log("Collision", "Perdu");
+					throw new Exception();
+					}
+					break;
     		}	
     	}
 	}
@@ -72,10 +89,15 @@ public class Collision {
 			}else {
 				myWorld.getBille().setCouleur(GameWorld.couleurs[random]);
 			}
+			myWorld.getChangementCouleurs()[num].setPosition(-2000);
 			if(num != 0) {
-				myWorld.getChangementCouleurs()[num].setPosition(myWorld.getChangementCouleurs()[num-1].getPosition().y-myWorld.getDistanceEntreObstacle());
+				//myWorld.getChangementCouleurs()[num].setPosition(myWorld.getChangementCouleurs()[num-1].getPosition().y-myWorld.getDistanceEntreObstacle()[num-1]);
+				//myWorld.getChangementCouleurs()[num].setPosition(myWorld.getObstacles()[num-1].getPosition().y-myWorld.getObstacles()[num-1].getHauteurPlusDistance());
+				//Gdx.app.log("Collision", String.valueOf(num) + " : " + String.valueOf(myWorld.getObstacles()[num-1].getPosition().y));
 			}else {
-				myWorld.getChangementCouleurs()[num].setPosition(myWorld.getChangementCouleurs()[myWorld.getChangementCouleurs().length-1].getPosition().y-myWorld.getDistanceEntreObstacle());
+				//myWorld.getChangementCouleurs()[num].setPosition(myWorld.getChangementCouleurs()[myWorld.getChangementCouleurs().length-1].getPosition().y-myWorld.getDistanceEntreObstacle()[myWorld.getDistanceEntreObstacle().length-1]);
+				//myWorld.getChangementCouleurs()[num].setPosition(myWorld.getObstacles()[myWorld.getObstacles().length-1].getPosition().y-myWorld.getObstacles()[myWorld.getObstacles().length-1].getHauteurPlusDistance());
+				//Gdx.app.log("Collision", String.valueOf(num) + " : " + String.valueOf(myWorld.getObstacles()[myWorld.getObstacles().length-1].getPosition().y));
 			}
 			
 			return true;
@@ -132,7 +154,7 @@ public class Collision {
 		if((posBille < posObs + rayonObs + rayonBille && posBille > posObs + rayonObs*0.87 - rayonBille)) {
 			for(int i=0; i< ((CercleObstacle)myWorld.getObstacles()[num]).getArcs().length; i++){
 				float angleDep = ((CercleObstacle)myWorld.getObstacles()[num]).getArcs()[i].getAngleDepart();
-				//on ne sait pas pourquoi il faut mettr eun *5 pour avoir la bonne valeur d'angle
+				//on ne sait pas pourquoi il faut mettre un *5 pour avoir la bonne valeur d'angle
 				float angleDepartCollision = (float)Math.atan((rayonObs/rayonBille))*5;
 				if(angleDep > angleDepartCollision && angleDep <= 90-angleDepartCollision){
 					if(!((CercleObstacle)myWorld.getObstacles()[num]).getArcs()[i].getCouleur().equals(myWorld.getBille().getCouleur())) {
@@ -160,6 +182,69 @@ public class Collision {
 				}
 			}
 		}
+		return false;
+	}
+	
+	public boolean collisionCercle(CercleObstacle cercle) {
+		Vector2 posBille = myWorld.getBille().getPosition();
+		float rayonBille = myWorld.getBille().getTaille();
+		Vector2 posObs = cercle.getPosition();
+		float rayonObs = cercle.getTaille()*98;
+		float distanceBilleCentre = (float) Math.sqrt(Math.pow((posBille.x-posObs.x),2) + Math.pow((posBille.y-posObs.y),2));
+		if((distanceBilleCentre < rayonObs+rayonBille && distanceBilleCentre > rayonObs*0.87 - rayonBille)) {
+			Vector2 v = new Vector2(posBille.x-posObs.x, posBille.y-posObs.y);
+			float angleBille = v.angle();
+			/*if(angleBille>270) {
+				angleBille -=360;
+			}*/
+			//Gdx.app.log("collision", String.valueOf(distanceBilleCentre));
+			float angleDepartCollision = (float) Math.toDegrees((float)Math.atan((rayonBille/distanceBilleCentre)));
+			for(int i=0; i< cercle.getArcs().length; i++){
+				float angleDep = cercle.getArcs()[i].getAngleDepart();
+				if(angleDep < 0) {
+					angleDep = angleDep+360;
+				}
+				//Gdx.app.log("collision", cercle.getArcs()[i].getCouleur().r + " " +  + cercle.getArcs()[i].getCouleur().g + " " + cercle.getArcs()[i].getCouleur().b + " : " + angleDep);
+				Gdx.app.log("collision", "angleDep : " + String.valueOf(angleDep) + ", angleBille : " + String.valueOf(angleBille) + ", angleDepartCollision : " + String.valueOf(angleDepartCollision));
+				if(angleDep<angleBille+angleDepartCollision && angleDep>angleBille-angleDepartCollision) {
+					Gdx.app.log("Collision", "boom");
+					return true;
+				}else if(angleDep<=angleBille-angleDepartCollision && angleDep>angleBille+angleDepartCollision-90) {
+					Gdx.app.log("Collision", cercle.getArcs()[i].getCouleur().r + " " +  + cercle.getArcs()[i].getCouleur().g + " " + cercle.getArcs()[i].getCouleur().b);
+					if(!cercle.getArcs()[i].getCouleur().equals(myWorld.getBille().getCouleur())) {
+						Gdx.app.log("Collision", "boom");
+						return true;
+					}
+				}
+				//on ne sait pas pourquoi il faut mettre un *5 pour avoir la bonne valeur d'angle
+				/*float angleDepartCollision = (float)Math.atan((rayonBille/distanceBilleCentre));
+				if(angleDep > angleDepartCollision && angleDep <= 90-angleDepartCollision){
+					if(!cercle.getArcs()[i].getCouleur().equals(myWorld.getBille().getCouleur())) {
+						Gdx.app.log("Collision", "boom");
+						return true;
+					}
+				}else if(angleDep > 90-angleDepartCollision && angleDep < 90+angleDepartCollision) {
+					Gdx.app.log("Collision", "boom");
+					return true;
+				}*/
+			}
+		}
+		
+		/*else if (posBille > posObs - rayonObs - rayonBille && posBille < posObs - rayonObs*0.83 + rayonBille) {
+			for(int i=0; i< cercle.getArcs().length; i++){
+				float angleDep = cercle.getArcs()[i].getAngleDepart();
+				float angleDepartCollision = (float)Math.atan((rayonObs/rayonBille))*5;
+				if(angleDep > 180+angleDepartCollision && angleDep <= 270-angleDepartCollision){
+					if(!cercle.getArcs()[i].getCouleur().equals(myWorld.getBille().getCouleur())) {
+						Gdx.app.log("Collision", "boom");
+						return true;
+					}
+				}else if(angleDep > 270-angleDepartCollision && angleDep < 270+angleDepartCollision) {
+					Gdx.app.log("Collision", "boom");
+					return true;
+				}
+			}
+		}*/
 		return false;
 	}
 	

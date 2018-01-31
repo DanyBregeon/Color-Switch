@@ -12,6 +12,10 @@ public class BarreHorizontale extends Obstacle{
 
 	public BarreHorizontale(float x, float y, float taille, float vitesse, int difficulte) {
 		super(x,y, taille,vitesse, difficulte);
+		hauteurPlusDistance = 220*taille;
+		position.y -= hauteurPlusDistance;
+		y -= hauteurPlusDistance;
+		etoile.setPosition(y);
 		rectangles = new Rectangle[10];
 		couleursRectangles = new Color[10];
 		couleursRectangles[0] = GameWorld.couleurs[0];//new Color(1,1,0,1);

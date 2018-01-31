@@ -11,14 +11,14 @@ public class GameWorld {
 	private Personnage bille;
 	private float hauteur;
 	private Obstacle[] obstacles;
-	private int distanceEntreObstacle;
+	//private int distanceEntreObstacle;
 	private int hauteurFenetre;
 	private int largeurFenetre;
 	private int score;
 	private int[] idObstacle;
 	private ChangeColor[] changementCouleurs;
 	private Sol sol;
-	public static int nbObstacle = 3;
+	public static int nbObstacle = 5;
 	public static Color[] couleurs = {new Color(1,1,0,1), new Color(0,1,1,1),new Color(1,0,1,1),new Color(0.5f,0,1,1)};
 	
 	public GameWorld(int largeurFenetre, int hauteurFenetre) {
@@ -30,18 +30,18 @@ public class GameWorld {
 		obstacles = new Obstacle[3];
 		idObstacle = new int[3];
 		changementCouleurs = new ChangeColor[3];
-		distanceEntreObstacle = 500;
+		//distanceEntreObstacle = 500;
 		sol = new Sol(largeurFenetre/2-largeurFenetre/10,bille.getPosition().y+bille.getTaille());
 		//obstacles[0] = new BarreHorizontale(0, hauteurFenetre/4, 1,2,1);
 		//obstacles[0] = new CercleObstacle(largeurFenetre/2, hauteurFenetre/4, 1,2,1);
 		//obstacles[1] = new BarreHorizontale(0, hauteurFenetre/4-distanceEntreObstacle, 1,2,1);
 		//obstacles[2] = new BarreHorizontale(0, hauteurFenetre/4-2*distanceEntreObstacle, 1,2,1);
-		creerObstacle(0, hauteurFenetre/4);
-		creerObstacle(1, hauteurFenetre/4-distanceEntreObstacle);
-		creerObstacle(2, hauteurFenetre/4-2*distanceEntreObstacle);
-		changementCouleurs[0] = new ChangeColor(largeurFenetre/2, hauteurFenetre/4 -0.5f*distanceEntreObstacle);
-		changementCouleurs[1] = new ChangeColor(largeurFenetre/2, hauteurFenetre/4 -1.5f*distanceEntreObstacle);
-		changementCouleurs[2] = new ChangeColor(largeurFenetre/2, hauteurFenetre/4 -2.5f*distanceEntreObstacle);
+		creerObstacle(0, hauteurFenetre/2/*hauteurFenetre/4*/);
+		changementCouleurs[0] = new ChangeColor(largeurFenetre/2, obstacles[0].getPosition().y - obstacles[0].getHauteurPlusDistance());
+		creerObstacle(1, changementCouleurs[0].getPosition().y);
+		changementCouleurs[1] = new ChangeColor(largeurFenetre/2, obstacles[1].getPosition().y - obstacles[1].getHauteurPlusDistance());
+		creerObstacle(2, changementCouleurs[1].getPosition().y);
+		changementCouleurs[2] = new ChangeColor(largeurFenetre/2, obstacles[2].getPosition().y - obstacles[2].getHauteurPlusDistance());
 		//Gdx.app.log("world", String.valueOf(changementCouleurs[0].getPosition().y));
 	}
 	
@@ -59,34 +59,73 @@ public class GameWorld {
 		}
 		//Gdx.app.log("GameWorld", String.valueOf(obstacles[0].getPosition().y) + "   " + String.valueOf(obstacles[2].getPosition().y));
 		if(obstacles[0].getPosition().y>hauteurFenetre*1.4) {
+			creerObstacle(0, changementCouleurs[2].getPosition().y);
+			changementCouleurs[0].setPosition(obstacles[0].getPosition().y - obstacles[0].getHauteurPlusDistance());
 			//obstacles[0] = new BarreHorizontale(0, obstacles[2].getPosition().y-distanceEntreObstacle, 1,2,1);
-			creerObstacle(0, obstacles[2].getPosition().y-distanceEntreObstacle);
+			//creerObstacle(0, obstacles[2].getPosition().y);
 		}
 		else if(obstacles[1].getPosition().y>hauteurFenetre*1.4) {
+			creerObstacle(1, changementCouleurs[0].getPosition().y);
+			changementCouleurs[1].setPosition(obstacles[1].getPosition().y - obstacles[1].getHauteurPlusDistance());
 			//obstacles[1] = new BarreHorizontale(0, obstacles[0].getPosition().y-distanceEntreObstacle, 1,2,1);
-			creerObstacle(1, obstacles[0].getPosition().y-distanceEntreObstacle);
+			//creerObstacle(1, obstacles[0].getPosition().y);
 		}
 		else if(obstacles[2].getPosition().y>hauteurFenetre*1.4) {
+			creerObstacle(2, changementCouleurs[1].getPosition().y);
+			changementCouleurs[2].setPosition(obstacles[2].getPosition().y - obstacles[2].getHauteurPlusDistance());
 			//obstacles[2] = new BarreHorizontale(0, obstacles[1].getPosition().y-distanceEntreObstacle, 1,2,1);
-			creerObstacle(2, obstacles[1].getPosition().y-distanceEntreObstacle);
+			//creerObstacle(2, obstacles[1].getPosition().y);
 		}
         //Gdx.app.log("GameWorld", "update");
            
     }
 	
+	/*private float calculPositionObstacle(int num) {
+		if(num != 0) {
+			distanceEntreObstacle[num-1] += val;
+			distanceEntreObstacle[num] = val;
+			if(changementCouleurs[num-1] != null)
+			changementCouleurs[num-1].setPosition(changementCouleurs[num-1].getPosition().y-val);
+			return distanceEntreObstacle[num-1];
+		}else {
+			if(changementCouleurs[changementCouleurs.length-1] != null) {
+				
+			}else {
+				
+			}
+			distanceEntreObstacle[distanceEntreObstacle.length-1] += val;
+			distanceEntreObstacle[num] = val;
+			if(changementCouleurs[changementCouleurs.length-1] != null)
+				changementCouleurs[changementCouleurs.length-1].setPosition(changementCouleurs[changementCouleurs.length-1].getPosition().y-val);
+			return distanceEntreObstacle[distanceEntreObstacle.length-1];
+		}
+	}*/
+	
 	public void creerObstacle(int num, float y) {
 		int random = (int)(Math.random() * nbObstacle) + 1;
-		//random = 3;
+
 		Gdx.app.log("GameWorld", String.valueOf((float)Math.pow(1+score, 1/3f)));
 		switch (random) {
-			case 1: obstacles[num] = new BarreHorizontale(largeurFenetre/2, y, 1,2+(float)Math.pow(2+score, 1/3f),1);
-					break;
+		
+			case 1: //y -= calculPositionObstacle(num, 250);
+			obstacles[num] = new BarreHorizontale(largeurFenetre/2, y, 1,2+(float)Math.pow(2+score, 1/3f),1);			
+			break;
 			
-			case 2: obstacles[num] = new CercleObstacle(largeurFenetre/2, y, 1.2f,(float)Math.pow(1+score, 1/3f),1);
-					break;
+			case 2:// y -= calculPositionObstacle(num, 250);
+			obstacles[num] = new CercleObstacle(largeurFenetre/2, y, 1.2f,(float)Math.pow(1+score, 1/3f),1);			
+			break;
 					
-			case 3: obstacles[num] = new CarreObstacle(largeurFenetre/2, y, 1.2f,(float)Math.pow(0.5+score, 1/3f),1);
-					break;
+			case 3: //y -= calculPositionObstacle(num, 250);
+			obstacles[num] = new CarreObstacle(largeurFenetre/2, y, 1.2f,(float)Math.pow(0.5+score, 1/3f),1);
+			break;
+			
+			case 4: //y -= calculPositionObstacle(num, 250);
+			obstacles[num] = new CercleSynchroObstacle(largeurFenetre/2, y, 0.9f,(float)Math.pow(1.5f+score, 1/3f),1);
+			break;
+			
+			case 5:	//y -= calculPositionObstacle(num, 500);
+			obstacles[num] = new TripleCercleObstacle(largeurFenetre/2, y, 1.1f,(float)Math.pow(0.75f+score, 1/3f),1);
+			break;
 		}
 		idObstacle[num] = random;
 	}
@@ -117,10 +156,6 @@ public class GameWorld {
 
 	public int getLargeurFenetre() {
 		return largeurFenetre;
-	}
-
-	public int getDistanceEntreObstacle() {
-		return distanceEntreObstacle;
 	}
 
 	public int getScore() {

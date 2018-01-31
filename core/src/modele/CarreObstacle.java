@@ -13,6 +13,10 @@ public class CarreObstacle extends Obstacle{
 	
 	public CarreObstacle(float x, float y, float taille, float vitesse, int difficulte) {
 		super(x, y, taille, vitesse, difficulte);
+		hauteurPlusDistance = /*(float)Math.sqrt(2)*/220*taille;
+		position.y -= hauteurPlusDistance;
+		y -= hauteurPlusDistance;
+		etoile.setPosition(y);
 		rectangles = new RectanglePlus[4];
 		couleursRectangles = new Color[4];
 		couleursRectangles[0] = GameWorld.couleurs[0];//new Color(1,1,0,1);
