@@ -18,6 +18,7 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ShortArray;
 
+import modele.TriangleObstacle;
 import modele.TripleCercleObstacle;
 import modele.CercleSynchroObstacle;
 import modele.BarreHorizontale;
@@ -38,7 +39,8 @@ public class GameRenderer {
     private Texture texture;
     private PolygonSprite polySprite;
     private PolygonSpriteBatch polyBatch;
-    
+    private Texture [] textureTab;
+    public Pixmap pix;
     private float tailleEtoile;
     private boolean sensAnimEtoile;
     
@@ -55,6 +57,13 @@ public class GameRenderer {
     	polyBatch = new PolygonSpriteBatch();
     	tailleEtoile = 1;
     	sensAnimEtoile = true;
+    	textureTab=new Texture[GameWorld.couleurs.length];
+    	for(int i=0;i<GameWorld.couleurs.length;i++) {
+    		pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+    		pix.setColor(GameWorld.couleurs[i]);
+        	pix.fill();
+    		textureTab[i]=new Texture(pix);
+    	}
     }
     
     private void drawRectangle(int num, int num2) {
@@ -207,11 +216,15 @@ public class GameRenderer {
     
     public void drawPolygonFilled(int num, Color couleur, float[] vertices) {
     	   	
-    	Pixmap pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-    	pix.setColor(couleur);
-    	pix.fill();
-    	
-    	texture = new Texture(pix);
+    	//Pixmap pix = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+    	//pix.setColor(couleur);
+    	//pix.fill();
+    	for(int i=0;i<GameWorld.couleurs.length;i++) {
+    		if(GameWorld.couleurs[i].equals(couleur)) {
+    			texture=textureTab[i];
+    		}
+    	}
+    	//texture = new Texture(pix);
     	TextureRegion textureRegion = new TextureRegion(texture);
     	//on triangularise le polygone
     	EarClippingTriangulator triangulator = new EarClippingTriangulator();
@@ -220,6 +233,22 @@ public class GameRenderer {
     	ShortArray triangleIndices = triangulator.computeTriangles(f);
     	PolygonRegion polyReg = new PolygonRegion(textureRegion, f, triangleIndices.toArray());
     	polySprite = new PolygonSprite(polyReg);
+    }
+    
+    public void drawTriangle(int num) { //change
+    	
+        drawPolygonFilled(num, ((TriangleObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[0], ((TriangleObstacle) myWorld.getObstacles()[num]).getRectangles()[0].getSommets());
+        polyBatch.begin();
+        polySprite.draw(polyBatch);
+        polyBatch.end();
+        drawPolygonFilled(num, ((TriangleObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[1], ((TriangleObstacle) myWorld.getObstacles()[num]).getRectangles()[1].getSommets());
+        polyBatch.begin();
+        polySprite.draw(polyBatch);
+        polyBatch.end();
+        drawPolygonFilled(num, ((TriangleObstacle) myWorld.getObstacles()[num]).getCouleursRectangles()[2], ((TriangleObstacle) myWorld.getObstacles()[num]).getRectangles()[2].getSommets());
+        polyBatch.begin();
+        polySprite.draw(polyBatch);
+        polyBatch.end();
     }
     
     public void drawCarre(int num) {
@@ -361,6 +390,9 @@ public class GameRenderer {
 				break;
 				
 				case 5: drawTripleCercles(i);
+				break;
+				
+				case 6: drawTriangle(i);
 				break;
     		}
     		drawetoileScore(myWorld.getObstacles()[i].getEtoile());

@@ -3,7 +3,9 @@ package controleur;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.Color;
 
+import modele.TriangleObstacle;
 import modele.TripleCercleObstacle;
 import modele.CercleSynchroObstacle;
 import modele.BarreHorizontale;
@@ -63,6 +65,12 @@ public class Collision {
 					throw new Exception();
 					}
 					break;
+					
+				case 6: if(collisionTriangle(i)) {
+					Gdx.app.log("Collision", "PerduTriangle");
+					throw new Exception();
+					}
+					break;
     		}	
     	}
 	}
@@ -99,7 +107,6 @@ public class Collision {
 				//myWorld.getChangementCouleurs()[num].setPosition(myWorld.getObstacles()[myWorld.getObstacles().length-1].getPosition().y-myWorld.getObstacles()[myWorld.getObstacles().length-1].getHauteurPlusDistance());
 				//Gdx.app.log("Collision", String.valueOf(num) + " : " + String.valueOf(myWorld.getObstacles()[myWorld.getObstacles().length-1].getPosition().y));
 			}
-			
 			return true;
 		}
 		
@@ -117,11 +124,40 @@ public class Collision {
 		return false;
 	}
 	
+	public boolean collisionTriangle(int num) { //change
+		
+		return (intersectionRectangleCercleTri(num,0)
+				|| intersectionRectangleCercleTri(num,1)
+				|| intersectionRectangleCercleTri(num,2));
+	}
+	
 	public boolean collisionCarre(int num) {
 		return (intersectionRectangleCercle(num,0)
 				|| intersectionRectangleCercle(num,1)
 				|| intersectionRectangleCercle(num,2)
 				|| intersectionRectangleCercle(num,3));
+	}
+	
+	private boolean intersectionRectangleCercleTri(int num, int num2) {  //change
+		float[] posSommetsRect = ((TriangleObstacle)myWorld.getObstacles()[num]).getRectangles()[num2].getSommets();
+		Vector2 posCercle = myWorld.getBille().getPosition();
+		float rayonCercle = myWorld.getBille().getTaille();
+		if(((TriangleObstacle)myWorld.getObstacles()[num]).getCouleursRectangles()[num2] != myWorld.getBille().getCouleur()) {
+			for (int i = 0; i < posSommetsRect.length; i += 2) {
+				if (i == 0) {
+		            if (Intersector.intersectSegmentCircle(new Vector2(posSommetsRect[posSommetsRect.length - 2], posSommetsRect[posSommetsRect.length - 1]),
+		            		new Vector2(posSommetsRect[i], posSommetsRect[i + 1]), posCercle, rayonCercle*rayonCercle)) {
+		                return true;
+		            }
+		        } else {
+		            if (Intersector.intersectSegmentCircle(new Vector2(posSommetsRect[i - 2], posSommetsRect[i - 1]),
+		            		new Vector2(posSommetsRect[i], posSommetsRect[i + 1]), posCercle, rayonCercle*rayonCercle)) {
+		                return true;
+		            }
+		        }
+			}
+		}	
+		return false;
 	}
 	
 	private boolean intersectionRectangleCercle(int num, int num2) {

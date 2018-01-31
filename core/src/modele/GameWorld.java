@@ -18,7 +18,7 @@ public class GameWorld {
 	private int[] idObstacle;
 	private ChangeColor[] changementCouleurs;
 	private Sol sol;
-	public static int nbObstacle = 5;
+	public static int nbObstacle = 6;
 	public static Color[] couleurs = {new Color(1,1,0,1), new Color(0,1,1,1),new Color(1,0,1,1),new Color(0.5f,0,1,1)};
 	
 	public GameWorld(int largeurFenetre, int hauteurFenetre) {
@@ -103,31 +103,60 @@ public class GameWorld {
 	
 	public void creerObstacle(int num, float y) {
 		int random = (int)(Math.random() * nbObstacle) + 1;
-
+		random = 6;
 		Gdx.app.log("GameWorld", String.valueOf((float)Math.pow(1+score, 1/3f)));
 		switch (random) {
 		
-			case 1: //y -= calculPositionObstacle(num, 250);
+			case 1:
 			obstacles[num] = new BarreHorizontale(largeurFenetre/2, y, 1,2+(float)Math.pow(2+score, 1/3f),1);			
 			break;
 			
-			case 2:// y -= calculPositionObstacle(num, 250);
+			case 2:
 			obstacles[num] = new CercleObstacle(largeurFenetre/2, y, 1.2f,(float)Math.pow(1+score, 1/3f),1);			
 			break;
 					
-			case 3: //y -= calculPositionObstacle(num, 250);
+			case 3:
 			obstacles[num] = new CarreObstacle(largeurFenetre/2, y, 1.2f,(float)Math.pow(0.5+score, 1/3f),1);
 			break;
 			
-			case 4: //y -= calculPositionObstacle(num, 250);
+			case 4:
 			obstacles[num] = new CercleSynchroObstacle(largeurFenetre/2, y, 0.9f,(float)Math.pow(1.5f+score, 1/3f),1);
 			break;
 			
-			case 5:	//y -= calculPositionObstacle(num, 500);
+			case 5:
 			obstacles[num] = new TripleCercleObstacle(largeurFenetre/2, y, 1.1f,(float)Math.pow(0.75f+score, 1/3f),1);
+			break;
+			
+			case 6:
+			obstacles[num] = new TriangleObstacle(largeurFenetre/2, y, 0.7f,(float)Math.pow(0.5+score, 1/3f),1);
+			colorTriInBilleStart(num);
 			break;
 		}
 		idObstacle[num] = random;
+	}
+	
+	public void colorTriInBilleStart(int num) { //change
+		if(num==0 && getObstacles()[1]==null) {
+			Color[] colTab= ((TriangleObstacle)getObstacles()[0]).getCouleursRectangles();
+			int randomRect = (int)(Math.random() * 3);
+			getBille().setCouleur(colTab[randomRect]);
+		}
+	
+	}
+	
+	public void colorTriInBille(int num) { //change
+		int nextObstacle;
+		if (num==2) {
+			nextObstacle=0;
+		}else {
+			nextObstacle=num+1;
+		}	
+		if(getIdObstacle()[nextObstacle]==4) {
+			Color[] colTab= ((TriangleObstacle)getObstacles()[nextObstacle]).getCouleursRectangles();
+			int randomRect = (int)(Math.random() * 3);
+			getBille().setCouleur(colTab[randomRect]);
+		}
+	
 	}
 
 	public Personnage getBille() {
