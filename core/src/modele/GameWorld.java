@@ -37,6 +37,9 @@ public class GameWorld {
 		//obstacles[1] = new BarreHorizontale(0, hauteurFenetre/4-distanceEntreObstacle, 1,2,1);
 		//obstacles[2] = new BarreHorizontale(0, hauteurFenetre/4-2*distanceEntreObstacle, 1,2,1);
 		creerObstacle(0, hauteurFenetre/2/*hauteurFenetre/4*/);
+		if(getIdObstacle()[0]==6 && bille.getCouleur()==GameWorld.couleurs[3]) {
+			bille.setCouleur(GameWorld.couleurs[0]);
+		}
 		changementCouleurs[0] = new ChangeColor(largeurFenetre/2, obstacles[0].getPosition().y - obstacles[0].getHauteurPlusDistance());
 		creerObstacle(1, changementCouleurs[0].getPosition().y);
 		changementCouleurs[1] = new ChangeColor(largeurFenetre/2, obstacles[1].getPosition().y - obstacles[1].getHauteurPlusDistance());
@@ -103,7 +106,7 @@ public class GameWorld {
 	
 	public void creerObstacle(int num, float y) {
 		int random = (int)(Math.random() * nbObstacle) + 1;
-		random = 6;
+		//random = 6;
 		Gdx.app.log("GameWorld", String.valueOf((float)Math.pow(1+score, 1/3f)));
 		switch (random) {
 		
@@ -129,13 +132,13 @@ public class GameWorld {
 			
 			case 6:
 			obstacles[num] = new TriangleObstacle(largeurFenetre/2, y, 0.7f,(float)Math.pow(0.5+score, 1/3f),1);
-			colorTriInBilleStart(num);
+			//colorTriInBilleStart(num);
 			break;
 		}
 		idObstacle[num] = random;
 	}
 	
-	public void colorTriInBilleStart(int num) { //change
+	/*public void colorTriInBilleStart(int num) { //change
 		if(num==0 && getObstacles()[1]==null) {
 			Color[] colTab= ((TriangleObstacle)getObstacles()[0]).getCouleursRectangles();
 			int randomRect = (int)(Math.random() * 3);
@@ -157,7 +160,7 @@ public class GameWorld {
 			getBille().setCouleur(colTab[randomRect]);
 		}
 	
-	}
+	}*/
 
 	public Personnage getBille() {
 		return bille;

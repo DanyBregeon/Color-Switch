@@ -88,6 +88,21 @@ public class Collision {
 	public boolean collisionChangeColor(int num) {
 		if(Intersector.overlaps(myWorld.getBille().getHitBox(), myWorld.getChangementCouleurs()[num].getCercle())){
 			int random = (int)(Math.random() * GameWorld.couleurs.length);
+			if(num == myWorld.getIdObstacle().length - 1) {
+				 if(myWorld.getIdObstacle()[0] == 6) {
+					 random = (int)(Math.random() * GameWorld.couleurs.length-1);
+					 if(GameWorld.couleurs[random].equals(myWorld.getBille().getCouleur())) {
+						 myWorld.getBille().setCouleur(GameWorld.couleurs[0]);
+					 }
+				 }
+			}else {
+				 if(myWorld.getIdObstacle()[num+1] == 6) {
+					 random = (int)(Math.random() * GameWorld.couleurs.length-1);
+					 if(GameWorld.couleurs[random].equals(myWorld.getBille().getCouleur())) {
+						 myWorld.getBille().setCouleur(GameWorld.couleurs[0]);
+					 }
+				 }
+			}
 			if(GameWorld.couleurs[random].equals(myWorld.getBille().getCouleur())) {
 				if(random == GameWorld.couleurs.length-1) {
 					myWorld.getBille().setCouleur(GameWorld.couleurs[0]);
