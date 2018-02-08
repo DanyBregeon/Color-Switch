@@ -433,7 +433,7 @@ public class GameRenderer {
         shapeRenderer.circle(myWorld.getBille().getPosition().x, myWorld.getBille().getPosition().y, myWorld.getBille().getTaille());
 
         // Dit au shapeRenderer d'arreter d'afficher
-        // On doit le faire à chaque fois.
+        // On doit le faire ï¿½ chaque fois.
         shapeRenderer.end();
         
         

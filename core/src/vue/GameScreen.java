@@ -8,6 +8,7 @@ import com.gdx.colorswitch.ColorSwitch;
 
 import controleur.Collision;
 import controleur.InputHandler;
+import controleur.MenuResetScreen;
 import modele.GameWorld;
 
 public class GameScreen implements Screen{
