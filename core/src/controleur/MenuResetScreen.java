@@ -12,10 +12,9 @@ public class MenuResetScreen implements Screen {
 	private MenuResetWorld world;
 	private MenuResetRenderer renderer;
 	
-	
-	public MenuResetScreen(ColorSwitch cs) {
+	public MenuResetScreen(ColorSwitch cs, int score) {
 		main = cs;
-		world = new MenuResetWorld();
+		world = new MenuResetWorld(score);
 		renderer = new MenuResetRenderer(world);
 		Gdx.input.setInputProcessor(new MenuResetInputHandler(main,world));
 	}

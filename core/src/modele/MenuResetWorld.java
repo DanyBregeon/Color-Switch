@@ -1,13 +1,17 @@
 package modele;
 
+import com.badlogic.gdx.Gdx;
+
 public class MenuResetWorld {
 	private Bouton[] boutons;
 	private int nbBoutons = 2;
+	private int score;
 	
-	public MenuResetWorld() {
+	public MenuResetWorld(int score) {
 		boutons = new Bouton[nbBoutons];
-		boutons[0] = new Bouton(250,500,50);
-		boutons[1] = new Bouton(100,100,30);
+		boutons[0] = new Bouton(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()*(3f/4f),86);
+		boutons[1] = new Bouton(Gdx.graphics.getWidth()/6,Gdx.graphics.getHeight()/9,50);
+		this.score = score;
 	}
 	
 	public void update(float delta){
@@ -16,6 +20,10 @@ public class MenuResetWorld {
 	
 	public Bouton[] getBoutons() {
 		return boutons;
+	}
+
+	public int getScore() {
+		return score;
 	}
 
 }

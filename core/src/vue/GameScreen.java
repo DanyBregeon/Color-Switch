@@ -47,7 +47,7 @@ public class GameScreen implements Screen{
 			world.saveScore();
 			col.getDeadSound().play();
 			dispose();
-			main.setScreen(new MenuResetScreen(main));		
+			main.setScreen(new MenuResetScreen(main, world.getScore()));		
 			/*Gdx.app.log("sreen reset", String.valueOf(Gdx.graphics.getHeight()));
 			world = new GameWorld(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			renderer = new GameRenderer(world);
