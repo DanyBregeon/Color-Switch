@@ -18,6 +18,8 @@ public class MenuResetRenderer {
     private ShapeRenderer shapeRenderer;
     private Texture bandeauScore;
     private Texture bandeauBestScore;
+    private Texture buttonHome;
+    private Texture buttonReset;
     private SpriteBatch batch;
     private BitmapFont scoreText;
     
@@ -29,6 +31,8 @@ public class MenuResetRenderer {
 	        shapeRenderer.setProjectionMatrix(cam.combined);
 	        bandeauScore = new Texture("menuBandeauScore.png");
 	        bandeauBestScore = new Texture("menuBandeauBestScore.png");
+	        buttonHome = new Texture("buttonHome.png");
+	        buttonReset = new Texture("buttonReset.png");
 	        batch = new SpriteBatch();
 	        scoreText = new BitmapFont(Gdx.files.internal("arial64.fnt"));
 	        scoreText.setColor(Color.WHITE);
@@ -37,14 +41,20 @@ public class MenuResetRenderer {
 	public void render() {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		shapeRenderer.begin(ShapeType.Filled);
+		/*shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setColor(Color.WHITE);
 		shapeRenderer.circle(myWorld.getBoutons()[0].getPosition().x, myWorld.getBoutons()[0].getPosition().y, myWorld.getBoutons()[0].getTaille());
 		shapeRenderer.end();
 		shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setColor(Color.WHITE);
 		shapeRenderer.circle(myWorld.getBoutons()[1].getPosition().x, myWorld.getBoutons()[1].getPosition().y, myWorld.getBoutons()[1].getTaille());
-		shapeRenderer.end();
+		shapeRenderer.end();*/
+        batch.begin();
+		batch.draw(buttonHome, myWorld.getBoutons()[1].getPosition().x-myWorld.getBoutons()[1].getTaille(), Gdx.graphics.getHeight()-myWorld.getBoutons()[1].getPosition().y-myWorld.getBoutons()[1].getTaille());
+		batch.end();
+		batch.begin();
+		batch.draw(buttonReset, myWorld.getBoutons()[0].getPosition().x-myWorld.getBoutons()[0].getTaille(), Gdx.graphics.getHeight()-myWorld.getBoutons()[0].getPosition().y-myWorld.getBoutons()[0].getTaille());
+		batch.end();
 		batch.begin();
 		if(myWorld.getScore()<10) {
 			scoreText.draw(batch, String.valueOf(myWorld.getScore()), Gdx.graphics.getWidth()/2-18, Gdx.graphics.getHeight()/1.55f);
