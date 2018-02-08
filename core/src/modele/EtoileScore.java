@@ -1,5 +1,7 @@
 package modele;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -8,6 +10,7 @@ public class EtoileScore {
 	private float rayon;
 	private Circle cercle;
 	private boolean vivant;
+
 	
 	public EtoileScore(float x, float y) {
 		position = new Vector2(x,y);

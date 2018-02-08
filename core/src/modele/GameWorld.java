@@ -1,6 +1,9 @@
 package modele;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
@@ -161,7 +164,17 @@ public class GameWorld {
 		}
 	
 	}*/
-
+	
+	public void saveScore() {
+		Preferences ScorePref = Gdx.app.getPreferences("ScorePref");
+		
+		if(score> ScorePref.getInteger("score",0)) {
+			ScorePref.putInteger("score",  score);
+			ScorePref.flush();
+		}
+		Gdx.app.log("Best score", Integer.toString(ScorePref.getInteger("score")));
+	}
+	
 	public Personnage getBille() {
 		return bille;
 	}

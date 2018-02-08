@@ -1,6 +1,7 @@
 package modele;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
@@ -14,6 +15,8 @@ public class Personnage {
 	private float acceleration;
 	private Circle hitBox;
 	private boolean start;
+	private Sound sound = Gdx.audio.newSound(Gdx.files.internal("jump.wav"));
+
 	
 	public Personnage(float x, float y, float hauteurSaut, float poids, float taille) {
 		position = new Vector2(x,y);
@@ -84,6 +87,10 @@ public class Personnage {
 
 	public Circle getHitBox() {
 		return hitBox;
+	}
+	
+	public Sound getSound() {
+		return sound;
 	}
 
 	public void setCouleur(Color couleur) {

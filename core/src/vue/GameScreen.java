@@ -43,6 +43,11 @@ public class GameScreen implements Screen{
 		try {
 			col.update(delta); // Collision updates
 		} catch(Exception e) {
+			
+			world.saveScore();
+			col.getDeadSound().play();
+			dispose();
+			
 			main.setScreen(new GameScreen(main));
 			/*Gdx.app.log("sreen reset", String.valueOf(Gdx.graphics.getHeight()));
 			world = new GameWorld(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -81,12 +86,20 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void hide() {
+		
+		dispose();
+		
 		Gdx.app.log("GameScreen", "hide called");    
 		
 	}
 
 	@Override
 	public void dispose() {
+		
+		world.getBille().getSound().dispose();
+		col.getStarSound().dispose();
+		col.getColorSwitchSound().dispose();
+		col.getDeadSound().dispose();
 		// TODO Auto-generated method stub
 		
 	}
