@@ -44,16 +44,10 @@ public class GameScreen implements Screen{
 		try {
 			col.update(delta); // Collision updates
 		} catch(Exception e) {
-<<<<<<< HEAD
-			main.setScreen(new MenuResetScreen(main));
-=======
-			
 			world.saveScore();
 			col.getDeadSound().play();
 			dispose();
-			
-			main.setScreen(new GameScreen(main));
->>>>>>> ScoreEtSon
+			main.setScreen(new MenuResetScreen(main));		
 			/*Gdx.app.log("sreen reset", String.valueOf(Gdx.graphics.getHeight()));
 			world = new GameWorld(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			renderer = new GameRenderer(world);

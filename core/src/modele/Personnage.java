@@ -16,7 +16,7 @@ public class Personnage {
 	private Circle hitBox;
 	private boolean start;
 	private Sound sound = Gdx.audio.newSound(Gdx.files.internal("jump.wav"));
-
+	
 	
 	public Personnage(float x, float y, float hauteurSaut, float poids, float taille) {
 		position = new Vector2(x,y);
