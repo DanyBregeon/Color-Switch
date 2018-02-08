@@ -11,6 +11,7 @@ public class InputHandler implements InputProcessor{
 	
 	public InputHandler(Personnage bille) {
 		maBille = bille;
+		
 	}
 
 	@Override
@@ -34,6 +35,7 @@ public class InputHandler implements InputProcessor{
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		maBille.onClick();
+		maBille.getSound().play();
 		return true;
 	}
 

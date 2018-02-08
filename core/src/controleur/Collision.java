@@ -1,6 +1,7 @@
 package controleur;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.Color;
@@ -15,6 +16,10 @@ import modele.ChangeColor;
 import modele.GameWorld;
 
 public class Collision {
+	private Sound starSound = Gdx.audio.newSound(Gdx.files.internal("star.wav"));
+	private Sound colorSwitchSound = Gdx.audio.newSound(Gdx.files.internal("colorswitch.wav"));
+	private Sound deadSound = Gdx.audio.newSound(Gdx.files.internal("dead.wav"));
+
 	private GameWorld myWorld;
 	
 	public Collision(GameWorld gw) {
@@ -122,6 +127,9 @@ public class Collision {
 				//myWorld.getChangementCouleurs()[num].setPosition(myWorld.getObstacles()[myWorld.getObstacles().length-1].getPosition().y-myWorld.getObstacles()[myWorld.getObstacles().length-1].getHauteurPlusDistance());
 				//Gdx.app.log("Collision", String.valueOf(num) + " : " + String.valueOf(myWorld.getObstacles()[myWorld.getObstacles().length-1].getPosition().y));
 			}
+			
+			colorSwitchSound.play();
+			
 			return true;
 		}
 		
@@ -133,6 +141,7 @@ public class Collision {
 		if(myWorld.getObstacles()[num].getEtoile().isVivant() && Intersector.overlaps(myWorld.getBille().getHitBox(), myWorld.getObstacles()[num].getEtoile().getCercle())){
 			myWorld.setScore(myWorld.getScore()+1);
 			myWorld.getObstacles()[num].getEtoile().setVivant(false);
+			starSound.play();
 			return true;
 		}
 		
@@ -348,4 +357,20 @@ public class Collision {
 		}
 		return false;*/
 	}
+
+	public Sound getStarSound() {
+		return starSound;
+	}
+
+	public Sound getColorSwitchSound() {
+		return colorSwitchSound;
+	}
+
+	public Sound getDeadSound() {
+		return deadSound;
+	}
+	
+	
+	
+	
 }
