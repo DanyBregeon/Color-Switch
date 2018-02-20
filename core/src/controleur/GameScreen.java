@@ -1,4 +1,4 @@
-package vue;
+package controleur;
 
 
 import com.badlogic.gdx.Gdx;
@@ -6,10 +6,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.gdx.colorswitch.ColorSwitch;
 
-import controleur.Collision;
-import controleur.InputHandler;
-import controleur.MenuResetScreen;
 import modele.GameWorld;
+import vue.GameRenderer;
 
 public class GameScreen implements Screen{
 	private ColorSwitch main;

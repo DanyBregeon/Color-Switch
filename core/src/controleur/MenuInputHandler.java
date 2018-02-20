@@ -6,7 +6,6 @@ import com.gdx.colorswitch.ColorSwitch;
 
 import modele.MenuWorld;
 import modele.Personnage;
-import vue.GameScreen;
 
 public class MenuInputHandler implements InputProcessor{
 

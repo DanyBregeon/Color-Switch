@@ -5,7 +5,6 @@ import com.badlogic.gdx.InputProcessor;
 import com.gdx.colorswitch.ColorSwitch;
 
 import modele.MenuResetWorld;
-import vue.GameScreen;
 
 public class MenuResetInputHandler implements InputProcessor{
 	private ColorSwitch main;
