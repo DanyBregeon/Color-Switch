@@ -40,11 +40,15 @@ public class MenuInputHandler implements InputProcessor{
 		 //(float) Math.sqrt(Math.pow((posBille.x-posObs.x),2) + Math.pow((posBille.y-posObs.y),2));
 		if(Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[0].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[0].getPosition().y),2)) < myWorld.getBoutons()[0].getTaille()){
 			Gdx.app.log("inputMenu", "collision");
-			main.setScreen(new GameScreen(main));
+			main.setScreen(new GameScreen(main,0));
 		}
 		else if(Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[1].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[1].getPosition().y),2)) < myWorld.getBoutons()[1].getTaille()){
 			Gdx.app.log("inputMenu", "collision");
 			Gdx.app.exit();
+		}
+		else if(Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[2].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[2].getPosition().y),2)) < myWorld.getBoutons()[2].getTaille()){
+			Gdx.app.log("inputMenu", "collision");
+			main.setScreen(new GameScreen(main,1));
 		}
 		return false;
 	}

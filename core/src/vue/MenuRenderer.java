@@ -92,5 +92,8 @@ public class MenuRenderer {
 		angleButtonExit-=2;;
 		batch.draw(buttonExit, myWorld.getBoutons()[1].getPosition().x-43, Gdx.graphics.getHeight()-myWorld.getBoutons()[1].getPosition().y-43, 43,43,86,86,1,1,angleButtonExit);
 		batch.end();
+		batch.begin();
+		batch.draw(buttonExit, myWorld.getBoutons()[2].getPosition().x-43, Gdx.graphics.getHeight()-myWorld.getBoutons()[2].getPosition().y-43, 43,43,86,86,1,1,angleButtonExit);
+		batch.end();
 	}
 }

@@ -59,7 +59,12 @@ public class Personnage {
 	}
 	
 	public void onClick() {
-		acceleration = -hauteurSaut;
+		//Gdx.app.log("Personnage", String.valueOf(((Gdx.graphics.getHeight()-Gdx.input.getY())/(Gdx.graphics.getHeight()/2f))));
+		if(GameWorld.modeDeJeu==1) {
+			acceleration = -hauteurSaut*((Gdx.graphics.getHeight()-Gdx.input.getY())/(Gdx.graphics.getHeight()/2f));
+		}else {
+			acceleration = -hauteurSaut;
+		}
 		if(start) {
 			start = false;
 		}

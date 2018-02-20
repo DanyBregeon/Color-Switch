@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.gdx.colorswitch.ColorSwitch;
 
+import modele.GameWorld;
 import modele.MenuResetWorld;
 
 public class MenuResetInputHandler implements InputProcessor{
@@ -36,7 +37,7 @@ public class MenuResetInputHandler implements InputProcessor{
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		if(Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[0].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[0].getPosition().y),2)) < myWorld.getBoutons()[0].getTaille()){
-			main.setScreen(new GameScreen(main));
+			main.setScreen(new GameScreen(main,GameWorld.modeDeJeu));
 		}
 		else if (Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[1].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[1].getPosition().y),2)) < myWorld.getBoutons()[1].getTaille()){
 			main.setScreen(new Menu(main));

@@ -23,8 +23,10 @@ public class GameWorld {
 	private Sol sol;
 	public static int nbObstacle = 6;
 	public static Color[] couleurs = {new Color(1,1,0,1), new Color(0,1,1,1),new Color(1,0,1,1),new Color(0.5f,0,1,1)};
+	public static int modeDeJeu = 0;
 	
-	public GameWorld(int largeurFenetre, int hauteurFenetre) {
+	public GameWorld(int largeurFenetre, int hauteurFenetre, int mdj) {
+		modeDeJeu=mdj;
 		score = 0;
 		this.largeurFenetre = largeurFenetre;
 		this.hauteurFenetre = hauteurFenetre;
@@ -110,7 +112,7 @@ public class GameWorld {
 	public void creerObstacle(int num, float y) {
 		int random = (int)(Math.random() * nbObstacle) + 1;
 		//random = 6;
-		Gdx.app.log("GameWorld", String.valueOf((float)Math.pow(1+score, 1/3f)));
+		//Gdx.app.log("GameWorld", String.valueOf((float)Math.pow(1+score, 1/3f)));
 		switch (random) {
 		
 			case 1:

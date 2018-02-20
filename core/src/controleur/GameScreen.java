@@ -15,7 +15,7 @@ public class GameScreen implements Screen{
 	private GameRenderer renderer;
 	private Collision col;
 	
-	public GameScreen(ColorSwitch cs) {
+	public GameScreen(ColorSwitch cs, int modeDeJeu) {
         Gdx.app.log("GameScreen", "Attached");
         main = cs;
        // float screenWidth = Gdx.graphics.getWidth();
@@ -23,7 +23,7 @@ public class GameScreen implements Screen{
         //int gameWidth = 544;
         //int gameHeight = screenHeight / (screenWidth / gameWidth);
         Gdx.app.log("sreen init", String.valueOf(Gdx.graphics.getHeight()));
-        world = new GameWorld(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); //initialise le monde
+        world = new GameWorld(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), modeDeJeu); //initialise le monde
         renderer = new GameRenderer(world); //initialise le rendu
         col = new Collision(world);
         
