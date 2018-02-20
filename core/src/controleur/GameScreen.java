@@ -1,4 +1,4 @@
-package vue;
+package controleur;
 
 
 import com.badlogic.gdx.Gdx;
@@ -6,10 +6,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.gdx.colorswitch.ColorSwitch;
 
-import controleur.Collision;
-import controleur.InputHandler;
-import controleur.MenuResetScreen;
 import modele.GameWorld;
+import vue.GameRenderer;
 
 public class GameScreen implements Screen{
 	private ColorSwitch main;
@@ -17,7 +15,7 @@ public class GameScreen implements Screen{
 	private GameRenderer renderer;
 	private Collision col;
 	
-	public GameScreen(ColorSwitch cs) {
+	public GameScreen(ColorSwitch cs, int modeDeJeu) {
         Gdx.app.log("GameScreen", "Attached");
         main = cs;
        // float screenWidth = Gdx.graphics.getWidth();
@@ -25,7 +23,7 @@ public class GameScreen implements Screen{
         //int gameWidth = 544;
         //int gameHeight = screenHeight / (screenWidth / gameWidth);
         Gdx.app.log("sreen init", String.valueOf(Gdx.graphics.getHeight()));
-        world = new GameWorld(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); //initialise le monde
+        world = new GameWorld(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), modeDeJeu); //initialise le monde
         renderer = new GameRenderer(world); //initialise le rendu
         col = new Collision(world);
         

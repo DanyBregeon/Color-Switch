@@ -5,12 +5,13 @@ import com.badlogic.gdx.Gdx;
 public class MenuWorld{
 	private Bouton[] boutons;
 	private Obstacle[] obstacles;
-	private int nbBoutons = 2;
+	private int nbBoutons = 3;
 	
 	public MenuWorld() {
 		boutons = new Bouton[nbBoutons];
 		boutons[0]= new Bouton(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2,86);
 		boutons[1]= new Bouton(Gdx.graphics.getWidth()*(7f/8f),Gdx.graphics.getHeight()*(11f/12f),43);
+		boutons[2]= new Bouton(Gdx.graphics.getWidth()*(1f/8f),Gdx.graphics.getHeight()*(11f/12f),43);
 		
 		obstacles = new Obstacle[5];
 		obstacles[0] = new CercleObstacle(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2+200*2f, 2f,1,1);
