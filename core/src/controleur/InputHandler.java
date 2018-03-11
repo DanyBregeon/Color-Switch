@@ -32,8 +32,19 @@ public class InputHandler implements InputProcessor{
 				}
 				else if(maBille.getCouleur()==GameWorld.couleurs[3]) {
 					maBille.setCouleur(GameWorld.couleurs[0]);
-				}
-					
+				}	
+			}
+			else if(keycode == Input.Keys.NUM_1) {
+				maBille.setCouleur(GameWorld.couleurs[0]);
+			}
+			else if(keycode == Input.Keys.NUM_2) {
+				maBille.setCouleur(GameWorld.couleurs[1]);
+			}
+			else if(keycode == Input.Keys.NUM_3) {
+				maBille.setCouleur(GameWorld.couleurs[2]);
+			}
+			else if(keycode == Input.Keys.NUM_4) {
+				maBille.setCouleur(GameWorld.couleurs[3]);
 			}
 		}
 		return false;

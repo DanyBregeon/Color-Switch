@@ -16,7 +16,7 @@ public class Menu implements Screen{
 
 	public Menu(ColorSwitch cs) {
 		main = cs;
-		world = new MenuWorld();
+		world = new MenuWorld(cs.isSon());
 		renderer = new MenuRenderer(world);
 		Gdx.input.setInputProcessor(new MenuInputHandler(main, world));
 	}

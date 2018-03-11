@@ -50,8 +50,10 @@ public class MenuInputHandler implements InputProcessor{
 			Gdx.app.log("inputMenu", "collision");
 			if(main.isSon()) {
 				main.setSon(false);
+				myWorld.setSon(false);
 			}else {
 				main.setSon(true);
+				myWorld.setSon(true);
 			}
 		}
 		else if(Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[2].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[2].getPosition().y),2)) < myWorld.getBoutons()[2].getTaille()){

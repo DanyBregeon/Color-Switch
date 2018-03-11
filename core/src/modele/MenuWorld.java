@@ -6,8 +6,10 @@ public class MenuWorld{
 	private Bouton[] boutons;
 	private Obstacle[] obstacles;
 	private int nbBoutons = 5;
+	private boolean son;
 	
-	public MenuWorld() {
+	public MenuWorld(boolean sonActif) {
+		son = sonActif;
 		boutons = new Bouton[nbBoutons];
 		boutons[0]= new Bouton(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2,86);
 		boutons[1]= new Bouton(Gdx.graphics.getWidth()*(7f/8f),Gdx.graphics.getHeight()*(11f/12f),43);
@@ -35,6 +37,14 @@ public class MenuWorld{
 	
 	public Obstacle[] getObstacles() {
 		return obstacles;
+	}
+
+	public boolean isSon() {
+		return son;
+	}
+
+	public void setSon(boolean son) {
+		this.son = son;
 	}
 	
 }

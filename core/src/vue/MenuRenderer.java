@@ -23,6 +23,7 @@ public class MenuRenderer {
     private TextureRegion buttonGameMode1;//a mettre dans le modele plus tard
     private TextureRegion buttonGameMode2;//a mettre dans le modele plus tard
     private TextureRegion buttonSound;//a mettre dans le modele plus tard
+    private TextureRegion buttonSoundOff;//a mettre dans le modele plus tard
     private SpriteBatch batch;
     private float angleButtonExit;
     
@@ -36,8 +37,10 @@ public class MenuRenderer {
 	        buttonPlay = new Texture("buttonPlay.png");
 	        Texture buttonExitImg = new Texture("buttonExit.png");
 	        buttonExit = new TextureRegion(buttonExitImg);
-	        Texture buttonSoundImg = new Texture("buttonExit.png");
-	        buttonSound = new TextureRegion(buttonExitImg);
+	        Texture buttonSoundImg = new Texture("buttonSound.png");
+	        buttonSound = new TextureRegion(buttonSoundImg);
+	        Texture buttonSoundOffImg = new Texture("buttonSoundOff.png");
+	        buttonSoundOff = new TextureRegion(buttonSoundOffImg);
 	        Texture buttonMouseImg = new Texture("buttonMouseGameMode.png");
 	        buttonGameMode1 = new TextureRegion(buttonMouseImg);
 	        Texture buttonChronoImg = new Texture("buttonMouseGameMode.png");
@@ -108,7 +111,12 @@ public class MenuRenderer {
 		batch.draw(buttonGameMode2, myWorld.getBoutons()[3].getPosition().x-43, Gdx.graphics.getHeight()-myWorld.getBoutons()[3].getPosition().y-43, 43,43,86,86,1,1,angleButtonExit);
 		batch.end();
 		batch.begin();
-		batch.draw(buttonSound, myWorld.getBoutons()[4].getPosition().x-43, Gdx.graphics.getHeight()-myWorld.getBoutons()[4].getPosition().y-43, 43,43,86,86,1,1,angleButtonExit);
+		if(myWorld.isSon()) {
+			batch.draw(buttonSound, myWorld.getBoutons()[4].getPosition().x-43, Gdx.graphics.getHeight()-myWorld.getBoutons()[4].getPosition().y-43, 43,43,86,86,1,1,angleButtonExit);
+		}else {
+			batch.draw(buttonSoundOff, myWorld.getBoutons()[4].getPosition().x-43, Gdx.graphics.getHeight()-myWorld.getBoutons()[4].getPosition().y-43, 43,43,86,86,1,1,angleButtonExit);
+		}
+		
 		batch.end();
 	}
 }
