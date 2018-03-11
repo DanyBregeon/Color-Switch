@@ -411,9 +411,11 @@ public class GameRenderer {
         
         
         drawObstacle();
-        drawChangeColor(0);
-        drawChangeColor(1);
-        drawChangeColor(2);
+        if(GameWorld.modeDeJeu!=2) {
+            drawChangeColor(0);
+            drawChangeColor(1);
+            drawChangeColor(2);
+        }
         /*drawCercle(0);
         drawBarreHorizontale(1);
         drawBarreHorizontale(2);*/

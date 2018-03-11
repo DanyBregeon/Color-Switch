@@ -91,6 +91,9 @@ public class Collision {
 	}
 	
 	public boolean collisionChangeColor(int num) {
+		if(GameWorld.modeDeJeu==2) {
+			return false;
+		}
 		if(Intersector.overlaps(myWorld.getBille().getHitBox(), myWorld.getChangementCouleurs()[num].getCercle())){
 			int random = (int)(Math.random() * GameWorld.couleurs.length);
 			if(num == myWorld.getIdObstacle().length - 1) {
@@ -127,8 +130,9 @@ public class Collision {
 				//myWorld.getChangementCouleurs()[num].setPosition(myWorld.getObstacles()[myWorld.getObstacles().length-1].getPosition().y-myWorld.getObstacles()[myWorld.getObstacles().length-1].getHauteurPlusDistance());
 				//Gdx.app.log("Collision", String.valueOf(num) + " : " + String.valueOf(myWorld.getObstacles()[myWorld.getObstacles().length-1].getPosition().y));
 			}
-			
-			colorSwitchSound.play();
+			if(GameWorld.son) {
+				colorSwitchSound.play();
+			}
 			
 			return true;
 		}
@@ -141,7 +145,9 @@ public class Collision {
 		if(myWorld.getObstacles()[num].getEtoile().isVivant() && Intersector.overlaps(myWorld.getBille().getHitBox(), myWorld.getObstacles()[num].getEtoile().getCercle())){
 			myWorld.setScore(myWorld.getScore()+1);
 			myWorld.getObstacles()[num].getEtoile().setVivant(false);
-			starSound.play();
+			if(GameWorld.son) {
+				starSound.play();
+			}
 			return true;
 		}
 		

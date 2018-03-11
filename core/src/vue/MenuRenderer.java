@@ -21,6 +21,8 @@ public class MenuRenderer {
     private Texture buttonPlay;//a mettre dans le modele plus tard
     private TextureRegion buttonExit;//a mettre dans le modele plus tard
     private TextureRegion buttonGameMode1;//a mettre dans le modele plus tard
+    private TextureRegion buttonGameMode2;//a mettre dans le modele plus tard
+    private TextureRegion buttonSound;//a mettre dans le modele plus tard
     private SpriteBatch batch;
     private float angleButtonExit;
     
@@ -34,8 +36,12 @@ public class MenuRenderer {
 	        buttonPlay = new Texture("buttonPlay.png");
 	        Texture buttonExitImg = new Texture("buttonExit.png");
 	        buttonExit = new TextureRegion(buttonExitImg);
+	        Texture buttonSoundImg = new Texture("buttonExit.png");
+	        buttonSound = new TextureRegion(buttonExitImg);
 	        Texture buttonMouseImg = new Texture("buttonMouseGameMode.png");
 	        buttonGameMode1 = new TextureRegion(buttonMouseImg);
+	        Texture buttonChronoImg = new Texture("buttonMouseGameMode.png");
+	        buttonGameMode2 = new TextureRegion(buttonChronoImg);
 	        angleButtonExit = 0;
 	        batch = new SpriteBatch();
 	}
@@ -97,6 +103,12 @@ public class MenuRenderer {
 		batch.end();
 		batch.begin();
 		batch.draw(buttonGameMode1, myWorld.getBoutons()[2].getPosition().x-43, Gdx.graphics.getHeight()-myWorld.getBoutons()[2].getPosition().y-43, 43,43,86,86,1,1,angleButtonExit);
+		batch.end();
+		batch.begin();
+		batch.draw(buttonGameMode2, myWorld.getBoutons()[3].getPosition().x-43, Gdx.graphics.getHeight()-myWorld.getBoutons()[3].getPosition().y-43, 43,43,86,86,1,1,angleButtonExit);
+		batch.end();
+		batch.begin();
+		batch.draw(buttonSound, myWorld.getBoutons()[4].getPosition().x-43, Gdx.graphics.getHeight()-myWorld.getBoutons()[4].getPosition().y-43, 43,43,86,86,1,1,angleButtonExit);
 		batch.end();
 	}
 }

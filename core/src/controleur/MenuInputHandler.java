@@ -46,9 +46,21 @@ public class MenuInputHandler implements InputProcessor{
 			Gdx.app.log("inputMenu", "collision");
 			Gdx.app.exit();
 		}
+		else if(Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[4].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[4].getPosition().y),2)) < myWorld.getBoutons()[4].getTaille()){
+			Gdx.app.log("inputMenu", "collision");
+			if(main.isSon()) {
+				main.setSon(false);
+			}else {
+				main.setSon(true);
+			}
+		}
 		else if(Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[2].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[2].getPosition().y),2)) < myWorld.getBoutons()[2].getTaille()){
 			Gdx.app.log("inputMenu", "collision");
 			main.setScreen(new GameScreen(main,1));
+		}
+		else if(Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[3].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[3].getPosition().y),2)) < myWorld.getBoutons()[3].getTaille()){
+			Gdx.app.log("inputMenu", "collision");
+			main.setScreen(new GameScreen(main,2));
 		}
 		return false;
 	}

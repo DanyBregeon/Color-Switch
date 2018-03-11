@@ -15,12 +15,22 @@ public class ColorSwitch extends Game{
 
 	private GameScreen gameScreen;
     private Menu menuScreen;
+    private boolean son;
     
 	@Override
 	public void create() {
 		Gdx.app.log("ColorSwitch", "created");
 		//setScreen(new GameScreen());
+		son = true;
 		setScreen(new Menu(this));
+	}
+
+	public boolean isSon() {
+		return son;
+	}
+
+	public void setSon(boolean son) {
+		this.son = son;
 	}
 	
 	

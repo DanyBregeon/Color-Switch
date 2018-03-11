@@ -23,9 +23,11 @@ public class GameWorld {
 	public static int nbObstacle = 6;
 	public static Color[] couleurs = {new Color(1,1,0,1), new Color(0,1,1,1),new Color(1,0,1,1),new Color(0.5f,0,1,1)};
 	public static int modeDeJeu = 0;
+	public static boolean son = true;
 	
-	public GameWorld(int largeurFenetre, int hauteurFenetre, int mdj) {
+	public GameWorld(int largeurFenetre, int hauteurFenetre, int mdj, boolean sonActif) {
 		modeDeJeu=mdj;
+		son = sonActif;
 		score = 0;
 		this.largeurFenetre = largeurFenetre;
 		this.hauteurFenetre = hauteurFenetre;

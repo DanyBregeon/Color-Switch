@@ -1,8 +1,10 @@
 package controleur;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
+import modele.GameWorld;
 import modele.Personnage;
 
 public class InputHandler implements InputProcessor{
@@ -17,6 +19,23 @@ public class InputHandler implements InputProcessor{
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
+		if(GameWorld.modeDeJeu==2) {
+			if(keycode == Input.Keys.SPACE) {
+				if(maBille.getCouleur()==GameWorld.couleurs[0]) {
+					maBille.setCouleur(GameWorld.couleurs[1]);
+				}
+				else if(maBille.getCouleur()==GameWorld.couleurs[1]) {
+					maBille.setCouleur(GameWorld.couleurs[2]);
+				}
+				else if(maBille.getCouleur()==GameWorld.couleurs[2]) {
+					maBille.setCouleur(GameWorld.couleurs[3]);
+				}
+				else if(maBille.getCouleur()==GameWorld.couleurs[3]) {
+					maBille.setCouleur(GameWorld.couleurs[0]);
+				}
+					
+			}
+		}
 		return false;
 	}
 
@@ -35,7 +54,9 @@ public class InputHandler implements InputProcessor{
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		maBille.onClick();
-		maBille.getSound().play();
+		if(GameWorld.son) {
+			maBille.getSound().play();
+		}
 		return true;
 	}
 
