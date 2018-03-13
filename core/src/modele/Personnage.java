@@ -102,6 +102,10 @@ public class Personnage {
 		this.couleur = couleur;
 	}
 
+	public boolean isStart() {
+		return start;
+	}
+
 	public void setStart(boolean start) {
 		this.start = start;
 	}

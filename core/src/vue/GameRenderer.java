@@ -43,6 +43,7 @@ public class GameRenderer {
     public Pixmap pix;
     private float tailleEtoile;
     private boolean sensAnimEtoile;
+    private Texture lave;
     
     public GameRenderer(GameWorld world) {
         myWorld = world;
@@ -50,6 +51,9 @@ public class GameRenderer {
         cam.setToOrtho(true, 544, 816); //width = 136, height = 204
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
+        if(GameWorld.modeDeJeu==2) {
+        	lave = new Texture("lava.png");
+        }
         batch = new SpriteBatch();    
         font = new BitmapFont();
         font.setColor(Color.WHITE);
@@ -399,6 +403,12 @@ public class GameRenderer {
     	}
     }
     
+    public void drawLava() {
+    	batch.begin();
+		batch.draw(lave, myWorld.getLava().getPosition().x, Gdx.graphics.getHeight()-myWorld.getLava().getPosition().y);
+		batch.end();
+    }
+    
 	public void render() {
         //Gdx.app.log("GameRenderer", "render");
         //Dessine un fond noir
@@ -411,11 +421,7 @@ public class GameRenderer {
         
         
         drawObstacle();
-        if(GameWorld.modeDeJeu!=2) {
-            drawChangeColor(0);
-            drawChangeColor(1);
-            drawChangeColor(2);
-        }
+        
         /*drawCercle(0);
         drawBarreHorizontale(1);
         drawBarreHorizontale(2);*/
@@ -425,11 +431,19 @@ public class GameRenderer {
             shapeRenderer.rect(myWorld.getSol().getRectangle().x, myWorld.getSol().getRectangle().y, myWorld.getLargeurFenetre()/5, 5);
             shapeRenderer.end();
         }
+        
+        if(GameWorld.modeDeJeu!=2) {
+            drawChangeColor(0);
+            drawChangeColor(1);
+            drawChangeColor(2);
+        }else {
+        	drawLava();
+        }
+        
     
         // Dessine les formes pleines
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(myWorld.getBille().getCouleur());
-        
         
         //Dessine le rectangle de myWorld (Using ShapeType.Filled)
         shapeRenderer.circle(myWorld.getBille().getPosition().x, myWorld.getBille().getPosition().y, myWorld.getBille().getTaille());

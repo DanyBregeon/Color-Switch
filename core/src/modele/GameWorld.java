@@ -20,14 +20,18 @@ public class GameWorld {
 	private int[] idObstacle;
 	private ChangeColor[] changementCouleurs;
 	private Sol sol;
+	private Lave lava;
 	public static int nbObstacle = 6;
 	public static Color[] couleurs = {new Color(1,1,0,1), new Color(0,1,1,1),new Color(1,0,1,1),new Color(0.5f,0,1,1)};
 	public static int modeDeJeu = 0;
 	public static boolean son = true;
 	
 	public GameWorld(int largeurFenetre, int hauteurFenetre, int mdj, boolean sonActif) {
-		modeDeJeu=mdj;
 		son = sonActif;
+		modeDeJeu=mdj;
+		if(mdj==2) {
+			lava = new Lave(0,(int) (hauteurFenetre*1.55f), 2.3f, (int) (hauteurFenetre*1.25f));
+		}
 		score = 0;
 		this.largeurFenetre = largeurFenetre;
 		this.hauteurFenetre = hauteurFenetre;
@@ -56,6 +60,13 @@ public class GameWorld {
 	
 	public void update(float delta) {
 		hauteur = bille.update(delta);
+		if(modeDeJeu==2 && !bille.isStart()) {
+			lava.Move(delta, hauteur);
+			if(lava.getPosition().y-bille.getPosition().y>lava.getDistanceMaxPersonnage()) {
+				lava.setPosition((int)bille.getPosition().y+lava.getDistanceMaxPersonnage());
+			}
+			Gdx.app.log("gameworld", String.valueOf(lava.getPosition().y-bille.getPosition().y));
+		}
 		for(int i=0; i<obstacles.length; i++) {
 			obstacles[i].Move(delta, hauteur);
 			changementCouleurs[i].Move(delta, hauteur);
@@ -216,6 +227,10 @@ public class GameWorld {
 
 	public Sol getSol() {
 		return sol;
+	}
+
+	public Lave getLava() {
+		return lava;
 	}
 	
 }

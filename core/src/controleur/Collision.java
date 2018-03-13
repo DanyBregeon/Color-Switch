@@ -33,7 +33,13 @@ public class Collision {
 			if(myWorld.getSol() != null) {
 				collisionSol();
 			}
-			collisionChangeColor(i);
+			if(GameWorld.modeDeJeu==2) {
+				if(collisionLave()) {
+					throw new Exception();
+				}
+			}else {
+				collisionChangeColor(i);
+			}
 			collisionEtoileScore(i);
 			switch (myWorld.getIdObstacle()[i]) {
 				case 1: if(collisionBarreHorizontale(i)) {
@@ -90,10 +96,14 @@ public class Collision {
 		return false;
 	}
 	
-	public boolean collisionChangeColor(int num) {
-		if(GameWorld.modeDeJeu==2) {
-			return false;
+	public boolean collisionLave() {
+		if(myWorld.getBille().getPosition().y+myWorld.getBille().getTaille()>myWorld.getLava().getPosition().y-myWorld.getLava().getHauteurMaxLave()) {
+			return true;
 		}
+		return false;
+	}
+	
+	public boolean collisionChangeColor(int num) {
 		if(Intersector.overlaps(myWorld.getBille().getHitBox(), myWorld.getChangementCouleurs()[num].getCercle())){
 			int random = (int)(Math.random() * GameWorld.couleurs.length);
 			if(num == myWorld.getIdObstacle().length - 1) {
