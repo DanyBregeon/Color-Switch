@@ -48,7 +48,7 @@ public class GameRenderer {
     public GameRenderer(GameWorld world) {
         myWorld = world;
         cam = new OrthographicCamera();
-        cam.setToOrtho(true, 544, 816); //width = 136, height = 204
+        cam.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); //width = 544, height = 816
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
         if(GameWorld.modeDeJeu==2) {

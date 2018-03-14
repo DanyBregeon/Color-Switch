@@ -27,7 +27,7 @@ public class MenuResetRenderer {
 	public MenuResetRenderer(MenuResetWorld world) {
 			myWorld = world;
 	        cam = new OrthographicCamera();
-	        cam.setToOrtho(true, 544, 816);
+	        cam.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	        shapeRenderer = new ShapeRenderer();
 	        shapeRenderer.setProjectionMatrix(cam.combined);
 	        bandeauScore = new Texture("menuBandeauScore.png");
