@@ -43,7 +43,7 @@ public class MenuRenderer {
 	        buttonSoundOff = new TextureRegion(buttonSoundOffImg);
 	        Texture buttonMouseImg = new Texture("buttonMouseGameMode.png");
 	        buttonGameMode1 = new TextureRegion(buttonMouseImg);
-	        Texture buttonChronoImg = new Texture("buttonMouseGameMode.png");
+	        Texture buttonChronoImg = new Texture("buttonLavaGameMode.png");
 	        buttonGameMode2 = new TextureRegion(buttonChronoImg);
 	        angleButtonExit = 0;
 	        batch = new SpriteBatch();

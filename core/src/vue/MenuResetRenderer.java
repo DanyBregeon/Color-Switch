@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
+import modele.GameWorld;
 import modele.MenuResetWorld;
 
 public class MenuResetRenderer {
@@ -63,7 +64,14 @@ public class MenuResetRenderer {
 		}
         batch.end();
 		batch.begin();
-		scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score",0)), Gdx.graphics.getWidth()/2-35, Gdx.graphics.getHeight()/2.2f);
+		if(GameWorld.modeDeJeu==0) {
+			scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score",0)), Gdx.graphics.getWidth()/2-35, Gdx.graphics.getHeight()/2.2f);
+		}else if(GameWorld.modeDeJeu==1) {
+			scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score1",0)), Gdx.graphics.getWidth()/2-35, Gdx.graphics.getHeight()/2.2f);
+		}else if(GameWorld.modeDeJeu==2) {
+			scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score2",0)), Gdx.graphics.getWidth()/2-35, Gdx.graphics.getHeight()/2.2f);
+		}
+
         batch.end();
 		batch.begin();
 		batch.draw(bandeauScore, 0, Gdx.graphics.getHeight()/1.5f);

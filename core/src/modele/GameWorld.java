@@ -123,32 +123,36 @@ public class GameWorld {
 	
 	public void creerObstacle(int num, float y) {
 		int random = (int)(Math.random() * nbObstacle) + 1;
+		float randomTaille = 1;
+		if(modeDeJeu==1) {
+			randomTaille = (float) ((Math.random()*0.7f) + 0.7f);
+		}
 		//random = 6;
 		//Gdx.app.log("GameWorld", String.valueOf((float)Math.pow(1+score, 1/3f)));
 		switch (random) {
 		
 			case 1:
-			obstacles[num] = new BarreHorizontale(largeurFenetre/2, y, 1,2+(float)Math.pow(2+score, 1/3f),1);			
+			obstacles[num] = new BarreHorizontale(largeurFenetre/2, y, 1*randomTaille,2+(float)Math.pow(2+score, 1/3f),1);			
 			break;
 			
 			case 2:
-			obstacles[num] = new CercleObstacle(largeurFenetre/2, y, 1.2f,(float)Math.pow(1+score, 1/3f),1);			
+			obstacles[num] = new CercleObstacle(largeurFenetre/2, y, 1.2f*randomTaille,(float)Math.pow(1+score, 1/3f),1);			
 			break;
 					
 			case 3:
-			obstacles[num] = new CarreObstacle(largeurFenetre/2, y, 1.2f,(float)Math.pow(0.5+score, 1/3f),1);
+			obstacles[num] = new CarreObstacle(largeurFenetre/2, y, 1.2f*randomTaille,(float)Math.pow(0.5+score, 1/3f),1);
 			break;
 			
 			case 4:
-			obstacles[num] = new CercleSynchroObstacle(largeurFenetre/2, y, 0.9f,(float)Math.pow(1.5f+score, 1/3f),1);
+			obstacles[num] = new CercleSynchroObstacle(largeurFenetre/2, y, 0.95f*randomTaille,(float)Math.pow(1.5f+score, 1/3f),1);
 			break;
 			
 			case 5:
-			obstacles[num] = new TripleCercleObstacle(largeurFenetre/2, y, 1.1f,(float)Math.pow(0.75f+score, 1/3f),1);
+			obstacles[num] = new TripleCercleObstacle(largeurFenetre/2, y, 1.1f*randomTaille,(float)Math.pow(0.75f+score, 1/3f),1);
 			break;
 			
 			case 6:
-			obstacles[num] = new TriangleObstacle(largeurFenetre/2, y, 0.7f,(float)Math.pow(0.5+score, 1/3f),1);
+			obstacles[num] = new TriangleObstacle(largeurFenetre/2, y, 0.7f*randomTaille,(float)Math.pow(0.5+score, 1/3f),1);
 			//colorTriInBilleStart(num);
 			break;
 		}
@@ -182,11 +186,23 @@ public class GameWorld {
 	public void saveScore() {
 		Preferences ScorePref = Gdx.app.getPreferences("ScorePref");
 		
-		if(score> ScorePref.getInteger("score",0)) {
-			ScorePref.putInteger("score",  score);
-			ScorePref.flush();
+		if(modeDeJeu==0) {
+			if(score> ScorePref.getInteger("score",0)) {
+				ScorePref.putInteger("score",  score);
+				Gdx.app.log("Best score", Integer.toString(ScorePref.getInteger("score")));
+			}
+		}else if(modeDeJeu==1) {
+			if(score> ScorePref.getInteger("score1",0)) {
+				ScorePref.putInteger("score1",  score);
+				Gdx.app.log("Best score", Integer.toString(ScorePref.getInteger("score1")));
+			}
+		}else if(modeDeJeu==2) {
+			if(score> ScorePref.getInteger("score2",0)) {
+				ScorePref.putInteger("score2",  score);
+				Gdx.app.log("Best score", Integer.toString(ScorePref.getInteger("score2")));
+			}
 		}
-		Gdx.app.log("Best score", Integer.toString(ScorePref.getInteger("score")));
+		ScorePref.flush();
 	}
 	
 	public Personnage getBille() {
