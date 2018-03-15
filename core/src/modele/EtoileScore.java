@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.gdx.colorswitch.ColorSwitch;
 
 public class EtoileScore {
 	private Vector2 position;
@@ -14,7 +15,7 @@ public class EtoileScore {
 	
 	public EtoileScore(float x, float y) {
 		position = new Vector2(x,y);
-		rayon = 20;
+		rayon = 20*ColorSwitch.ratioTailleEcran;
 		cercle = new Circle(position,rayon);
 		vivant = true;
 	}

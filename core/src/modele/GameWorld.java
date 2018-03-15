@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
+import com.gdx.colorswitch.ColorSwitch;
 
 public class GameWorld {
 	
@@ -35,7 +36,7 @@ public class GameWorld {
 		score = 0;
 		this.largeurFenetre = largeurFenetre;
 		this.hauteurFenetre = hauteurFenetre;
-		bille = new Personnage(largeurFenetre/2,hauteurFenetre*0.8f,640,40,16);
+		bille = new Personnage(largeurFenetre/2,hauteurFenetre*0.8f,640*ColorSwitch.ratioTailleEcran,40*ColorSwitch.ratioTailleEcran,16*ColorSwitch.ratioTailleEcran);
 		//bille = new Personnage(milieuX,408,16,1,16);
 		obstacles = new Obstacle[3];
 		idObstacle = new int[3];
@@ -132,27 +133,27 @@ public class GameWorld {
 		switch (random) {
 		
 			case 1:
-			obstacles[num] = new BarreHorizontale(largeurFenetre/2, y, 1*randomTaille,2+(float)Math.pow(2+score, 1/3f),1);			
+			obstacles[num] = new BarreHorizontale(largeurFenetre/2, y, 1*randomTaille*ColorSwitch.ratioTailleEcran,2+(float)Math.pow(2+score, 1/3f),1);			
 			break;
 			
 			case 2:
-			obstacles[num] = new CercleObstacle(largeurFenetre/2, y, 1.2f*randomTaille,(float)Math.pow(1+score, 1/3f),1);			
+			obstacles[num] = new CercleObstacle(largeurFenetre/2, y, 1.2f*randomTaille*ColorSwitch.ratioTailleEcran,(float)Math.pow(1+score, 1/3f),1);			
 			break;
 					
 			case 3:
-			obstacles[num] = new CarreObstacle(largeurFenetre/2, y, 1.2f*randomTaille,(float)Math.pow(0.5+score, 1/3f),1);
+			obstacles[num] = new CarreObstacle(largeurFenetre/2, y, 1.2f*randomTaille*ColorSwitch.ratioTailleEcran,(float)Math.pow(0.5+score, 1/3f),1);
 			break;
 			
 			case 4:
-			obstacles[num] = new CercleSynchroObstacle(largeurFenetre/2, y, 0.95f*randomTaille,(float)Math.pow(1.5f+score, 1/3f),1);
+			obstacles[num] = new CercleSynchroObstacle(largeurFenetre/2, y, 0.95f*randomTaille*ColorSwitch.ratioTailleEcran,(float)Math.pow(1.5f+score, 1/3f),1);
 			break;
 			
 			case 5:
-			obstacles[num] = new TripleCercleObstacle(largeurFenetre/2, y, 1.1f*randomTaille,(float)Math.pow(0.75f+score, 1/3f),1);
+			obstacles[num] = new TripleCercleObstacle(largeurFenetre/2, y, 1.1f*randomTaille*ColorSwitch.ratioTailleEcran,(float)Math.pow(0.75f+score, 1/3f),1);
 			break;
 			
 			case 6:
-			obstacles[num] = new TriangleObstacle(largeurFenetre/2, y, 0.7f*randomTaille,(float)Math.pow(0.5+score, 1/3f),1);
+			obstacles[num] = new TriangleObstacle(largeurFenetre/2, y, 0.7f*randomTaille*ColorSwitch.ratioTailleEcran,(float)Math.pow(0.5+score, 1/3f),1);
 			//colorTriInBilleStart(num);
 			break;
 		}

@@ -65,7 +65,7 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void resize(int width, int height) {
-		Gdx.app.log("GameScreen", "resizing");
+		//Gdx.app.log("GameScreen", "resizing : " + String.valueOf(Gdx.graphics.getWidth()) + ", " + String.valueOf(Gdx.graphics.getHeight()));
 		
 	}
 

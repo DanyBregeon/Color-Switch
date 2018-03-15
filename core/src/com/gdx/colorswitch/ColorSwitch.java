@@ -16,11 +16,14 @@ public class ColorSwitch extends Game{
 	private GameScreen gameScreen;
     private Menu menuScreen;
     private boolean son;
+	public static final float TailleEcranBase = 816;
+	public static float ratioTailleEcran;
     
 	@Override
 	public void create() {
 		Gdx.app.log("ColorSwitch", "created");
 		//setScreen(new GameScreen());
+		ratioTailleEcran = Gdx.graphics.getHeight()/TailleEcranBase;
 		son = true;
 		setScreen(new Menu(this));
 	}

@@ -2,6 +2,7 @@ package modele;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.gdx.colorswitch.ColorSwitch;
 
 public class ChangeColor {
 	private Vector2 position;
@@ -10,7 +11,7 @@ public class ChangeColor {
 	
 	public ChangeColor(float x, float y) {
 		position = new Vector2(x,y);
-		rayon = 20;
+		rayon = 20*ColorSwitch.ratioTailleEcran;
 		cercle = new Circle(position,rayon);
 	}
 	

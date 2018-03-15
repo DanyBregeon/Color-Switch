@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ShortArray;
+import com.gdx.colorswitch.ColorSwitch;
 
 import modele.TriangleObstacle;
 import modele.TripleCercleObstacle;
@@ -54,7 +55,7 @@ public class GameRenderer {
         if(GameWorld.modeDeJeu==2) {
         	lave = new Texture("lava.png");
         }
-        batch = new SpriteBatch();    
+        batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.WHITE);
 
@@ -361,9 +362,9 @@ public class GameRenderer {
         	shapeRenderer.begin(ShapeType.Filled);
             shapeRenderer.setColor(Color.WHITE);
             //shapeRenderer.circle(etoile.getPosition().x, etoile.getPosition().y, etoile.getRayon());
-            Vector2 v1 = new Vector2(-13*tailleEtoile, 0);
-            Vector2 v2 = new Vector2(13*tailleEtoile, 0);
-            Vector2 v3 = new Vector2(0, -26*tailleEtoile);
+            Vector2 v1 = new Vector2(-13*tailleEtoile*ColorSwitch.ratioTailleEcran, 0);
+            Vector2 v2 = new Vector2(13*tailleEtoile*ColorSwitch.ratioTailleEcran, 0);
+            Vector2 v3 = new Vector2(0, -26*tailleEtoile*ColorSwitch.ratioTailleEcran);
             shapeRenderer.triangle(etoile.getPosition().x+v1.x,etoile.getPosition().y+v1.y,etoile.getPosition().x+v2.x,etoile.getPosition().y+v2.y,etoile.getPosition().x+v3.x,etoile.getPosition().y+v3.y);
             shapeRenderer.end();
             for(int i=0; i<4; i++) {
@@ -416,7 +417,7 @@ public class GameRenderer {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         batch.begin();
-        font.draw(batch, String.valueOf(myWorld.getScore()), 20, 750);
+        font.draw(batch, String.valueOf(myWorld.getScore()), 20*ColorSwitch.ratioTailleEcran, 750*ColorSwitch.ratioTailleEcran);
         batch.end();
         
         
