@@ -18,6 +18,7 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ShortArray;
 
+import controleur.GameScreen;
 import modele.TriangleObstacle;
 import modele.TripleCercleObstacle;
 import modele.CercleSynchroObstacle;
@@ -26,6 +27,7 @@ import modele.CercleObstacle;
 import modele.EtoileScore;
 import modele.CarreObstacle;
 import modele.GameWorld;
+import modele.Personnage;
 
 public class GameRenderer {
 	
@@ -409,6 +411,16 @@ public class GameRenderer {
 		batch.end();
     }
     
+    public void dieDisplay() {
+    	
+	    	for(int i=0;i<myWorld.getDiePerso().length;i++) {
+	    	 	shapeRenderer.begin(ShapeType.Filled);
+	         shapeRenderer.setColor(myWorld.getDiePerso()[i].getCouleur());
+	         shapeRenderer.circle(myWorld.getDiePerso()[i].getPosition().x, myWorld.getDiePerso()[i].getPosition().y, myWorld.getDiePerso()[i].getTaille());
+	         shapeRenderer.end();
+	    	}
+    }
+    
 	public void render() {
         //Gdx.app.log("GameRenderer", "render");
         //Dessine un fond noir
@@ -440,17 +452,19 @@ public class GameRenderer {
         	drawLava();
         }
         
-    
-        // Dessine les formes pleines
-        shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(myWorld.getBille().getCouleur());
+        if(GameWorld.die) {
+    			dieDisplay();
+        }else {
+	        // Dessine les formes pleines
+	        shapeRenderer.begin(ShapeType.Filled);
+	        shapeRenderer.setColor(myWorld.getBille().getCouleur());
+	        //Dessine le rectangle de myWorld (Using ShapeType.Filled)
+	        shapeRenderer.circle(myWorld.getBille().getPosition().x, myWorld.getBille().getPosition().y, myWorld.getBille().getTaille());
+	        // Dit au shapeRenderer d'arreter d'afficher
+	        // On doit le faire � chaque fois.
+	        shapeRenderer.end();
+        }
         
-        //Dessine le rectangle de myWorld (Using ShapeType.Filled)
-        shapeRenderer.circle(myWorld.getBille().getPosition().x, myWorld.getBille().getPosition().y, myWorld.getBille().getTaille());
-
-        // Dit au shapeRenderer d'arreter d'afficher
-        // On doit le faire � chaque fois.
-        shapeRenderer.end();
         
         
     }
