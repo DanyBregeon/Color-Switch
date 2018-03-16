@@ -68,11 +68,32 @@ public class InputHandler implements InputProcessor{
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		if(GameWorld.modeDeJeu == 2 && Gdx.app.getType() == ApplicationType.Android) {
-			if(Gdx.input.isTouched(0)) {
-				maBille.onClick();
-				if(GameWorld.son) {
-					maBille.getSound().play();
-				}
+			if(Gdx.input.isTouched(1)) {
+				if(Math.sqrt(Math.pow((Gdx.input.getX(0)-myWorld.getBoutons()[0].getPosition().x),2) + Math.pow((Gdx.input.getY(0)-myWorld.getBoutons()[0].getPosition().y),2)) < myWorld.getBoutons()[0].getTaille()
+					|| Math.sqrt(Math.pow((Gdx.input.getX(0)-myWorld.getBoutons()[1].getPosition().x),2) + Math.pow((Gdx.input.getY(0)-myWorld.getBoutons()[1].getPosition().y),2)) < myWorld.getBoutons()[1].getTaille()
+					|| Math.sqrt(Math.pow((Gdx.input.getX(0)-myWorld.getBoutons()[2].getPosition().x),2) + Math.pow((Gdx.input.getY(0)-myWorld.getBoutons()[2].getPosition().y),2)) < myWorld.getBoutons()[2].getTaille()
+					|| Math.sqrt(Math.pow((Gdx.input.getX(0)-myWorld.getBoutons()[3].getPosition().x),2) + Math.pow((Gdx.input.getY(0)-myWorld.getBoutons()[3].getPosition().y),2)) < myWorld.getBoutons()[3].getTaille()){
+						maBille.onClick();
+						if(GameWorld.son) {
+							maBille.getSound().play();
+						}
+					}else {
+						if(Math.sqrt(Math.pow((Gdx.input.getX(1)-myWorld.getBoutons()[0].getPosition().x),2) + Math.pow((Gdx.input.getY(1)-myWorld.getBoutons()[0].getPosition().y),2)) < myWorld.getBoutons()[0].getTaille()){
+							maBille.setCouleur(GameWorld.couleurs[0]);
+						}else if(Math.sqrt(Math.pow((Gdx.input.getX(1)-myWorld.getBoutons()[1].getPosition().x),2) + Math.pow((Gdx.input.getY(1)-myWorld.getBoutons()[1].getPosition().y),2)) < myWorld.getBoutons()[1].getTaille()){
+							maBille.setCouleur(GameWorld.couleurs[1]);
+						}else if(Math.sqrt(Math.pow((Gdx.input.getX(1)-myWorld.getBoutons()[2].getPosition().x),2) + Math.pow((Gdx.input.getY(1)-myWorld.getBoutons()[2].getPosition().y),2)) < myWorld.getBoutons()[2].getTaille()){
+							maBille.setCouleur(GameWorld.couleurs[2]);
+						}else if(Math.sqrt(Math.pow((Gdx.input.getX(1)-myWorld.getBoutons()[3].getPosition().x),2) + Math.pow((Gdx.input.getY(1)-myWorld.getBoutons()[3].getPosition().y),2)) < myWorld.getBoutons()[3].getTaille()){
+							maBille.setCouleur(GameWorld.couleurs[3]);
+						}else {
+							maBille.onClick();
+							if(GameWorld.son) {
+								maBille.getSound().play();
+							}
+						}
+					}
+
 			}else {
 				if(Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[0].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[0].getPosition().y),2)) < myWorld.getBoutons()[0].getTaille()){
 					maBille.setCouleur(GameWorld.couleurs[0]);
