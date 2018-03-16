@@ -58,9 +58,13 @@ public class GameRenderer {
         	lave = new Texture("lava.png");
         }
         batch = new SpriteBatch();
-        font = new BitmapFont();
+        /*font = new BitmapFont();
         font.setColor(Color.WHITE);
-        font.getData().setScale(ColorSwitch.ratioTailleEcran*2);
+        font.getData().setScale(ColorSwitch.ratioTailleEcran*2);*/
+        
+        font = new BitmapFont(Gdx.files.internal("arial64.fnt"));
+        font.setColor(Color.WHITE);
+        font.getData().setScale(ColorSwitch.ratioTailleEcran);
 
     	polyBatch = new PolygonSpriteBatch();
     	tailleEtoile = 1;
@@ -429,10 +433,6 @@ public class GameRenderer {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
-        batch.begin();
-        font.draw(batch, String.valueOf(myWorld.getScore()), 20*ColorSwitch.ratioTailleEcran, 750*ColorSwitch.ratioTailleEcran);
-        batch.end();
-        
         drawObstacle();
         
         /*drawCercle(0);
@@ -467,6 +467,10 @@ public class GameRenderer {
         if(GameWorld.modeDeJeu==2) {
         	drawLava();
         }
+        
+        batch.begin();
+        font.draw(batch, String.valueOf(myWorld.getScore()), 20*ColorSwitch.ratioTailleEcran, 775*ColorSwitch.ratioTailleEcran);
+        batch.end();
         
         
     }

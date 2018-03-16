@@ -65,7 +65,9 @@ public class GameScreen implements Screen{
 				timeDie=Gdx.graphics.getDeltaTime();
 			}
 			world.saveScore();
-			col.getDeadSound().play();
+			if(main.isSon()) {
+				col.getDeadSound().play();
+			}
 			
 			//main.setScreen(new MenuResetScreen(main, world.getScore()));	
 			

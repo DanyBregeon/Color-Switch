@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.gdx.colorswitch.ColorSwitch;
 
 import controleur.GameScreen;
 
@@ -37,7 +38,9 @@ public class Personnage {
 	}
 
 	public void diePersonnage() {
-		soundDie.play();
+		if(GameWorld.son) {
+			soundDie.play();
+		}
 		//String bla="";
 		vitessex=(float)(Math.random()*(vitessex/10))+(vitessex*9/10);
 		vitessey=vitessex;
@@ -80,8 +83,8 @@ public class Personnage {
 		
 		else {
 			acceleration += poids;
-			if(acceleration>1200) {
-				acceleration = 1200;
+			if(acceleration>1200*ColorSwitch.ratioTailleEcran) {
+				acceleration = 1200*ColorSwitch.ratioTailleEcran;
 			}
 			//position.add(new Vector2(0, acceleration).scl(delta));
 			//hitBox.setPosition(position);

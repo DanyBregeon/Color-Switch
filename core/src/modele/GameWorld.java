@@ -1,5 +1,6 @@
 package modele;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
@@ -72,7 +73,13 @@ public class GameWorld {
 			if(diePerso==null) {
 				bille.setStart(false);
 				hauteur = bille.update(delta);
-				diePerso=new Personnage[(int)(Math.random() *10)+10];
+				
+				
+				if(Gdx.app.getType()==ApplicationType.Android) {
+					diePerso=new Personnage[3];
+				}else {
+					diePerso=new Personnage[(int)(Math.random() *10)+10];
+				}
 				Gdx.app.log("Personnage",String.valueOf(diePerso.length));
 				for(int i=0;i<diePerso.length;i++) {
 	
