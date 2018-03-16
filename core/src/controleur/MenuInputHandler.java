@@ -1,6 +1,7 @@
 package controleur;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.gdx.colorswitch.ColorSwitch;
 
@@ -20,6 +21,9 @@ public class MenuInputHandler implements InputProcessor{
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
+		if(keycode == Input.Keys.SPACE) {
+			//Gdx.graphics.setDisplayMode(272, 408, false);
+		}
 		return false;
 	}
 

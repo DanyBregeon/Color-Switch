@@ -10,8 +10,8 @@ public class DesktopLauncher {
 		//config.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
 		//config.height = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
 		config.title = "Color Switch";
-		config.width = 544;//272;
-		config.height = 816;//408;
+		config.width = 272;//272;//544
+		config.height = 408;//408;//816
 		//config.fullscreen = true;
 		config.resizable = false;
 		//config.addIcon(path, fileType);

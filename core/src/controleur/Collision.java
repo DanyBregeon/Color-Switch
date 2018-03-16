@@ -33,6 +33,9 @@ public class Collision {
 			if(myWorld.getSol() != null) {
 				collisionSol();
 			}
+			if(collisionVide()) {
+				throw new Exception();
+			}
 			if(GameWorld.modeDeJeu==2) {
 				if(collisionLave()) {
 					throw new Exception();
@@ -86,7 +89,14 @@ public class Collision {
     	}
 	}
 	
-	private boolean collisionSol() {
+	public boolean collisionVide() {
+		if(myWorld.getBille().getPosition().y-myWorld.getBille().getTaille() > myWorld.getHauteurFenetre()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean collisionSol() {
 		if(Intersector.overlaps(myWorld.getBille().getHitBox(), myWorld.getSol().getRectangle())){
 			myWorld.getBille().setStart(true);
 			myWorld.getBille().setPosition(new Vector2(myWorld.getBille().getPosition().x, myWorld.getSol().getRectangle().y - myWorld.getBille().getTaille()));
