@@ -7,7 +7,6 @@ import com.gdx.colorswitch.ColorSwitch;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		//config.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
 		if(LwjglApplicationConfiguration.getDesktopDisplayMode().height > 850) {
 			config.height = 816;
 			config.width = 544;
@@ -16,8 +15,8 @@ public class DesktopLauncher {
 			config.width = (int) (config.height*(2f/3f));
 		}
 		config.title = "Color Switch";
-		//config.width = 544;//272;//544
-		//config.height = 816;//408;//816
+		//config.width = 272;//272;//544
+		//config.height = 408;//408;//816
 		//config.fullscreen = true;
 		config.resizable = false;
 		//config.addIcon(path, fileType);

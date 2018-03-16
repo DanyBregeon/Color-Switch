@@ -56,7 +56,7 @@ public class GameWorld {
 		idObstacle = new int[3];
 		changementCouleurs = new ChangeColor[3];
 		//distanceEntreObstacle = 500;
-		tuto = new Tutoriel(0,0);
+		tuto = new Tutoriel(largeurFenetre/2,0);
 		sol = new Sol(largeurFenetre/2-largeurFenetre/10,bille.getPosition().y+bille.getTaille());
 		//obstacles[0] = new BarreHorizontale(0, hauteurFenetre/4, 1,2,1);
 		//obstacles[0] = new CercleObstacle(largeurFenetre/2, hauteurFenetre/4, 1,2,1);

@@ -439,7 +439,7 @@ public class GameRenderer {
     
     public void drawTuto() {
     	batch.begin();
-		batch.draw(tutoText, myWorld.getTuto().getPosition().x,-myWorld.getTuto().getPosition().y, 544*ColorSwitch.ratioTailleEcran, 544*ColorSwitch.ratioTailleEcran);
+		batch.draw(tutoText, myWorld.getTuto().getPosition().x-272*ColorSwitch.ratioTailleEcran,-myWorld.getTuto().getPosition().y, 544*ColorSwitch.ratioTailleEcran, 544*ColorSwitch.ratioTailleEcran);
 		batch.end();
     }
     public void drawButton(int i) {
@@ -495,7 +495,7 @@ public class GameRenderer {
         }
         
         if(GameWorld.die) {
-    			dieDisplay();
+    		dieDisplay();
         }else {
 	        // Dessine les formes pleines
 	        shapeRenderer.begin(ShapeType.Filled);

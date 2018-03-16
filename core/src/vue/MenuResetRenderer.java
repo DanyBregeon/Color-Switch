@@ -1,6 +1,7 @@
 package vue;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -68,20 +69,31 @@ public class MenuResetRenderer {
 		}
         batch.end();
 		batch.begin();
+		int offset = 35;
+		Preferences ScorePref = Gdx.app.getPreferences("ScorePref");
 		if(GameWorld.modeDeJeu==0) {
-			scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score",0)), Gdx.graphics.getWidth()/2-35*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()/2.2f);
+			if(ScorePref.getInteger("score",0)<10) {
+				offset=18;
+			}
+			scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score",0)), Gdx.graphics.getWidth()/2-offset*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()/2.2f);
 		}else if(GameWorld.modeDeJeu==1) {
-			scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score1",0)), Gdx.graphics.getWidth()/2-35*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()/2.2f);
+			if(ScorePref.getInteger("score1",0)<10) {
+				offset=18;
+			}
+			scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score1",0)), Gdx.graphics.getWidth()/2-offset*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()/2.2f);
 		}else if(GameWorld.modeDeJeu==2) {
-			scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score2",0)), Gdx.graphics.getWidth()/2-35*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()/2.2f);
+			if(ScorePref.getInteger("score2",0)<10) {
+				offset=18;
+			}
+			scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score2",0)), Gdx.graphics.getWidth()/2-offset*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()/2.2f);
 		}
 
         batch.end();
 		batch.begin();
-		batch.draw(bandeauScore, 0, Gdx.graphics.getHeight()/1.5f, 544*ColorSwitch.ratioTailleEcran, 49*ColorSwitch.ratioTailleEcran);
+		batch.draw(bandeauScore, Gdx.graphics.getWidth()/2-272*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()/1.5f, 544*ColorSwitch.ratioTailleEcran, 49*ColorSwitch.ratioTailleEcran);
 		batch.end();
 		batch.begin();
-		batch.draw(bandeauBestScore, 0, Gdx.graphics.getHeight()/2, 544*ColorSwitch.ratioTailleEcran, 49*ColorSwitch.ratioTailleEcran);
+		batch.draw(bandeauBestScore, Gdx.graphics.getWidth()/2-272*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()/2, 544*ColorSwitch.ratioTailleEcran, 49*ColorSwitch.ratioTailleEcran);
 		batch.end();
 	}
 }
