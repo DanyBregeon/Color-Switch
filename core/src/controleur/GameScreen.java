@@ -29,7 +29,7 @@ public class GameScreen implements Screen{
         renderer = new GameRenderer(world); //initialise le rendu
         col = new Collision(world);
         
-        Gdx.input.setInputProcessor(new InputHandler(world.getBille()));
+        Gdx.input.setInputProcessor(new InputHandler(world.getBille(),world));
     }
 	@Override
 	public void show() {

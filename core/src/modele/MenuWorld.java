@@ -13,10 +13,10 @@ public class MenuWorld{
 		son = sonActif;
 		boutons = new Bouton[nbBoutons];
 		boutons[0]= new Bouton(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2,86);
-		boutons[1]= new Bouton(Gdx.graphics.getWidth()*(7f/8f),Gdx.graphics.getHeight()*(11f/12f),43);
-		boutons[2]= new Bouton(Gdx.graphics.getWidth()*(1f/8f),Gdx.graphics.getHeight()*(11f/12f),43);
-		boutons[3]= new Bouton(Gdx.graphics.getWidth()*(3f/8f),Gdx.graphics.getHeight()*(11f/12f),43);
-		boutons[4]= new Bouton(Gdx.graphics.getWidth()*(5f/8f),Gdx.graphics.getHeight()*(11f/12f),43);
+		boutons[1]= new Bouton(Gdx.graphics.getWidth()*(7f/8f),Gdx.graphics.getHeight()*(11f/12f),43*ColorSwitch.ratioTailleEcran);
+		boutons[2]= new Bouton(Gdx.graphics.getWidth()*(1f/8f),Gdx.graphics.getHeight()*(11f/12f),43*ColorSwitch.ratioTailleEcran);
+		boutons[3]= new Bouton(Gdx.graphics.getWidth()*(3f/8f),Gdx.graphics.getHeight()*(11f/12f),43*ColorSwitch.ratioTailleEcran);
+		boutons[4]= new Bouton(Gdx.graphics.getWidth()*(5f/8f),Gdx.graphics.getHeight()*(11f/12f),43*ColorSwitch.ratioTailleEcran);
 		
 		obstacles = new Obstacle[5];
 		obstacles[0] = new CercleObstacle(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2+200*2f*ColorSwitch.ratioTailleEcran, 2f*ColorSwitch.ratioTailleEcran,1,1);

@@ -1,6 +1,7 @@
 package vue;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,7 +20,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ShortArray;
 import com.gdx.colorswitch.ColorSwitch;
 
-import controleur.GameScreen;
 import modele.TriangleObstacle;
 import modele.TripleCercleObstacle;
 import modele.CercleSynchroObstacle;
@@ -28,14 +28,12 @@ import modele.CercleObstacle;
 import modele.EtoileScore;
 import modele.CarreObstacle;
 import modele.GameWorld;
-import modele.Personnage;
 
 public class GameRenderer {
 	
 	private GameWorld myWorld;
     private OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
-    private ShapeRenderer shapeRenderer2;
     private SpriteBatch batch;
     private BitmapFont font;
     //pour dessiner un polygone rempli
@@ -47,6 +45,7 @@ public class GameRenderer {
     private float tailleEtoile;
     private boolean sensAnimEtoile;
     private Texture lave;
+    private Texture tutoText;
     
     public GameRenderer(GameWorld world) {
         myWorld = world;
@@ -57,6 +56,27 @@ public class GameRenderer {
         if(GameWorld.modeDeJeu==2) {
         	lave = new Texture("lava.png");
         }
+        if(Gdx.app.getType()==ApplicationType.Android) {
+        	if(GameWorld.modeDeJeu == 0) {
+                tutoText = new Texture("tutoAndroid.png");
+        	}else if(GameWorld.modeDeJeu == 1) {
+            	tutoText = new Texture("tutoAndroidMode1.png");
+        	}else if(GameWorld.modeDeJeu == 2) {
+            	tutoText = new Texture("tutoAndroidMode2.png");
+        	}
+
+        }else {
+        	if(GameWorld.modeDeJeu == 0) {
+            	tutoText = new Texture("tutoDesktop.png");
+        	}else if(GameWorld.modeDeJeu == 1) {
+            	tutoText = new Texture("tutoDesktopMode1.png");
+        	}else if(GameWorld.modeDeJeu == 2) {
+            	tutoText = new Texture("tutoDesktopMode2.png");
+        	}
+
+
+        }
+
         batch = new SpriteBatch();
         /*font = new BitmapFont();
         font.setColor(Color.WHITE);
@@ -417,6 +437,25 @@ public class GameRenderer {
 		batch.end();
     }
     
+    public void drawTuto() {
+    	batch.begin();
+		batch.draw(tutoText, myWorld.getTuto().getPosition().x,-myWorld.getTuto().getPosition().y, 544*ColorSwitch.ratioTailleEcran, 544*ColorSwitch.ratioTailleEcran);
+		batch.end();
+    }
+    public void drawButton(int i) {
+    	shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(GameWorld.couleurs[i]);
+        shapeRenderer.circle(myWorld.getBoutons()[i].getPosition().x, myWorld.getBoutons()[i].getPosition().y, myWorld.getBoutons()[i].getTaille());
+        shapeRenderer.end();
+    }
+    
+    public void drawButtons() {
+    	drawButton(0);
+    	drawButton(1);
+    	drawButton(2);
+    	drawButton(3);
+    }
+    
     public void dieDisplay() {
     	
 	    	for(int i=0;i<myWorld.getDiePerso().length;i++) {
@@ -445,6 +484,10 @@ public class GameRenderer {
             shapeRenderer.end();
         }
         
+        if(myWorld.getTuto() != null) {
+            drawTuto();
+        }
+        
         if(GameWorld.modeDeJeu!=2) {
             drawChangeColor(0);
             drawChangeColor(1);
@@ -466,6 +509,9 @@ public class GameRenderer {
         
         if(GameWorld.modeDeJeu==2) {
         	drawLava();
+        	if(Gdx.app.getType()==ApplicationType.Android) {
+            	drawButtons();
+        	}
         }
         
         batch.begin();

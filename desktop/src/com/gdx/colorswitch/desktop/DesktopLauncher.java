@@ -12,7 +12,7 @@ public class DesktopLauncher {
 			config.height = 816;
 			config.width = 544;
 		}else {
-			config.height = (int) (LwjglApplicationConfiguration.getDesktopDisplayMode().height*(4f/5f));
+			config.height = (int) (LwjglApplicationConfiguration.getDesktopDisplayMode().height*(5/6f));
 			config.width = (int) (config.height*(2f/3f));
 		}
 		config.title = "Color Switch";

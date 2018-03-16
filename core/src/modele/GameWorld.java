@@ -25,6 +25,8 @@ public class GameWorld {
 	private ChangeColor[] changementCouleurs;
 	private Sol sol;
 	private Lave lava;
+	private Tutoriel tuto;
+	private Bouton[] boutons;
 	public static int nbObstacle = 6;
 	public static Color[] couleurs = {new Color(1,1,0,1), new Color(0,1,1,1),new Color(1,0,1,1),new Color(0.5f,0,1,1)};
 	public static int modeDeJeu = 0;
@@ -37,6 +39,13 @@ public class GameWorld {
 		modeDeJeu=mdj;
 		if(mdj==2) {
 			lava = new Lave(0,(int) (hauteurFenetre*1.85f), 2.3f*ColorSwitch.ratioTailleEcran, (int) (hauteurFenetre*1.55f));
+			if(Gdx.app.getType()==ApplicationType.Android) {
+				boutons = new Bouton[4];
+				boutons[0]= new Bouton(Gdx.graphics.getWidth()*(1f/8f),Gdx.graphics.getHeight()*(4f/8f),43*ColorSwitch.ratioTailleEcran);
+				boutons[1]= new Bouton(Gdx.graphics.getWidth()*(1f/8f),Gdx.graphics.getHeight()*(5f/8f),43*ColorSwitch.ratioTailleEcran);
+				boutons[2]= new Bouton(Gdx.graphics.getWidth()*(1f/8f),Gdx.graphics.getHeight()*(6f/8f),43*ColorSwitch.ratioTailleEcran);
+				boutons[3]= new Bouton(Gdx.graphics.getWidth()*(1f/8f),Gdx.graphics.getHeight()*(7f/8f),43*ColorSwitch.ratioTailleEcran);
+			}
 		}
 		score = 0;
 		this.largeurFenetre = largeurFenetre;
@@ -47,6 +56,7 @@ public class GameWorld {
 		idObstacle = new int[3];
 		changementCouleurs = new ChangeColor[3];
 		//distanceEntreObstacle = 500;
+		tuto = new Tutoriel(0,0);
 		sol = new Sol(largeurFenetre/2-largeurFenetre/10,bille.getPosition().y+bille.getTaille());
 		//obstacles[0] = new BarreHorizontale(0, hauteurFenetre/4, 1,2,1);
 		//obstacles[0] = new CercleObstacle(largeurFenetre/2, hauteurFenetre/4, 1,2,1);
@@ -110,6 +120,12 @@ public class GameWorld {
 			sol.Move(delta, hauteur);
 			if(sol.getRectangle().y > hauteurFenetre+3) {
 				sol = null;
+			}
+		}
+		if(tuto != null) {
+			tuto.Move(delta, hauteur);
+			if(tuto.getPosition().y > hauteurFenetre+3) {
+				tuto = null;
 			}
 		}
 		//Gdx.app.log("GameWorld", String.valueOf(obstacles[0].getPosition().y) + "   " + String.valueOf(obstacles[2].getPosition().y));
@@ -291,7 +307,13 @@ public class GameWorld {
 	public Lave getLava() {
 		return lava;
 	}
-	
-	
+
+	public Tutoriel getTuto() {
+		return tuto;
+	}
+
+	public Bouton[] getBoutons() {
+		return boutons;
+	}
 	
 }
