@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.gdx.colorswitch.ColorSwitch;
 
+import controleur.GameScreen;
+
 public class GameWorld {
 	
 	private Rectangle rect = new Rectangle(0, 0, 17, 12);
@@ -26,6 +28,8 @@ public class GameWorld {
 	public static Color[] couleurs = {new Color(1,1,0,1), new Color(0,1,1,1),new Color(1,0,1,1),new Color(0.5f,0,1,1)};
 	public static int modeDeJeu = 0;
 	public static boolean son = true;
+	public static boolean die=false;
+	private Personnage[] diePerso;
 	
 	public GameWorld(int largeurFenetre, int hauteurFenetre, int mdj, boolean sonActif) {
 		son = sonActif;
@@ -57,10 +61,32 @@ public class GameWorld {
 		creerObstacle(2, changementCouleurs[1].getPosition().y);
 		changementCouleurs[2] = new ChangeColor(largeurFenetre/2, obstacles[2].getPosition().y - obstacles[2].getHauteurPlusDistance());
 		//Gdx.app.log("world", String.valueOf(changementCouleurs[0].getPosition().y));
+		
 	}
 	
 	public void update(float delta) {
 		hauteur = bille.update(delta);
+		
+		
+		if(die) {
+			if(diePerso==null) {
+				
+				diePerso=new Personnage[(int)(Math.random() *10)+10];
+				Gdx.app.log("Personnage",String.valueOf(diePerso.length));
+				for(int i=0;i<diePerso.length;i++) {
+	
+					diePerso[i]=new Personnage(bille.getPosition().x, bille.getPosition().y, bille.getHauteurSaut(), bille.getPoids(), (float)(Math.random() * (bille.getTaille()/4))+bille.getTaille()/4); 
+					diePerso[i].setCouleur(GameWorld.couleurs[(int)(Math.random() * GameWorld.couleurs.length)]);
+					diePerso[i].diePersonnage();
+				}
+			}
+			for(int i=0;i<diePerso.length;i++) {
+				diePerso[i].update(delta);	
+			}
+		 
+		}
+		
+		
 		if(modeDeJeu==2 && !bille.isStart()) {
 			lava.Move(delta, hauteur);
 			if(lava.getPosition().y-bille.getPosition().y>lava.getDistanceMaxPersonnage()) {
@@ -209,6 +235,14 @@ public class GameWorld {
 	public Personnage getBille() {
 		return bille;
 	}
+	
+	public Personnage[] getDiePerso() {
+		return diePerso;
+	}
+
+	public void setDiePerso(Personnage[] diePerso) {
+		this.diePerso = diePerso;
+	}
 
 	public Rectangle getRect() {
 		return rect;
@@ -249,5 +283,7 @@ public class GameWorld {
 	public Lave getLava() {
 		return lava;
 	}
+	
+	
 	
 }

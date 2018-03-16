@@ -14,6 +14,8 @@ public class GameScreen implements Screen{
 	private GameWorld world;
 	private GameRenderer renderer;
 	private Collision col;
+	private float timeDie=0;	
+	
 	
 	public GameScreen(ColorSwitch cs, int modeDeJeu) {
         Gdx.app.log("GameScreen", "Attached");
@@ -40,12 +42,34 @@ public class GameScreen implements Screen{
 		world.update(delta); // GameWorld updates 
 		renderer.render(); // GameRenderer renders
 		try {
-			col.update(delta); // Collision updates
+			
+			
+			if(GameWorld.die) {
+				timeDie+=Gdx.graphics.getDeltaTime();
+		        if(timeDie>1.5f){
+		        		GameWorld.die=false;
+		        		dispose();
+		        		main.setScreen(new MenuResetScreen(main, world.getScore()));	
+		        		
+		        }
+		
+			}else {
+				col.update(delta); // Collision updates
+			}
+			
+			
 		} catch(Exception e) {
+			
+			GameWorld.die=true;
+			if(timeDie==0) {
+				timeDie=Gdx.graphics.getDeltaTime();
+			}
 			world.saveScore();
 			col.getDeadSound().play();
-			dispose();
-			main.setScreen(new MenuResetScreen(main, world.getScore()));		
+			
+			//main.setScreen(new MenuResetScreen(main, world.getScore()));	
+			
+			
 			/*Gdx.app.log("sreen reset", String.valueOf(Gdx.graphics.getHeight()));
 			world = new GameWorld(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			renderer = new GameRenderer(world);
@@ -94,6 +118,7 @@ public class GameScreen implements Screen{
 	public void dispose() {
 		
 		world.getBille().getSound().dispose();
+		world.getBille().getSoundDie().dispose();
 		col.getStarSound().dispose();
 		col.getColorSwitchSound().dispose();
 		col.getDeadSound().dispose();
