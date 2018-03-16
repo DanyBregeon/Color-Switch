@@ -409,7 +409,7 @@ public class GameRenderer {
     
     public void drawLava() {
     	batch.begin();
-		batch.draw(lave, myWorld.getLava().getPosition().x, Gdx.graphics.getHeight()-myWorld.getLava().getPosition().y, 552*ColorSwitch.ratioTailleEcran, 508*ColorSwitch.ratioTailleEcran);
+		batch.draw(lave, myWorld.getLava().getPosition().x, Gdx.graphics.getHeight()-myWorld.getLava().getPosition().y, 552*ColorSwitch.ratioTailleEcran, 762*ColorSwitch.ratioTailleEcran);
 		batch.end();
     }
     
@@ -433,7 +433,6 @@ public class GameRenderer {
         font.draw(batch, String.valueOf(myWorld.getScore()), 20*ColorSwitch.ratioTailleEcran, 750*ColorSwitch.ratioTailleEcran);
         batch.end();
         
-        
         drawObstacle();
         
         /*drawCercle(0);
@@ -450,8 +449,6 @@ public class GameRenderer {
             drawChangeColor(0);
             drawChangeColor(1);
             drawChangeColor(2);
-        }else {
-        	drawLava();
         }
         
         if(GameWorld.die) {
@@ -467,6 +464,9 @@ public class GameRenderer {
 	        shapeRenderer.end();
         }
         
+        if(GameWorld.modeDeJeu==2) {
+        	drawLava();
+        }
         
         
     }

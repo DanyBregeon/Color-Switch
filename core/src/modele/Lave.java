@@ -13,7 +13,7 @@ public class Lave {
 		position = new Vector2(x,y);
 		this.vitesse = vitesse;
 		this.distanceMaxPersonnage = distanceMaxPersonnage;
-		hauteurMaxLave = (int) (495*ColorSwitch.ratioTailleEcran);
+		hauteurMaxLave = (int) (748*ColorSwitch.ratioTailleEcran);
 	}
 	
 	public void Move(float delta, float hauteur) {

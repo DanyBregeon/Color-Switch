@@ -35,7 +35,7 @@ public class GameWorld {
 		son = sonActif;
 		modeDeJeu=mdj;
 		if(mdj==2) {
-			lava = new Lave(0,(int) (hauteurFenetre*1.55f), 2.3f*ColorSwitch.ratioTailleEcran, (int) (hauteurFenetre*1.25f));
+			lava = new Lave(0,(int) (hauteurFenetre*1.85f), 2.3f*ColorSwitch.ratioTailleEcran, (int) (hauteurFenetre*1.55f));
 		}
 		score = 0;
 		this.largeurFenetre = largeurFenetre;
@@ -65,12 +65,13 @@ public class GameWorld {
 	}
 	
 	public void update(float delta) {
-		hauteur = bille.update(delta);
 		
-		
-		if(die) {
+		if(!die) {
+			hauteur = bille.update(delta);
+		}else {
 			if(diePerso==null) {
-				
+				bille.setStart(false);
+				hauteur = bille.update(delta);
 				diePerso=new Personnage[(int)(Math.random() *10)+10];
 				Gdx.app.log("Personnage",String.valueOf(diePerso.length));
 				for(int i=0;i<diePerso.length;i++) {
@@ -159,7 +160,7 @@ public class GameWorld {
 		switch (random) {
 		
 			case 1:
-			obstacles[num] = new BarreHorizontale(largeurFenetre/2, y, 1*randomTaille*ColorSwitch.ratioTailleEcran,2+(float)Math.pow(2+score, 1/3f),1);			
+			obstacles[num] = new BarreHorizontale(largeurFenetre/2, y, 1*randomTaille*ColorSwitch.ratioTailleEcran,2+(float)Math.pow(1.5+score, 1/3f),1);			
 			break;
 			
 			case 2:
