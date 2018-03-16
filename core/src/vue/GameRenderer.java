@@ -58,6 +58,7 @@ public class GameRenderer {
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.WHITE);
+        font.getData().setScale(ColorSwitch.ratioTailleEcran*2);
 
     	polyBatch = new PolygonSpriteBatch();
     	tailleEtoile = 1;
@@ -406,7 +407,7 @@ public class GameRenderer {
     
     public void drawLava() {
     	batch.begin();
-		batch.draw(lave, myWorld.getLava().getPosition().x, Gdx.graphics.getHeight()-myWorld.getLava().getPosition().y);
+		batch.draw(lave, myWorld.getLava().getPosition().x, Gdx.graphics.getHeight()-myWorld.getLava().getPosition().y, 552*ColorSwitch.ratioTailleEcran, 508*ColorSwitch.ratioTailleEcran);
 		batch.end();
     }
     
@@ -429,7 +430,7 @@ public class GameRenderer {
         if(myWorld.getSol() != null) {
             shapeRenderer.begin(ShapeType.Filled);
             shapeRenderer.setColor(Color.WHITE);
-            shapeRenderer.rect(myWorld.getSol().getRectangle().x, myWorld.getSol().getRectangle().y, myWorld.getLargeurFenetre()/5, 5);
+            shapeRenderer.rect(myWorld.getSol().getRectangle().x, myWorld.getSol().getRectangle().y, myWorld.getLargeurFenetre()/5, 8*ColorSwitch.ratioTailleEcran);
             shapeRenderer.end();
         }
         

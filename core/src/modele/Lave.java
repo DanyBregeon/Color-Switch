@@ -1,6 +1,7 @@
 package modele;
 
 import com.badlogic.gdx.math.Vector2;
+import com.gdx.colorswitch.ColorSwitch;
 
 public class Lave {
 	private Vector2 position;
@@ -12,7 +13,7 @@ public class Lave {
 		position = new Vector2(x,y);
 		this.vitesse = vitesse;
 		this.distanceMaxPersonnage = distanceMaxPersonnage;
-		hauteurMaxLave = 495;
+		hauteurMaxLave = (int) (495*ColorSwitch.ratioTailleEcran);
 	}
 	
 	public void Move(float delta, float hauteur) {

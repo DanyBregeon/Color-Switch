@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.gdx.colorswitch.ColorSwitch;
 
 import modele.GameWorld;
 import modele.MenuResetWorld;
@@ -37,6 +38,7 @@ public class MenuResetRenderer {
 	        batch = new SpriteBatch();
 	        scoreText = new BitmapFont(Gdx.files.internal("arial64.fnt"));
 	        scoreText.setColor(Color.WHITE);
+	        scoreText.getData().setScale(ColorSwitch.ratioTailleEcran);
 	}
 	
 	public void render() {
@@ -51,33 +53,35 @@ public class MenuResetRenderer {
 		shapeRenderer.circle(myWorld.getBoutons()[1].getPosition().x, myWorld.getBoutons()[1].getPosition().y, myWorld.getBoutons()[1].getTaille());
 		shapeRenderer.end();*/
         batch.begin();
-		batch.draw(buttonHome, myWorld.getBoutons()[1].getPosition().x-myWorld.getBoutons()[1].getTaille(), Gdx.graphics.getHeight()-myWorld.getBoutons()[1].getPosition().y-myWorld.getBoutons()[1].getTaille());
+		batch.draw(buttonHome, myWorld.getBoutons()[1].getPosition().x-myWorld.getBoutons()[1].getTaille(), Gdx.graphics.getHeight()-myWorld.getBoutons()[1].getPosition().y-myWorld.getBoutons()[1].getTaille(),
+				myWorld.getBoutons()[1].getTaille()*2, myWorld.getBoutons()[1].getTaille()*2);
 		batch.end();
 		batch.begin();
-		batch.draw(buttonReset, myWorld.getBoutons()[0].getPosition().x-myWorld.getBoutons()[0].getTaille(), Gdx.graphics.getHeight()-myWorld.getBoutons()[0].getPosition().y-myWorld.getBoutons()[0].getTaille());
+		batch.draw(buttonReset, myWorld.getBoutons()[0].getPosition().x-myWorld.getBoutons()[0].getTaille(), Gdx.graphics.getHeight()-myWorld.getBoutons()[0].getPosition().y-myWorld.getBoutons()[0].getTaille(),
+				myWorld.getBoutons()[0].getTaille()*2, myWorld.getBoutons()[0].getTaille()*2);
 		batch.end();
 		batch.begin();
 		if(myWorld.getScore()<10) {
-			scoreText.draw(batch, String.valueOf(myWorld.getScore()), Gdx.graphics.getWidth()/2-18, Gdx.graphics.getHeight()/1.55f);
+			scoreText.draw(batch, String.valueOf(myWorld.getScore()), Gdx.graphics.getWidth()/2-18*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()/1.55f);
 		}else {
-			scoreText.draw(batch, String.valueOf(myWorld.getScore()), Gdx.graphics.getWidth()/2-36, Gdx.graphics.getHeight()/1.55f);
+			scoreText.draw(batch, String.valueOf(myWorld.getScore()), Gdx.graphics.getWidth()/2-36*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()/1.55f);
 		}
         batch.end();
 		batch.begin();
 		if(GameWorld.modeDeJeu==0) {
-			scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score",0)), Gdx.graphics.getWidth()/2-35, Gdx.graphics.getHeight()/2.2f);
+			scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score",0)), Gdx.graphics.getWidth()/2-35*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()/2.2f);
 		}else if(GameWorld.modeDeJeu==1) {
-			scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score1",0)), Gdx.graphics.getWidth()/2-35, Gdx.graphics.getHeight()/2.2f);
+			scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score1",0)), Gdx.graphics.getWidth()/2-35*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()/2.2f);
 		}else if(GameWorld.modeDeJeu==2) {
-			scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score2",0)), Gdx.graphics.getWidth()/2-35, Gdx.graphics.getHeight()/2.2f);
+			scoreText.draw(batch, String.valueOf(Gdx.app.getPreferences("ScorePref").getInteger("score2",0)), Gdx.graphics.getWidth()/2-35*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()/2.2f);
 		}
 
         batch.end();
 		batch.begin();
-		batch.draw(bandeauScore, 0, Gdx.graphics.getHeight()/1.5f);
+		batch.draw(bandeauScore, 0, Gdx.graphics.getHeight()/1.5f, 544*ColorSwitch.ratioTailleEcran, 49*ColorSwitch.ratioTailleEcran);
 		batch.end();
 		batch.begin();
-		batch.draw(bandeauBestScore, 0, Gdx.graphics.getHeight()/2);
+		batch.draw(bandeauBestScore, 0, Gdx.graphics.getHeight()/2, 544*ColorSwitch.ratioTailleEcran, 49*ColorSwitch.ratioTailleEcran);
 		batch.end();
 	}
 }

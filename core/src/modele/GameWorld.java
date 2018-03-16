@@ -31,7 +31,7 @@ public class GameWorld {
 		son = sonActif;
 		modeDeJeu=mdj;
 		if(mdj==2) {
-			lava = new Lave(0,(int) (hauteurFenetre*1.55f), 2.3f, (int) (hauteurFenetre*1.25f));
+			lava = new Lave(0,(int) (hauteurFenetre*1.55f), 2.3f*ColorSwitch.ratioTailleEcran, (int) (hauteurFenetre*1.25f));
 		}
 		score = 0;
 		this.largeurFenetre = largeurFenetre;

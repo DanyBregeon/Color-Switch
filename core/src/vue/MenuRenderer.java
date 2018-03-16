@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.gdx.colorswitch.ColorSwitch;
 
 import modele.CercleObstacle;
 import modele.MenuWorld;
@@ -93,28 +94,35 @@ public class MenuRenderer {
 		drawCercle(1);
 		drawCercle(2);
 		batch.begin();
-		batch.draw(titleText, Gdx.graphics.getWidth()/2-155, Gdx.graphics.getHeight()-200);
+		batch.draw(titleText, Gdx.graphics.getWidth()/2-155*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()-200*ColorSwitch.ratioTailleEcran, 306*ColorSwitch.ratioTailleEcran, 143*ColorSwitch.ratioTailleEcran);
+		//batch.draw(titleText, 155*ColorSwitch.ratioTailleEcran, 200*ColorSwitch.ratioTailleEcran, 306*ColorSwitch.ratioTailleEcran, 143*ColorSwitch.ratioTailleEcran);
 		batch.end();
 		drawCercle(3);
 		drawCercle(4);
 		batch.begin();
-		batch.draw(buttonPlay, myWorld.getBoutons()[0].getPosition().x-86, Gdx.graphics.getHeight()-myWorld.getBoutons()[0].getPosition().y-86);
+		batch.draw(buttonPlay, myWorld.getBoutons()[0].getPosition().x-86*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()-myWorld.getBoutons()[0].getPosition().y-86*ColorSwitch.ratioTailleEcran,
+				172*ColorSwitch.ratioTailleEcran, 172*ColorSwitch.ratioTailleEcran);
 		batch.end();
 		batch.begin();
 		angleButtonExit-=2;;
-		batch.draw(buttonExit, myWorld.getBoutons()[1].getPosition().x-43, Gdx.graphics.getHeight()-myWorld.getBoutons()[1].getPosition().y-43, 43,43,86,86,1,1,angleButtonExit);
+		batch.draw(buttonExit, myWorld.getBoutons()[1].getPosition().x-43*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()-myWorld.getBoutons()[1].getPosition().y-43*ColorSwitch.ratioTailleEcran,
+				43*ColorSwitch.ratioTailleEcran,43*ColorSwitch.ratioTailleEcran,86*ColorSwitch.ratioTailleEcran,86*ColorSwitch.ratioTailleEcran,1,1,angleButtonExit);
 		batch.end();
 		batch.begin();
-		batch.draw(buttonGameMode1, myWorld.getBoutons()[2].getPosition().x-43, Gdx.graphics.getHeight()-myWorld.getBoutons()[2].getPosition().y-43, 43,43,86,86,1,1,angleButtonExit);
+		batch.draw(buttonGameMode1, myWorld.getBoutons()[2].getPosition().x-43*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()-myWorld.getBoutons()[2].getPosition().y-43*ColorSwitch.ratioTailleEcran,
+				43*ColorSwitch.ratioTailleEcran,43*ColorSwitch.ratioTailleEcran,86*ColorSwitch.ratioTailleEcran,86*ColorSwitch.ratioTailleEcran,1,1,angleButtonExit);
 		batch.end();
 		batch.begin();
-		batch.draw(buttonGameMode2, myWorld.getBoutons()[3].getPosition().x-43, Gdx.graphics.getHeight()-myWorld.getBoutons()[3].getPosition().y-43, 43,43,86,86,1,1,angleButtonExit);
+		batch.draw(buttonGameMode2, myWorld.getBoutons()[3].getPosition().x-43*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()-myWorld.getBoutons()[3].getPosition().y-43*ColorSwitch.ratioTailleEcran,
+				43*ColorSwitch.ratioTailleEcran,43*ColorSwitch.ratioTailleEcran,86*ColorSwitch.ratioTailleEcran,86*ColorSwitch.ratioTailleEcran,1,1,angleButtonExit);
 		batch.end();
 		batch.begin();
 		if(myWorld.isSon()) {
-			batch.draw(buttonSound, myWorld.getBoutons()[4].getPosition().x-43, Gdx.graphics.getHeight()-myWorld.getBoutons()[4].getPosition().y-43, 43,43,86,86,1,1,angleButtonExit);
+			batch.draw(buttonSound, myWorld.getBoutons()[4].getPosition().x-43*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()-myWorld.getBoutons()[4].getPosition().y-43*ColorSwitch.ratioTailleEcran,
+					43*ColorSwitch.ratioTailleEcran,43*ColorSwitch.ratioTailleEcran,86*ColorSwitch.ratioTailleEcran,86*ColorSwitch.ratioTailleEcran,1,1,angleButtonExit);
 		}else {
-			batch.draw(buttonSoundOff, myWorld.getBoutons()[4].getPosition().x-43, Gdx.graphics.getHeight()-myWorld.getBoutons()[4].getPosition().y-43, 43,43,86,86,1,1,angleButtonExit);
+			batch.draw(buttonSoundOff, myWorld.getBoutons()[4].getPosition().x-43*ColorSwitch.ratioTailleEcran, Gdx.graphics.getHeight()-myWorld.getBoutons()[4].getPosition().y-43*ColorSwitch.ratioTailleEcran,
+					43*ColorSwitch.ratioTailleEcran,43*ColorSwitch.ratioTailleEcran,86*ColorSwitch.ratioTailleEcran,86*ColorSwitch.ratioTailleEcran,1,1,angleButtonExit);
 		}
 		
 		batch.end();
