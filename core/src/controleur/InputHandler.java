@@ -6,19 +6,36 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Application.ApplicationType;
 
 import modele.GameWorld;
-import modele.MenuWorld;
 import modele.Personnage;
 
+/**
+ * gère les inputs dans le jeu
+ * @author Dany Brégeon, Loïs Monet, Maxime Poirier
+ *
+ */
 public class InputHandler implements InputProcessor{
-	
+	/**
+	 * la bille
+	 */
 	private Personnage maBille;
+	/**
+	 * le modele du jeu
+	 */
 	private GameWorld myWorld;
 	
+	/**
+	 * initialise les attributs
+	 * @param bille
+	 * la bille
+	 * @param world
+	 * le modele du jeu
+	 */
 	public InputHandler(Personnage bille, GameWorld world) {
 		maBille = bille;
 		myWorld = world;
 	}
-
+	
+	//permet de changer la couleur de la bille en appuyant sur les touches correzspondantes
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
@@ -65,6 +82,7 @@ public class InputHandler implements InputProcessor{
 		return false;
 	}
 
+	//permet de faire sauter la bille quand on appuie sur la souris ou sur l'écran, et gère l'appuie et le multitouch du mode lave sur android
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		if(GameWorld.modeDeJeu == 2 && Gdx.app.getType() == ApplicationType.Android) {

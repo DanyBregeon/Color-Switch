@@ -1,36 +1,63 @@
 package modele;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
+/**
+ * le modele du bouton
+ * @author Dany Brégeon, Loïs Monet, Maxime Poirier
+ *
+ */
 public class Bouton{
-	//private Sprite sprite;
+	/**
+	 * la position du bouton
+	 */
 	private Vector2 position;
-	private Button bouton;
+	/**
+	 * le cercle correspondant à la hitbox du bouton
+	 */
 	private Circle hitBox;
+	/**
+	 * la taille du bouton
+	 */
 	private float taille;
 	
+	/**
+	 * crée un bouton
+	 * @param x
+	 * la position en x
+	 * @param y
+	 * la position en y
+	 * @param taille
+	 * la taille
+	 */
 	public Bouton(float x, float y, float taille) {
-		bouton = new Button();
 		position = new Vector2(x,y);
 		this.taille = taille;
 		hitBox = new Circle(position, taille);
 	}
 
+	/**
+	 * retourne la position
+	 * @return la position
+	 */
 	public Vector2 getPosition() {
 		return position;
 	}
 
-	public Button getBouton() {
-		return bouton;
-	}
-
+	
+	/**
+	 * retourne la hitbox
+	 * @return la hitbox
+	 */
 	public Circle getHitBox() {
 		return hitBox;
 	}
 	
+	/**
+	 * retourne la taille
+	 * @return la taille
+	 */
 	public float getTaille() {
 		return taille;
 	}

@@ -7,10 +7,28 @@ import com.gdx.colorswitch.ColorSwitch;
 import modele.GameWorld;
 import modele.MenuResetWorld;
 
+/**
+ * gère les inputs dans le menu reset
+ * @author Dany Brégeon, Loïs Monet, Maxime Poirier
+ *
+ */
 public class MenuResetInputHandler implements InputProcessor{
+	/**
+	 * le colorSwitch
+	 */
 	private ColorSwitch main;
+	/**
+	 * le modele du menu reset
+	 */
 	private MenuResetWorld myWorld;
 	
+	/**
+	 * initialise les attributs
+	 * @param cs
+	 * le colorSwitch
+	 * @param world
+	 * le modele du menu reset
+	 */
 	public MenuResetInputHandler (ColorSwitch cs, MenuResetWorld world) {
 		main = cs;
 		myWorld = world;
@@ -34,6 +52,7 @@ public class MenuResetInputHandler implements InputProcessor{
 		return false;
 	}
 
+	//gère les clics sur les boutons du menu reset
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		if(Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[0].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[0].getPosition().y),2)) < myWorld.getBoutons()[0].getTaille()){

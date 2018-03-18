@@ -9,23 +9,59 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.gdx.colorswitch.ColorSwitch;
 
 import modele.GameWorld;
 import modele.MenuResetWorld;
 
+/**
+ * la vue du menu reset
+ * @author Dany Brégeon, Loïs Monet, Maxime Poirier
+ *
+ */
 public class MenuResetRenderer {
+	/**
+	 * le modele du menu reset
+	 */
 	private MenuResetWorld myWorld;
+	/**
+	 * la camera
+	 */
     private OrthographicCamera cam;
+    /**
+     * permet de dessiner des formes simples
+     */
     private ShapeRenderer shapeRenderer;
+    /**
+     * l'image du bandeau score
+     */
     private Texture bandeauScore;
+    /**
+     * l'image du bandeau meilleur score
+     */
     private Texture bandeauBestScore;
+    /**
+     * l'image du bouton retour au menu
+     */
     private Texture buttonHome;
+    /**
+     * l'image du bouton recommencer une partie
+     */
     private Texture buttonReset;
+    /**
+     * permet de dessiner les images et le texte
+     */
     private SpriteBatch batch;
+    /**
+     * la police de caractere du texte qui affiche le score
+     */
     private BitmapFont scoreText;
     
+    /**
+     * initialise l'affichage de la partie
+     * @param world
+     * le modele du menu reset
+     */
 	public MenuResetRenderer(MenuResetWorld world) {
 			myWorld = world;
 	        cam = new OrthographicCamera();
@@ -42,17 +78,12 @@ public class MenuResetRenderer {
 	        scoreText.getData().setScale(ColorSwitch.ratioTailleEcran);
 	}
 	
+	/**
+	 * methode appelé à chaque frame pour afficher tous les éléments du menu reset
+	 */
 	public void render() {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		/*shapeRenderer.begin(ShapeType.Filled);
-		shapeRenderer.setColor(Color.WHITE);
-		shapeRenderer.circle(myWorld.getBoutons()[0].getPosition().x, myWorld.getBoutons()[0].getPosition().y, myWorld.getBoutons()[0].getTaille());
-		shapeRenderer.end();
-		shapeRenderer.begin(ShapeType.Filled);
-		shapeRenderer.setColor(Color.WHITE);
-		shapeRenderer.circle(myWorld.getBoutons()[1].getPosition().x, myWorld.getBoutons()[1].getPosition().y, myWorld.getBoutons()[1].getTaille());
-		shapeRenderer.end();*/
         batch.begin();
 		batch.draw(buttonHome, myWorld.getBoutons()[1].getPosition().x-myWorld.getBoutons()[1].getTaille(), Gdx.graphics.getHeight()-myWorld.getBoutons()[1].getPosition().y-myWorld.getBoutons()[1].getTaille(),
 				myWorld.getBoutons()[1].getTaille()*2, myWorld.getBoutons()[1].getTaille()*2);

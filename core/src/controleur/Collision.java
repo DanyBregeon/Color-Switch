@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.graphics.Color;
 
 import modele.TriangleObstacle;
 import modele.TripleCercleObstacle;
@@ -12,22 +11,47 @@ import modele.CercleSynchroObstacle;
 import modele.BarreHorizontale;
 import modele.CercleObstacle;
 import modele.CarreObstacle;
-import modele.ChangeColor;
 import modele.GameWorld;
 
+/**
+ * gère les collisions du jeu
+ * @author Dany Brégeon, Loïs Monet, Maxime Poirier
+ *
+ */
 public class Collision {
+	/**
+	 * bruitage quand il y a collision avec une étoile
+	 */
 	private Sound starSound = Gdx.audio.newSound(Gdx.files.internal("star.wav"));
+	/**
+	 * bruitage quand il y a collision avec l'object qui fait changer la couleur de la bille
+	 */
 	private Sound colorSwitchSound = Gdx.audio.newSound(Gdx.files.internal("colorswitch.wav"));
+	/**
+	 * bruitage quand on meurt
+	 */
 	private Sound deadSound = Gdx.audio.newSound(Gdx.files.internal("dead.wav"));
-
+	/**
+	 * le modele du jeu
+	 */
 	private GameWorld myWorld;
 	
+	/**
+	 * 
+	 * @param gw
+	 * le modele du jeu
+	 */
 	public Collision(GameWorld gw) {
 		myWorld = gw;
 	}
 	
+	/**
+	 * methode appelé à chaque frame qui vérifie les collisions
+	 * @param delta
+	 * @throws Exception
+	 * throw une exception s'il y a une collision entre la bille et un obstacle
+	 */
 	public void update(float delta) throws Exception {
-		//Gdx.app.log("Collision", String.valueOf(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[0]).getRectangles()[0])));
 
 		for(int i=0; i<myWorld.getIdObstacle().length; i++) {
 			if(myWorld.getSol() != null) {
@@ -46,28 +70,22 @@ public class Collision {
 			collisionEtoileScore(i);
 			switch (myWorld.getIdObstacle()[i]) {
 				case 1: if(collisionBarreHorizontale(i)) {
-					//Gdx.app.exit();
-					Gdx.app.log("Collision", "Perdu");
 					throw new Exception();
 					}
 					break;
 			
 				case 2: if(collisionCercle(((CercleObstacle)myWorld.getObstacles()[i])/*i*/)) {
-					//Gdx.app.exit();
-					Gdx.app.log("Collision", "Perdu");
 					throw new Exception();
 					}
 					break;
 				
 				case 3: if(collisionCarre(i)) {
-					Gdx.app.log("Collision", "PerduCARRE");
 					throw new Exception();
 					}
 					break;
 				
 				case 4: if(collisionCercle(((CercleSynchroObstacle)myWorld.getObstacles()[i]).getCercles()[1])
 						 ||collisionCercle(((CercleSynchroObstacle)myWorld.getObstacles()[i]).getCercles()[3])) {
-					Gdx.app.log("Collision", "Perdu");
 					throw new Exception();
 					}
 					break;
@@ -75,13 +93,11 @@ public class Collision {
 				case 5: if(collisionCercle(((TripleCercleObstacle)myWorld.getObstacles()[i]).getCercles()[0])
 						 ||collisionCercle(((TripleCercleObstacle)myWorld.getObstacles()[i]).getCercles()[1])
 						 ||collisionCercle(((TripleCercleObstacle)myWorld.getObstacles()[i]).getCercles()[2])) {
-					Gdx.app.log("Collision", "Perdu");
 					throw new Exception();
 					}
 					break;
 					
 				case 6: if(collisionTriangle(i)) {
-					Gdx.app.log("Collision", "PerduTriangle");
 					throw new Exception();
 					}
 					break;
@@ -89,6 +105,10 @@ public class Collision {
     	}
 	}
 	
+	/**
+	 * vérifie la collision de la bille avec le bas de l'écran
+	 * @return s'il y a collision ou non
+	 */
 	public boolean collisionVide() {
 		if(myWorld.getBille().getPosition().y-myWorld.getBille().getTaille() > myWorld.getHauteurFenetre()) {
 			return true;
@@ -96,6 +116,10 @@ public class Collision {
 		return false;
 	}
 	
+	/**
+	 * vérifie la collision de la bille avec la barre de début de partie
+	 * @return s'il y a collision ou non
+	 */
 	public boolean collisionSol() {
 		if(Intersector.overlaps(myWorld.getBille().getHitBox(), myWorld.getSol().getRectangle())){
 			myWorld.getBille().setStart(true);
@@ -106,6 +130,10 @@ public class Collision {
 		return false;
 	}
 	
+	/**
+	 * vérifie la collision de la bille avec la lave
+	 * @return s'il y a collision ou non
+	 */
 	public boolean collisionLave() {
 		if(myWorld.getBille().getPosition().y+myWorld.getBille().getTaille()>myWorld.getLava().getPosition().y-myWorld.getLava().getHauteurMaxLave()) {
 			return true;
@@ -113,43 +141,63 @@ public class Collision {
 		return false;
 	}
 	
+	/**
+	 * vérifie la collision de la bille avec un des objects qui change la couleur de la bille. Si c'est le cas la bille change de couleur
+	 * @param num
+	 * l'index de l'object qui change la couleur de la bille
+	 * @return s'il y a collision ou non
+	 */
 	public boolean collisionChangeColor(int num) {
 		if(Intersector.overlaps(myWorld.getBille().getHitBox(), myWorld.getChangementCouleurs()[num].getCercle())){
 			int random = (int)(Math.random() * GameWorld.couleurs.length);
 			if(num == myWorld.getIdObstacle().length - 1) {
-				 if(myWorld.getIdObstacle()[0] == 6) {
-					 random = (int)(Math.random() * GameWorld.couleurs.length-1);
-					 if(GameWorld.couleurs[random].equals(myWorld.getBille().getCouleur())) {
-						 myWorld.getBille().setCouleur(GameWorld.couleurs[0]);
-					 }
-				 }
-			}else {
-				 if(myWorld.getIdObstacle()[num+1] == 6) {
-					 random = (int)(Math.random() * GameWorld.couleurs.length-1);
-					 if(GameWorld.couleurs[random].equals(myWorld.getBille().getCouleur())) {
-						 myWorld.getBille().setCouleur(GameWorld.couleurs[0]);
-					 }
-				 }
-			}
-			if(GameWorld.couleurs[random].equals(myWorld.getBille().getCouleur())) {
-				if(random == GameWorld.couleurs.length-1) {
-					myWorld.getBille().setCouleur(GameWorld.couleurs[0]);
+				if(myWorld.getIdObstacle()[0] == 6) {
+					random = (int)(Math.random() * GameWorld.couleurs.length-1);
+					if(GameWorld.couleurs[random].equals(myWorld.getBille().getCouleur())) {
+						if(random == GameWorld.couleurs.length-2) {
+							myWorld.getBille().setCouleur(GameWorld.couleurs[0]);
+						}else {
+							myWorld.getBille().setCouleur(GameWorld.couleurs[random+1]);
+						}
+					}else {
+						myWorld.getBille().setCouleur(GameWorld.couleurs[random]);
+					}
 				}else {
-					myWorld.getBille().setCouleur(GameWorld.couleurs[random+1]);
+					if(GameWorld.couleurs[random].equals(myWorld.getBille().getCouleur())) {
+						if(random == GameWorld.couleurs.length-1) {
+							myWorld.getBille().setCouleur(GameWorld.couleurs[0]);
+						}else {
+							myWorld.getBille().setCouleur(GameWorld.couleurs[random+1]);
+						}
+					}else {
+						myWorld.getBille().setCouleur(GameWorld.couleurs[random]);
+					}
 				}
 			}else {
-				myWorld.getBille().setCouleur(GameWorld.couleurs[random]);
+				if(myWorld.getIdObstacle()[num+1] == 6) {
+					random = (int)(Math.random() * GameWorld.couleurs.length-1);
+					if(GameWorld.couleurs[random].equals(myWorld.getBille().getCouleur())) {
+						if(random == GameWorld.couleurs.length-2) {
+							myWorld.getBille().setCouleur(GameWorld.couleurs[0]);
+						}else {
+							myWorld.getBille().setCouleur(GameWorld.couleurs[random+1]);
+						}
+					}else {
+						myWorld.getBille().setCouleur(GameWorld.couleurs[random]);
+					}
+				}else {
+					if(GameWorld.couleurs[random].equals(myWorld.getBille().getCouleur())) {
+						if(random == GameWorld.couleurs.length-1) {
+							myWorld.getBille().setCouleur(GameWorld.couleurs[0]);
+						}else {
+							myWorld.getBille().setCouleur(GameWorld.couleurs[random+1]);
+						}
+					}else {
+						myWorld.getBille().setCouleur(GameWorld.couleurs[random]);
+					}
+				}
 			}
 			myWorld.getChangementCouleurs()[num].setPosition(-2000);
-			if(num != 0) {
-				//myWorld.getChangementCouleurs()[num].setPosition(myWorld.getChangementCouleurs()[num-1].getPosition().y-myWorld.getDistanceEntreObstacle()[num-1]);
-				//myWorld.getChangementCouleurs()[num].setPosition(myWorld.getObstacles()[num-1].getPosition().y-myWorld.getObstacles()[num-1].getHauteurPlusDistance());
-				//Gdx.app.log("Collision", String.valueOf(num) + " : " + String.valueOf(myWorld.getObstacles()[num-1].getPosition().y));
-			}else {
-				//myWorld.getChangementCouleurs()[num].setPosition(myWorld.getChangementCouleurs()[myWorld.getChangementCouleurs().length-1].getPosition().y-myWorld.getDistanceEntreObstacle()[myWorld.getDistanceEntreObstacle().length-1]);
-				//myWorld.getChangementCouleurs()[num].setPosition(myWorld.getObstacles()[myWorld.getObstacles().length-1].getPosition().y-myWorld.getObstacles()[myWorld.getObstacles().length-1].getHauteurPlusDistance());
-				//Gdx.app.log("Collision", String.valueOf(num) + " : " + String.valueOf(myWorld.getObstacles()[myWorld.getObstacles().length-1].getPosition().y));
-			}
 			if(GameWorld.son) {
 				colorSwitchSound.play();
 			}
@@ -160,6 +208,12 @@ public class Collision {
 		return false;
 	}
 	
+	/**
+	 * vérifie la collision de la bille avec une étoile
+	 * @param num
+	 * l'index de l'étoile
+	 * @return s'il y a collision ou non
+	 */
 	public boolean collisionEtoileScore(int num) {
 		boolean b =Intersector.overlaps(myWorld.getBille().getHitBox(), myWorld.getObstacles()[num].getEtoile().getCercle());
 		if(myWorld.getObstacles()[num].getEtoile().isVivant() && Intersector.overlaps(myWorld.getBille().getHitBox(), myWorld.getObstacles()[num].getEtoile().getCercle())){
@@ -174,6 +228,12 @@ public class Collision {
 		return false;
 	}
 	
+	/**
+	 * vérifie la collision de la bille avec un obstacle triangle
+	 * @param num
+	 * l'index de l'obstacle
+	 * @return s'il y a collision ou non
+	 */
 	public boolean collisionTriangle(int num) { //change
 		
 		return (intersectionRectangleCercleTri(num,0)
@@ -181,6 +241,12 @@ public class Collision {
 				|| intersectionRectangleCercleTri(num,2));
 	}
 	
+	/**
+	 * vérifie la collision de la bille avec un obstacle carré
+	 * @param num
+	 * l'index de l'obstacle
+	 * @return s'il y a collision ou non
+	 */
 	public boolean collisionCarre(int num) {
 		return (intersectionRectangleCercle(num,0)
 				|| intersectionRectangleCercle(num,1)
@@ -188,6 +254,14 @@ public class Collision {
 				|| intersectionRectangleCercle(num,3));
 	}
 	
+	/**
+	 * vérifie la collision de la bille avec un rectangle de l'obstacle triangle
+	 * @param num
+	 * l'index de l'obstacle
+	 * @param num2
+	 * l'index d'un rectangle de l'obstacle
+	 * @return s'il y a intersection ou non
+	 */
 	private boolean intersectionRectangleCercleTri(int num, int num2) {  //change
 		float[] posSommetsRect = ((TriangleObstacle)myWorld.getObstacles()[num]).getRectangles()[num2].getSommets();
 		Vector2 posCercle = myWorld.getBille().getPosition();
@@ -210,6 +284,14 @@ public class Collision {
 		return false;
 	}
 	
+	/**
+	 * vérifie la collision de la bille avec un rectangle de l'obstacle carré
+	 * @param num
+	 * l'index de l'obstacle
+	 * @param num2
+	 * l'index d'un rectangle de l'obstacle
+	 * @return s'il y a intersection ou non
+	 */
 	private boolean intersectionRectangleCercle(int num, int num2) {
 		float[] posSommetsRect = ((CarreObstacle)myWorld.getObstacles()[num]).getRectangles()[num2].getSommets();
 		Vector2 posCercle = myWorld.getBille().getPosition();
@@ -232,6 +314,12 @@ public class Collision {
 		return false;
 	}
 	
+	/**
+	 * vérifie la collision de la bille avec un obstacle cercle
+	 * @param num
+	 * l'index de l'obstacle
+	 * @return s'il y a collision ou non
+	 */
 	public boolean collisionCercle(int num) {
 		float posBille = myWorld.getBille().getPosition().y;
 		float rayonBille = myWorld.getBille().getTaille();
@@ -240,7 +328,6 @@ public class Collision {
 		if((posBille < posObs + rayonObs + rayonBille && posBille > posObs + rayonObs*0.87 - rayonBille)) {
 			for(int i=0; i< ((CercleObstacle)myWorld.getObstacles()[num]).getArcs().length; i++){
 				float angleDep = ((CercleObstacle)myWorld.getObstacles()[num]).getArcs()[i].getAngleDepart();
-				//on ne sait pas pourquoi il faut mettre un *5 pour avoir la bonne valeur d'angle
 				float angleDepartCollision = (float)Math.atan((rayonObs/rayonBille))*5;
 				if(angleDep > angleDepartCollision && angleDep <= 90-angleDepartCollision){
 					if(!((CercleObstacle)myWorld.getObstacles()[num]).getArcs()[i].getCouleur().equals(myWorld.getBille().getCouleur())) {
@@ -271,6 +358,12 @@ public class Collision {
 		return false;
 	}
 	
+	/**
+	 * vérifie la collision de la bille avec un obstacle contenant plus d'un cercle
+	 * @param cercle
+	 * l'obstacle cercle
+	 * @return s'il y a collision ou non
+	 */
 	public boolean collisionCercle(CercleObstacle cercle) {
 		Vector2 posBille = myWorld.getBille().getPosition();
 		float rayonBille = myWorld.getBille().getTaille();
@@ -280,10 +373,6 @@ public class Collision {
 		if((distanceBilleCentre < rayonObs+rayonBille && distanceBilleCentre > rayonObs*0.87 - rayonBille)) {
 			Vector2 v = new Vector2(posBille.x-posObs.x, posBille.y-posObs.y);
 			float angleBille = v.angle();
-			/*if(angleBille>270) {
-				angleBille -=360;
-			}*/
-			//Gdx.app.log("collision", String.valueOf(distanceBilleCentre));
 			float angleDepartCollision = (float) Math.toDegrees((float)Math.atan((rayonBille/distanceBilleCentre)));
 			for(int i=0; i< cercle.getArcs().length; i++){
 				float angleDep = cercle.getArcs()[i].getAngleDepart();
@@ -302,38 +391,19 @@ public class Collision {
 						return true;
 					}
 				}
-				//on ne sait pas pourquoi il faut mettre un *5 pour avoir la bonne valeur d'angle
-				/*float angleDepartCollision = (float)Math.atan((rayonBille/distanceBilleCentre));
-				if(angleDep > angleDepartCollision && angleDep <= 90-angleDepartCollision){
-					if(!cercle.getArcs()[i].getCouleur().equals(myWorld.getBille().getCouleur())) {
-						Gdx.app.log("Collision", "boom");
-						return true;
-					}
-				}else if(angleDep > 90-angleDepartCollision && angleDep < 90+angleDepartCollision) {
-					Gdx.app.log("Collision", "boom");
-					return true;
-				}*/
 			}
 		}
-		
-		/*else if (posBille > posObs - rayonObs - rayonBille && posBille < posObs - rayonObs*0.83 + rayonBille) {
-			for(int i=0; i< cercle.getArcs().length; i++){
-				float angleDep = cercle.getArcs()[i].getAngleDepart();
-				float angleDepartCollision = (float)Math.atan((rayonObs/rayonBille))*5;
-				if(angleDep > 180+angleDepartCollision && angleDep <= 270-angleDepartCollision){
-					if(!cercle.getArcs()[i].getCouleur().equals(myWorld.getBille().getCouleur())) {
-						Gdx.app.log("Collision", "boom");
-						return true;
-					}
-				}else if(angleDep > 270-angleDepartCollision && angleDep < 270+angleDepartCollision) {
-					Gdx.app.log("Collision", "boom");
-					return true;
-				}
-			}
-		}*/
 		return false;
 	}
 	
+	/**
+	 * vérifie la collision de la bille avec un rectangle de l'obstacle barre horizontale
+	 * @param num
+	 * l'index de l'obstacle
+	 * @param num2
+	 * l'index d'un rectangle de l'obstacle
+	 * @return s'il y a collision ou non
+	 */
 	private boolean collisionRectangle(int num, int num2) {
 		if(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[num]).getRectangles()[num2])){
 			if(!myWorld.getBille().getCouleur().equals(((BarreHorizontale)myWorld.getObstacles()[num]).getCouleursRectangles()[num2])) {
@@ -344,6 +414,12 @@ public class Collision {
 		return false;
 	}
 	
+	/**
+	 * vérifie la collision de la bille avec un obstacle barre horizontale
+	 * @param num
+	 * l'index de l'obstacle
+	 * @return s'il y a collision ou non
+	 */
 	public boolean collisionBarreHorizontale(int num) {
 		for(int i=0; i<((BarreHorizontale)myWorld.getObstacles()[num]).getRectangles().length;i++) {
 			if(collisionRectangle(num, i)) {
@@ -351,52 +427,30 @@ public class Collision {
 			}
 		}
 		return false;
-		/*if(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[num]).getRectangles()[0])){
-			if(!myWorld.getBille().getCouleur().equals(((BarreHorizontale)myWorld.getObstacles()[num]).getCouleursRectangles()[0])) {
-				Gdx.app.log("Collision", "boom");
-				return true;
-			}
-		}
-		if(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[num]).getRectangles()[1])){
-			if(!myWorld.getBille().getCouleur().equals(((BarreHorizontale)myWorld.getObstacles()[num]).getCouleursRectangles()[1])) {
-				Gdx.app.log("Collision", "boom");
-				return true;
-			}
-		}
-		if(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[num]).getRectangles()[2])){
-			if(!myWorld.getBille().getCouleur().equals(((BarreHorizontale)myWorld.getObstacles()[num]).getCouleursRectangles()[2])) {
-				Gdx.app.log("Collision", "boom");
-				return true;
-			}
-		}
-		if(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[num]).getRectangles()[3])){
-			if(!myWorld.getBille().getCouleur().equals(((BarreHorizontale)myWorld.getObstacles()[num]).getCouleursRectangles()[3])) {
-				Gdx.app.log("Collision", "boom");
-				return true;
-			}
-		}
-		if(Intersector.overlaps(myWorld.getBille().getHitBox(), ((BarreHorizontale)myWorld.getObstacles()[num]).getRectangles()[4])){
-			if(!myWorld.getBille().getCouleur().equals(((BarreHorizontale)myWorld.getObstacles()[num]).getCouleursRectangles()[4])) {
-				Gdx.app.log("Collision", "boom");
-				return true;
-			}
-		}
-		return false;*/
 	}
 
+	/**
+	 * retourne le son de la collision avec une étoile
+	 * @return le son de la collision avec une étoile
+	 */
 	public Sound getStarSound() {
 		return starSound;
 	}
 
+	/**
+	 * retourne le son de la collision avec un object qui change la couleur de la bille
+	 * @return le son de la collision avec un object qui change la couleur de la bille
+	 */
 	public Sound getColorSwitchSound() {
 		return colorSwitchSound;
 	}
 
+	/**
+	 * retourne le son de la mort
+	 * @return le son de la mort
+	 */
 	public Sound getDeadSound() {
 		return deadSound;
 	}
-	
-	
-	
-	
+
 }

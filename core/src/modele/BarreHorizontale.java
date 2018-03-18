@@ -5,11 +5,34 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * l'obstacle barre horizontale
+ * @author Dany Brégeon, Loïs Monet, Maxime Poirier
+ *
+ */
 public class BarreHorizontale extends Obstacle{
-
+	/**
+	 * le tableau de rectangles qui composent l'obstacle
+	 */
 	private Rectangle[] rectangles;
+	/**
+	 * le tableau des couleurs des rectangles qui composent l'obstacle
+	 */
 	private Color[] couleursRectangles;
 
+	/**
+	 * crée l'obstacle barre horizontale
+	 * @param x
+	 * la position en x
+	 * @param y
+	 * la position en y
+	 * @param taille
+	 * la taille de l'obstacle
+	 * @param vitesse
+	 * la vitesse de l'obstacle
+	 * @param difficulte
+	 * la difficulté de l'obstacle
+	 */
 	public BarreHorizontale(float x, float y, float taille, float vitesse, int difficulte) {
 		super(x,y, taille,vitesse, difficulte);
 		hauteurPlusDistance = 220*taille;
@@ -18,12 +41,12 @@ public class BarreHorizontale extends Obstacle{
 		etoile.setPosition(y);
 		rectangles = new Rectangle[10];
 		couleursRectangles = new Color[10];
-		couleursRectangles[0] = GameWorld.couleurs[0];//new Color(1,1,0,1);
+		couleursRectangles[0] = GameWorld.couleurs[0];
 		couleursRectangles[1] = GameWorld.couleurs[1];
 		couleursRectangles[2] = GameWorld.couleurs[2];
 		couleursRectangles[3] = GameWorld.couleurs[3];
 		couleursRectangles[4] = GameWorld.couleurs[0];
-		couleursRectangles[5] = GameWorld.couleurs[0];//new Color(1,1,0,1);
+		couleursRectangles[5] = GameWorld.couleurs[0];
 		couleursRectangles[6] = GameWorld.couleurs[1];
 		couleursRectangles[7] = GameWorld.couleurs[2];
 		couleursRectangles[8] = GameWorld.couleurs[3];
@@ -42,14 +65,18 @@ public class BarreHorizontale extends Obstacle{
 		rectangles[9] = new Rectangle(position.x+l/2, position.y-90*taille-l/32, l/4,l/32);
 	}
 	
+	/**
+	 * le scrolling de l'obstacle lorsque la bille monte haut et le déplacement horizontal
+	 * @param delta
+	 * correspond au temps que dure une frame
+	 * @param hauteur
+	 * la distance que l'obstacle doit parcourir
+	 */
 	@Override
 	public void Move(float delta, float hauteur) {
 		super.Move(delta, hauteur);
 		Vector2 v2 = new Vector2(0, -hauteur).scl(delta);
 		for(int i=0; i<rectangles.length; i++) {
-			/*Vector2 v = new Vector2(rectangles[i].x,rectangles[i].y);
-			v.add(new Vector2(0, -hauteur).scl(delta));
-			position.y = v.y;*/
 			rectangles[i].y += v2.y;
 			
 			if(i<5) {
@@ -73,17 +100,21 @@ public class BarreHorizontale extends Obstacle{
 					}
 				}
 			}
-			
-			//rectangles[i].setPosition(rectangles[i].getPosition(new Vector2()).add(new Vector2(5,0)).scl(delta));
-			//rectangles[i].setPosition(new Vector2(rectangles[i].getX()+50,rectangles[i].getY()).scl(delta));
-			//rectangles[i].setPosition(new Vector2(0,0).scl(delta));
 		}
 	}
 	
+	/**
+	 * retourne le tableau de rectangles
+	 * @return le tableau de rectangles
+	 */
 	public Rectangle[] getRectangles() {
 		return rectangles;
 	}
 
+	/**
+	 * retourne le tableau de couleurs des rectangles
+	 * @return le tableau de couleurs des rectangles
+	 */
 	public Color[] getCouleursRectangles() {
 		return couleursRectangles;
 	}

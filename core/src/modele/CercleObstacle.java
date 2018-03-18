@@ -1,13 +1,31 @@
 package modele;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * l'obstacle cercle
+ * @author Dany Brégeon, Loïs Monet, Maxime Poirier
+ *
+ */
 public class CercleObstacle extends Obstacle{
-
+	/**
+	 * le tableau d'arcs qui composent le cercle
+	 */
 	private Arc[] arcs;
 	
+	/**
+	 * crée un obstacle cercle
+	 * @param x
+	 * la position en x
+	 * @param y
+	 * la position en y
+	 * @param taille
+	 * la taille de l'obstacle
+	 * @param vitesse
+	 * la vitesse de l'obstacle
+	 * @param difficulte
+	 * la difficulté de l'obstacle
+	 */
 	public CercleObstacle(float x, float y, float taille, float vitesse, int difficulte) {
 		super(x, y, taille, vitesse, difficulte);
 		hauteurPlusDistance = 200*taille;
@@ -21,6 +39,27 @@ public class CercleObstacle extends Obstacle{
 		arcs[3] = new Arc(x,y,taille*100,270,90, GameWorld.couleurs[3]);
 	}
 	
+	/**
+	 * crée un obstacle cercle compris dans un autre obstacle
+	 * @param x
+	 * la position en x
+	 * @param y
+	 * la position en y
+	 * @param taille
+	 * la taille de l'obstacle
+	 * @param vitesse
+	 * la vitesse de l'obstacle
+	 * @param difficulte
+	 * la difficulté de l'obstacle
+	 * @param couleur1
+	 * la couleur du premier arc
+	 * @param couleur2
+	 * la couleur du deuxieme arc
+	 * @param couleur3
+	 * la couleur du troisieme arc
+	 * @param couleur4
+	 * la couleur du quatrieme arc
+	 */
 	public CercleObstacle(float x, float y, float taille, float vitesse, int difficulte, int couleur1, int couleur2, int couleur3, int couleur4) {
 		super(x, y, taille, vitesse, difficulte);
 		arcs = new Arc[4];
@@ -30,6 +69,13 @@ public class CercleObstacle extends Obstacle{
 		arcs[3] = new Arc(x,y,taille*100,270,90, GameWorld.couleurs[couleur4]);
 	}
 
+	/**
+	 * le scrolling de l'obstacle lorsque la bille monte haut et la rotation de l'obstacle
+	 * @param delta
+	 * correspond au temps que dure une frame
+	 * @param hauteur
+	 * la distance que l'obstacle doit parcourir
+	 */
 	public void Move(float delta, float hauteur) {
 		super.Move(delta, hauteur);
 		Vector2 v = new Vector2(position.x,position.y);
@@ -42,6 +88,10 @@ public class CercleObstacle extends Obstacle{
 		}
 	}
 
+	/**
+	 * retourne le tableau d'arcs
+	 * @return le tableau d'arcs
+	 */
 	public Arc[] getArcs() {
 		return arcs;
 	}

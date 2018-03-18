@@ -3,37 +3,99 @@ package modele;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Rectangle;
 import com.gdx.colorswitch.ColorSwitch;
 
-import controleur.GameScreen;
-
+/**
+ * le modele principale du jeu
+ * @author Dany Brégeon, Loïs Monet, Maxime Poirier
+ *
+ */
 public class GameWorld {
-	
-	private Rectangle rect = new Rectangle(0, 0, 17, 12);
+	/**
+	 * le personnage
+	 */
 	private Personnage bille;
+	/**
+	 * la hauteur de la bille
+	 */
 	private float hauteur;
+	/**
+	 * le tableau des obstacles présent dans le jeu
+	 */
 	private Obstacle[] obstacles;
-	//private int distanceEntreObstacle;
+	/**
+	 * la hauteur de la fenêtre
+	 */
 	private int hauteurFenetre;
+	/**
+	 * la largeur de la fenêtre
+	 */
 	private int largeurFenetre;
+	/**
+	 * le score de la partie
+	 */
 	private int score;
+	/**
+	 * le tableau des id des obstacles
+	 */
 	private int[] idObstacle;
+	/**
+	 * le tableau des objets qui change la couleur de la bille
+	 */
 	private ChangeColor[] changementCouleurs;
+	/**
+	 * le sol du début de la partie
+	 */
 	private Sol sol;
+	/**
+	 * la lave du mode de jeu 2
+	 */
 	private Lave lava;
+	/**
+	 * le tutoriel du début de la partie
+	 */
 	private Tutoriel tuto;
+	/*
+	 * le tableau des boutons
+	 */
 	private Bouton[] boutons;
+	/**
+	 * le nombres de type d'obstacle
+	 */
 	public static int nbObstacle = 6;
+	/**
+	 * les différentes couleurs de la bille et des obstacles
+	 */
 	public static Color[] couleurs = {new Color(1,1,0,1), new Color(0,1,1,1),new Color(1,0,1,1),new Color(0.5f,0,1,1)};
+	/**
+	 * le mode de jeu de la partie
+	 */
 	public static int modeDeJeu = 0;
+	/**
+	 * indique si le son est activé
+	 */
 	public static boolean son = true;
+	/**
+	 * indique si l'on est mort ou non
+	 */
 	public static boolean die=false;
+	/**
+	 * le tableau de billes de l'animation de mort
+	 */
 	private Personnage[] diePerso;
 	
+	/**
+	 * initialise une partie
+	 * @param largeurFenetre
+	 * la largeur de la fenetre
+	 * @param hauteurFenetre
+	 * la hauteur de la fenetre
+	 * @param mdj
+	 * le mode de jeu
+	 * @param sonActif
+	 * si le son est actif ou non
+	 */
 	public GameWorld(int largeurFenetre, int hauteurFenetre, int mdj, boolean sonActif) {
 		son = sonActif;
 		modeDeJeu=mdj;
@@ -75,8 +137,11 @@ public class GameWorld {
 		
 	}
 	
+	/**
+	 * le déroulement d'une partie
+	 * @param delta
+	 */
 	public void update(float delta) {
-		
 		if(!die) {
 			hauteur = bille.update(delta);
 		}else {
@@ -110,7 +175,6 @@ public class GameWorld {
 			if(lava.getPosition().y-bille.getPosition().y>lava.getDistanceMaxPersonnage()) {
 				lava.setPosition((int)bille.getPosition().y+lava.getDistanceMaxPersonnage());
 			}
-			Gdx.app.log("gameworld", String.valueOf(lava.getPosition().y-bille.getPosition().y));
 		}
 		for(int i=0; i<obstacles.length; i++) {
 			obstacles[i].Move(delta, hauteur);
@@ -128,58 +192,33 @@ public class GameWorld {
 				tuto = null;
 			}
 		}
-		//Gdx.app.log("GameWorld", String.valueOf(obstacles[0].getPosition().y) + "   " + String.valueOf(obstacles[2].getPosition().y));
 		if(obstacles[0].getPosition().y>hauteurFenetre*1.4) {
 			creerObstacle(0, changementCouleurs[2].getPosition().y);
 			changementCouleurs[0].setPosition(obstacles[0].getPosition().y - obstacles[0].getHauteurPlusDistance());
-			//obstacles[0] = new BarreHorizontale(0, obstacles[2].getPosition().y-distanceEntreObstacle, 1,2,1);
-			//creerObstacle(0, obstacles[2].getPosition().y);
 		}
 		else if(obstacles[1].getPosition().y>hauteurFenetre*1.4) {
 			creerObstacle(1, changementCouleurs[0].getPosition().y);
 			changementCouleurs[1].setPosition(obstacles[1].getPosition().y - obstacles[1].getHauteurPlusDistance());
-			//obstacles[1] = new BarreHorizontale(0, obstacles[0].getPosition().y-distanceEntreObstacle, 1,2,1);
-			//creerObstacle(1, obstacles[0].getPosition().y);
 		}
 		else if(obstacles[2].getPosition().y>hauteurFenetre*1.4) {
 			creerObstacle(2, changementCouleurs[1].getPosition().y);
 			changementCouleurs[2].setPosition(obstacles[2].getPosition().y - obstacles[2].getHauteurPlusDistance());
-			//obstacles[2] = new BarreHorizontale(0, obstacles[1].getPosition().y-distanceEntreObstacle, 1,2,1);
-			//creerObstacle(2, obstacles[1].getPosition().y);
-		}
-        //Gdx.app.log("GameWorld", "update");
-           
+		}           
     }
 	
-	/*private float calculPositionObstacle(int num) {
-		if(num != 0) {
-			distanceEntreObstacle[num-1] += val;
-			distanceEntreObstacle[num] = val;
-			if(changementCouleurs[num-1] != null)
-			changementCouleurs[num-1].setPosition(changementCouleurs[num-1].getPosition().y-val);
-			return distanceEntreObstacle[num-1];
-		}else {
-			if(changementCouleurs[changementCouleurs.length-1] != null) {
-				
-			}else {
-				
-			}
-			distanceEntreObstacle[distanceEntreObstacle.length-1] += val;
-			distanceEntreObstacle[num] = val;
-			if(changementCouleurs[changementCouleurs.length-1] != null)
-				changementCouleurs[changementCouleurs.length-1].setPosition(changementCouleurs[changementCouleurs.length-1].getPosition().y-val);
-			return distanceEntreObstacle[distanceEntreObstacle.length-1];
-		}
-	}*/
-	
+	/**
+	 * crée un obstacle aléatoirement
+	 * @param num
+	 * l'index de l'obstacle
+	 * @param y
+	 * la position sur l'axe des y de l'obstacle à créer
+	 */
 	public void creerObstacle(int num, float y) {
 		int random = (int)(Math.random() * nbObstacle) + 1;
 		float randomTaille = 1;
 		if(modeDeJeu==1) {
 			randomTaille = (float) ((Math.random()*0.7f) + 0.7f);
 		}
-		//random = 6;
-		//Gdx.app.log("GameWorld", String.valueOf((float)Math.pow(1+score, 1/3f)));
 		switch (random) {
 		
 			case 1:
@@ -204,36 +243,14 @@ public class GameWorld {
 			
 			case 6:
 			obstacles[num] = new TriangleObstacle(largeurFenetre/2, y, 0.7f*randomTaille*ColorSwitch.ratioTailleEcran,(float)Math.pow(0.5+score, 1/3f),1);
-			//colorTriInBilleStart(num);
 			break;
 		}
 		idObstacle[num] = random;
 	}
 	
-	/*public void colorTriInBilleStart(int num) { //change
-		if(num==0 && getObstacles()[1]==null) {
-			Color[] colTab= ((TriangleObstacle)getObstacles()[0]).getCouleursRectangles();
-			int randomRect = (int)(Math.random() * 3);
-			getBille().setCouleur(colTab[randomRect]);
-		}
-	
-	}
-	
-	public void colorTriInBille(int num) { //change
-		int nextObstacle;
-		if (num==2) {
-			nextObstacle=0;
-		}else {
-			nextObstacle=num+1;
-		}	
-		if(getIdObstacle()[nextObstacle]==4) {
-			Color[] colTab= ((TriangleObstacle)getObstacles()[nextObstacle]).getCouleursRectangles();
-			int randomRect = (int)(Math.random() * 3);
-			getBille().setCouleur(colTab[randomRect]);
-		}
-	
-	}*/
-	
+	/**
+	 * sauvegarde le meilleur score de chaque mode de jeu
+	 */
 	public void saveScore() {
 		Preferences ScorePref = Gdx.app.getPreferences("ScorePref");
 		
@@ -256,62 +273,107 @@ public class GameWorld {
 		ScorePref.flush();
 	}
 	
+	/**
+	 * retourne la bille
+	 * @return la bille
+	 */
 	public Personnage getBille() {
 		return bille;
 	}
 	
+	/**
+	 * retourne le tableau des billes de l'animation de mort
+	 * @return le tableau des billes de l'animation de mort
+	 */
 	public Personnage[] getDiePerso() {
 		return diePerso;
 	}
 
-	public void setDiePerso(Personnage[] diePerso) {
-		this.diePerso = diePerso;
-	}
-
-	public Rectangle getRect() {
-		return rect;
-	}
-
+	/**
+	 * retourne le tableau des obstacles
+	 * @return le tableau des obstacles
+	 */
 	public Obstacle[] getObstacles() {
 		return obstacles;
 	}
 
+	/**
+	 * retourne le tableau des id des obstacles
+	 * @return le tableau des id des obstacles
+	 */
 	public int[] getIdObstacle() {
 		return idObstacle;
 	}
 
+	/**
+	 * retourne le tableau des objets qui change la couleur de la bille
+	 * @return le tableau des objets qui change la couleur de la bille
+	 */
 	public ChangeColor[] getChangementCouleurs() {
 		return changementCouleurs;
 	}
 
+	/**
+	 * retourne la hauteur de la fenetre
+	 * @return la hauteur de la fenetre
+	 */
 	public int getHauteurFenetre() {
 		return hauteurFenetre;
 	}
 
+	/**
+	 * retourne la largeur de la fenetre
+	 * @return la largeur de la fenetre
+	 */
 	public int getLargeurFenetre() {
 		return largeurFenetre;
 	}
 
+	/**
+	 * retourne le score
+	 * @return le score
+	 */
 	public int getScore() {
 		return score;
 	}
 
+	/**
+	 * met à jour le score
+	 * @param score
+	 * le score
+	 */
 	public void setScore(int score) {
 		this.score = score;
 	}
 
+	/**
+	 * retourne le sol
+	 * @return le sol
+	 */
 	public Sol getSol() {
 		return sol;
 	}
 
+	/**
+	 * retourne la lave
+	 * @return la lave
+	 */
 	public Lave getLava() {
 		return lava;
 	}
 
+	/**
+	 * retourne le tutoriel
+	 * @return le tutoriel
+	 */
 	public Tutoriel getTuto() {
 		return tuto;
 	}
 
+	/**
+	 * retourn le tableau de boutons
+	 * @return le tableau de boutons
+	 */
 	public Bouton[] getBoutons() {
 		return boutons;
 	}

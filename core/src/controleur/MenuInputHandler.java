@@ -4,15 +4,31 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.gdx.colorswitch.ColorSwitch;
-
 import modele.MenuWorld;
-import modele.Personnage;
 
+/**
+ * gère les inputs dans le menu
+ * @author Dany Brégeon, Loïs Monet, Maxime Poirier
+ *
+ */
 public class MenuInputHandler implements InputProcessor{
 
+	/**
+	 * le modele du menu
+	 */
 	private MenuWorld myWorld;
+	/**
+	 * le colorSwitch
+	 */
 	private ColorSwitch main;
 	
+	/**
+	 * initialise les attributs
+	 * @param cs
+	 * le colorSwitch
+	 * @param world
+	 * le modele du menu
+	 */
 	public MenuInputHandler(ColorSwitch cs, MenuWorld world) {
 		myWorld = world;
 		main = cs;
@@ -21,9 +37,6 @@ public class MenuInputHandler implements InputProcessor{
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
-		if(keycode == Input.Keys.SPACE) {
-			//Gdx.graphics.setDisplayMode(272, 408, false);
-		}
 		return false;
 	}
 
@@ -39,19 +52,16 @@ public class MenuInputHandler implements InputProcessor{
 		return false;
 	}
 
+	//gère les clics sur les boutons du menu
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		 //(float) Math.sqrt(Math.pow((posBille.x-posObs.x),2) + Math.pow((posBille.y-posObs.y),2));
 		if(Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[0].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[0].getPosition().y),2)) < myWorld.getBoutons()[0].getTaille()){
-			Gdx.app.log("inputMenu", "collision");
 			main.setScreen(new GameScreen(main,0));
 		}
 		else if(Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[1].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[1].getPosition().y),2)) < myWorld.getBoutons()[1].getTaille()){
-			Gdx.app.log("inputMenu", "collision");
 			Gdx.app.exit();
 		}
 		else if(Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[4].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[4].getPosition().y),2)) < myWorld.getBoutons()[4].getTaille()){
-			Gdx.app.log("inputMenu", "collision");
 			if(main.isSon()) {
 				main.setSon(false);
 				myWorld.setSon(false);
@@ -61,11 +71,9 @@ public class MenuInputHandler implements InputProcessor{
 			}
 		}
 		else if(Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[2].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[2].getPosition().y),2)) < myWorld.getBoutons()[2].getTaille()){
-			Gdx.app.log("inputMenu", "collision");
 			main.setScreen(new GameScreen(main,1));
 		}
 		else if(Math.sqrt(Math.pow((Gdx.input.getX()-myWorld.getBoutons()[3].getPosition().x),2) + Math.pow((Gdx.input.getY()-myWorld.getBoutons()[3].getPosition().y),2)) < myWorld.getBoutons()[3].getTaille()){
-			Gdx.app.log("inputMenu", "collision");
 			main.setScreen(new GameScreen(main,2));
 		}
 		return false;

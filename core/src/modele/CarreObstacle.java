@@ -1,16 +1,36 @@
 package modele;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * l'obstacle carré
+ * @author Dany Brégeon, Loïs Monet, Maxime Poirier
+ *
+ */
 public class CarreObstacle extends Obstacle{
-
+	/**
+	 * le tableau de rectangles qui composent l'obstacle
+	 */
 	private RectanglePlus[] rectangles;
+	/**
+	 * le tableau de couleurs des rectangles qui composent l'obstacle
+	 */
 	private Color[] couleursRectangles;
 	
+	/**
+	 * crée l'obstacle carré
+	 * @param x
+	 * la position en x
+	 * @param y
+	 * la position en y
+	 * @param taille
+	 * la taille de l'obstacle
+	 * @param vitesse
+	 * la vitesse de l'obstacle
+	 * @param difficulte
+	 * la difficulté de l'obstacle
+	 */
 	public CarreObstacle(float x, float y, float taille, float vitesse, int difficulte) {
 		super(x, y, taille, vitesse, difficulte);
 		hauteurPlusDistance = /*(float)Math.sqrt(2)*/220*taille;
@@ -29,6 +49,13 @@ public class CarreObstacle extends Obstacle{
 		rectangles[3] = new RectanglePlus(position.x-100*taille, position.y+100*taille, 17*taille,-183*taille);
 	}
 
+	/**
+	 * le scrolling de l'obstacle lorsque la bille monte haut et la rotation de l'obstacle
+	 * @param delta
+	 * correspond au temps que dure une frame
+	 * @param hauteur
+	 * la distance que l'obstacle doit parcourir
+	 */
 	public void Move(float delta, float hauteur) {
 		super.Move(delta, hauteur);
 		Vector2 v2 = new Vector2(0, -hauteur).scl(delta);
@@ -48,10 +75,18 @@ public class CarreObstacle extends Obstacle{
 		
 	}
 
+	/**
+	 * retourne le tableau de rectangles qui composent l'obstacle
+	 * @return le tableau de rectangles qui composent l'obstacle
+	 */
 	public RectanglePlus[] getRectangles() {
 		return rectangles;
 	}
 
+	/**
+	 * retourne le tableau de couleurs des rectangles qui composent l'obstacle
+	 * @return le tableau de couleurs des rectangles qui composent l'obstacle
+	 */
 	public Color[] getCouleursRectangles() {
 		return couleursRectangles;
 	}

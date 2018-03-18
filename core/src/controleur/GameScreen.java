@@ -3,30 +3,51 @@ package controleur;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.gdx.colorswitch.ColorSwitch;
 
 import modele.GameWorld;
 import vue.GameRenderer;
 
+/**
+ * le controleur de l'écran jeu
+ * @author Dany Brégeon, Loïs Monet, Maxime Poirier
+ *
+ */
 public class GameScreen implements Screen{
+	/**
+	 * le colorSwitch
+	 */
 	private ColorSwitch main;
+	/**
+	 * le modele du jeu
+	 */
 	private GameWorld world;
+	/**
+	 * la vue du jeu
+	 */
 	private GameRenderer renderer;
+	/**
+	 * les collisions du jeu
+	 */
 	private Collision col;
-	private float timeDie=0;	
+	/**
+	 * le temps compter à partir de la mort
+	 */
+	private float timeDie=0;
 	
-	
+	/**
+	 * crée le modele, la vue et les collisions du jeu
+	 * @param cs
+	 * le colorSwitch
+	 * @param modeDeJeu
+	 * le mode de jeu (0, 1 ou 2)
+	 */
 	public GameScreen(ColorSwitch cs, int modeDeJeu) {
         Gdx.app.log("GameScreen", "Attached");
         main = cs;
-       // float screenWidth = Gdx.graphics.getWidth();
-        //float screenHeight = Gdx.graphics.getHeight();
-        //int gameWidth = 544;
-        //int gameHeight = screenHeight / (screenWidth / gameWidth);
         Gdx.app.log("sreen init", String.valueOf(Gdx.graphics.getHeight()));
-        world = new GameWorld(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), modeDeJeu, cs.isSon()); //initialise le monde
-        renderer = new GameRenderer(world); //initialise le rendu
+        world = new GameWorld(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), modeDeJeu, cs.isSon());
+        renderer = new GameRenderer(world);
         col = new Collision(world);
         
         Gdx.input.setInputProcessor(new InputHandler(world.getBille(),world));
@@ -37,6 +58,11 @@ public class GameScreen implements Screen{
 		
 	}
 
+	/**
+	 * appelé toutes les frames, lance les méthodes du modele, de la vue et des collisions qui ont besoin d'être appelé toutes les frames
+	 * @param delta
+	 * correspond au temps que dure une frame
+	 */
 	@Override
 	public void render(float delta) {
 		world.update(delta); // GameWorld updates 
@@ -69,36 +95,17 @@ public class GameScreen implements Screen{
 				col.getDeadSound().play();
 			}
 			
-			//main.setScreen(new MenuResetScreen(main, world.getScore()));	
-			
-			
-			/*Gdx.app.log("sreen reset", String.valueOf(Gdx.graphics.getHeight()));
-			world = new GameWorld(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-			renderer = new GameRenderer(world);
-			col = new Collision(world);
-			Gdx.input.setInputProcessor(new InputHandler(world.getBille()));*/
 		}
 		
-		// Cree une couleur (RGB = 10, 15, 230)
-        //Gdx.gl.glClearColor(10/255.0f, 15/255.0f, 230/255.0f, 1f);
-        // Rempli la fenetre avec la couleur
-        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		
-        // Affiche les fps
-        //Gdx.app.log("GameScreen FPS", (1/delta) + "");
 	}
 
 	@Override
-	public void resize(int width, int height) {
-		//Gdx.app.log("GameScreen", "resizing : " + String.valueOf(Gdx.graphics.getWidth()) + ", " + String.valueOf(Gdx.graphics.getHeight()));
-		
+	public void resize(int width, int height) {	
 	}
 
 	@Override
 	public void pause() {
 		Gdx.app.log("GameScreen", "pause called");
-		
 	}
 
 	@Override
@@ -117,15 +124,12 @@ public class GameScreen implements Screen{
 	}
 
 	@Override
-	public void dispose() {
-		
+	public void dispose() {		
 		world.getBille().getSound().dispose();
 		world.getBille().getSoundDie().dispose();
 		col.getStarSound().dispose();
 		col.getColorSwitchSound().dispose();
-		col.getDeadSound().dispose();
-		// TODO Auto-generated method stub
-		
+		col.getDeadSound().dispose();		
 	}
 
 }
